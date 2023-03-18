@@ -25,7 +25,13 @@ function LoginFormPage() {
       });
   }
 
+  const handleSubmitDemo = (e) => {
+    e.preventDefault();
+    return dispatch(sessionActions.login({ credential: "Demo-lition", password: "password"}))
+  }
+
   return (
+    <div>
     <form onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -50,6 +56,12 @@ function LoginFormPage() {
       </label>
       <button type="submit">Log In</button>
     </form>
+    <form onSubmit={handleSubmitDemo}>
+    <button>
+      Demo Login
+    </button>
+  </form>
+    </div>
   );
 }
 
