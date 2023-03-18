@@ -58,12 +58,12 @@ const foodSeeds = [
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = 'Foods';
+    options.tableName = 'Food';
     await queryInterface.bulkInsert(options, foodSeeds, {});
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'Foods';
+    options.tableName = 'Food';
     await queryInterface.bulkDelete(options, foodSeeds, {})
   }
 };
