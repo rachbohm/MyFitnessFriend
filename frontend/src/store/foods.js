@@ -1,12 +1,18 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD_FOODS = "foods/LOAD_FOODS";
+const CLEAR_FOODS = "foods/CLEAR_FOODS";
 
 //ACTIONS
 const loadFoodsAction = (foods) => ({
   type: LOAD_FOODS,
   foods
 });
+
+const clearFoodsAction = () => ({
+  type: CLEAR_FOODS,
+});
+
 
 //THUNKS
 export const loadMyFoodsThunk = () => async dispatch => {
@@ -17,6 +23,13 @@ export const loadMyFoodsThunk = () => async dispatch => {
     return foods
   }
 }
+export const logoutThunk = () => async dispatch => {
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE',
+  });
+  dispatch(clearFoodsAction());
+  return response;
+};
 
 const initialState = {}
 const foodReducer = (state = initialState, action) => {
@@ -28,6 +41,8 @@ const foodReducer = (state = initialState, action) => {
         newState[food.id] = food;
       })
       return newState;
+    case CLEAR_FOODS:
+      return {};
     default:
       return state;
   }

@@ -5,57 +5,61 @@ import './MyFoodList.css';
 
 const MyFoodList = () => {
   const dispatch = useDispatch();
-  const [showDetails, setShowDetails] = useState(false);
-  const ulRef = useRef();
+  const [showDetails, setShowDetails] = useState(null); // Use null to indicate no food item is selected
 
-  const openDetails = () => {
-    if (showDetails) return;
-    setShowDetails(true);
-  }
-
-  useEffect(() => {
-    dispatch(loadMyFoodsThunk())
-  }, [dispatch]);
-
-useEffect(() => {
-  if (!showDetails) return;
-
-  const closeDetails = (e) => {
-    if (!ulRef.current.contains(e.target)) {
-      setShowDetails(false);
-    }
+  const openDetails = (id) => {
+    setShowDetails(id === showDetails ? null : id); // Toggle showDetails between the ID of the clicked item and null
   };
 
-  document.addEventListener('click', closeDetails);
+  useEffect(() => {
+    dispatch(loadMyFoodsThunk());
+  }, [dispatch]);
 
-  return () => document.removeEventListener("click", closeDetails);
-}, [showDetails]);
+  let foods = useSelector((state) => state.foodState);
+  let foodsArr = Object.values(foods);
 
-
-let foods = useSelector(state => state.foodState);
-let foodsArr = Object.values(foods);
-
-
-const ulClassName = "food-details" + (showDetails ? "" : " hidden");
-
-return (
-  <ul>
-    <h2>Your Personal Foods</h2>
-    {foodsArr.map((food) => (
-      <li key={food.id}><button onClick={openDetails}>{food.foodName}</button>
-        <ul className={ulClassName} ref={ulRef}>
-
-          <div>Calories: {food.calories}</div>
-          <div>Carbohydrates(grams): {food.carbohydrates}</div>
-          <div>Fat(grams): {food.fat}</div>
-          <div>Protein(grams): {food.protein}</div>
-          <div>Serving Size: {food.servingSizeNum} {food.servingSizeUnit}</div>
-          <div>Servings Per Container: {food.servingsPerContainer}</div>
-        </ul>
-      </li>
-    ))}
-  </ul>
-)
-}
+  return (
+    <ul>
+      <h2>Your Personal Foods</h2>
+      {foodsArr.map((food) => (
+        <li key={food.id}>
+          <button onClick={() => openDetails(food.id)}>{food.foodName}</button>
+          {showDetails === food.id && ( // Show details only for the selected food item
+            <ul className="food-details">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Calories:</td>
+                    <td>{food.calories}</td>
+                  </tr>
+                  <tr>
+                    <td>Carbohydrates (g):</td>
+                    <td>{food.carbohydrates}</td>
+                  </tr>
+                  <tr>
+                    <td>Fat (g):</td>
+                    <td>{food.fat}</td>
+                  </tr>
+                  <tr>
+                    <td>Protein (g):</td>
+                    <td>{food.protein}</td>
+                  </tr>
+                  <tr>
+                    <td>Serving Size:</td>
+                    <td>{food.servingSizeNum} {food.servingSizeUnit}</td>
+                  </tr>
+                  <tr>
+                    <td>Servings Per Container:</td>
+                    <td>{food.servingsPerContainer}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 export default MyFoodList;
