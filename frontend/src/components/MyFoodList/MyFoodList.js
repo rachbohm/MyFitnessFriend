@@ -1,10 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadMyFoodsThunk } from '../../store/foods';
 import './MyFoodList.css';
 
 const MyFoodList = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showDetails, setShowDetails] = useState(null); // Use null to indicate no food item is selected
 
   const openDetails = (id) => {
@@ -21,6 +23,7 @@ const MyFoodList = () => {
   return (
     <ul>
       <h2>Your Personal Foods</h2>
+      <button onClick={() => history.push('/food/new')}>Create Food</button>
       {foodsArr.map((food) => (
         <li key={food.id}>
           <button onClick={() => openDetails(food.id)}>{food.foodName}</button>
