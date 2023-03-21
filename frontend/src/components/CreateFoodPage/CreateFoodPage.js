@@ -2,6 +2,7 @@ import { createFoodThunk } from "../../store/foods";
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import './CreateFoodPage.css'
 
 const CreateFoodPage = () => {
   const sessionUser = useSelector(state => state.session.user);
@@ -45,7 +46,6 @@ const CreateFoodPage = () => {
   }
 
   if (!sessionUser) {
-    window.alert('Please log in to create a food.')
     history.push('/login');
     return null;
   }
@@ -63,6 +63,7 @@ const CreateFoodPage = () => {
             type="text"
             value={foodName}
             onChange={(e) => setFoodName(e.target.value)}
+            required
           />
         </label>
 
@@ -71,6 +72,7 @@ const CreateFoodPage = () => {
             type="number"
             value={servingSizeNum}
             onChange={(e) => setServingSizeNum(e.target.value)}
+            required
           />
         </label>
 
@@ -79,6 +81,7 @@ const CreateFoodPage = () => {
             type="text"
             value={servingSizeUnit}
             onChange={(e) => setServingSizeUnit(e.target.value)}
+            required
           />
         </label>
 
@@ -87,6 +90,7 @@ const CreateFoodPage = () => {
             type="number"
             value={servingsPerContainer}
             onChange={(e) => setServingsPerContainer(e.target.value)}
+            required
           />
         </label>
 
@@ -95,6 +99,7 @@ const CreateFoodPage = () => {
             type="number"
             value={calories}
             onChange={(e) => setCalories(e.target.value)}
+            required
           />
         </label>
 
@@ -103,6 +108,7 @@ const CreateFoodPage = () => {
             type="number"
             value={carbohydrates}
             onChange={(e) => setCarbohydrates(e.target.value)}
+            required
           />
         </label>
 
@@ -111,6 +117,7 @@ const CreateFoodPage = () => {
             type="number"
             value={protein}
             onChange={(e) => setProtein(e.target.value)}
+            required
           />
         </label>
 
@@ -119,6 +126,7 @@ const CreateFoodPage = () => {
             type="number"
             value={fat}
             onChange={(e) => setFat(e.target.value)}
+            required
           />
         </label>
 

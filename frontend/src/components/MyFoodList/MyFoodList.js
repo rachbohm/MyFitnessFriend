@@ -20,6 +20,11 @@ const MyFoodList = () => {
   let foods = useSelector((state) => state.foodState);
   let foodsArr = Object.values(foods);
 
+  const sessionUser = useSelector(state => state.session.user);
+  if (!sessionUser) {
+    history.push('/login')
+  }
+
   return (
     <ul>
       <h2>Your Personal Foods</h2>
