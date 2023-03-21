@@ -29,14 +29,38 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    userId: DataTypes.INTEGER,
-    calories: DataTypes.FLOAT,
-    carbohydrates: DataTypes.FLOAT,
-    protein: DataTypes.FLOAT,
-    fat: DataTypes.FLOAT,
-    servingSizeNum: DataTypes.FLOAT,
-    servingSizeUnit: DataTypes.STRING,
-    servingsPerContainer: DataTypes.FLOAT
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    calories: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    carbohydrates: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    protein: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    fat: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    servingSizeNum: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    servingSizeUnit: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    servingsPerContainer: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Food',
