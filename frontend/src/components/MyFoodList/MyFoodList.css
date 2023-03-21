@@ -1,4 +1,18 @@
+.create-button {
+  display: block;
+  margin: 20px auto 0;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
+.create-button:hover {
+  background-color: #3e8e41;
+}
 
 .food-details table {
   border-collapse: collapse;
@@ -20,4 +34,8 @@
 .food-details td:nth-child(2) {
   width: 50%;
   text-align: right;
+}
+
+ul {
+  list-style-type: none
 }

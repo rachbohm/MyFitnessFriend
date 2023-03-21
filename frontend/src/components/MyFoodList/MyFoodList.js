@@ -28,10 +28,10 @@ const MyFoodList = () => {
   return (
     <ul>
       <h2>Your Personal Foods</h2>
-      <button onClick={() => history.push('/food/new')}>Create Food</button>
+      <button className="create-button" onClick={() => history.push('/food/new')}>Create Food</button>
       {foodsArr.map((food) => (
         <li key={food.id}>
-          <button onClick={() => openDetails(food.id)}>{food.foodName}</button>
+          <a href="#" onClick={() => openDetails(food.id)}>{food.foodName}</a>
           {showDetails === food.id && ( // Show details only for the selected food item
             <ul className="food-details">
               <table>

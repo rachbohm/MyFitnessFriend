@@ -74,3 +74,37 @@ router.post('/', requireAuth, validateFood, async (req, res, next) => {
 
   return res.json(newFood)
 })
+
+//edit a food
+router.put('/:foodId', requireAuth, async (req, res, next) => {
+  const { foodId } = req.params;
+  const { foodName, calories, carbohydrates, protein, fat, servingSizeNum, servingSizeUnit, servingsPerContainer } = req.body;
+  const userId = req.user.id;
+
+  const targetFood = await Food.findByPk(foodId);
+
+  if (!targetFood) {
+    const err = new Error("Food not found")
+    err.status = 404;
+    err.errors = ["Food couldn't be found"];
+    return next(err)
+  }
+
+  if (targetFood.userId === userId) {
+    targetFood.foodName = foodName;
+    targetFood.calories = calories;
+    targetFood.carbohydrates = carbohydrates;
+    targetFood.protein = protein;
+    targetFood.fat = fat;
+    targetFood.servingSizeNum = servingSizeNum;
+    targetFood.servingSizeUnit = servingSizeUnit;
+    targetFood.servingsPerContainer = servingsPerContainer;
+    await targetFood.save();
+    return res.json(targetFood);
+  } else {
+    const err = new Error("Unauthorized")
+    err.status = 403;
+    err.errors = ['Current user is unauthorized']
+    return next(err)
+  }
+})
