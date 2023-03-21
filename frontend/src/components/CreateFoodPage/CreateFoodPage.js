@@ -57,79 +57,106 @@ const CreateFoodPage = () => {
           return <div key={i}>{error}</div>
         })}
         <h3>Create New Food</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>Food Name:</td>
+              <td>
+                <input
+                  type="text"
+                  value={foodName}
+                  onChange={(e) => setFoodName(e.target.value)}
+                  required
+                />
+              </td>
+            </tr>
 
-        <label> Food Name
-          <input
-            type="text"
-            value={foodName}
-            onChange={(e) => setFoodName(e.target.value)}
-            required
-          />
-        </label>
+            <tr>
+              <td>Calories:</td>
+              <td>
+                <input
+                  type="number"
+                  value={calories}
+                  onChange={(e) => setCalories(e.target.value)}
+                  required
+                />
+              </td>
+            </tr>
 
-        <label> Serving Size
-          <input
-            type="number"
-            value={servingSizeNum}
-            onChange={(e) => setServingSizeNum(e.target.value)}
-            required
-          />
-        </label>
+            <tr>
+              <td>Carbohydrates (g):</td>
+              <td>
+                <input
+                  type="number"
+                  value={carbohydrates}
+                  onChange={(e) => setCarbohydrates(e.target.value)}
+                  required
+                />
+              </td>
+            </tr>
 
-        <label> Serving Size Unit
-          <input
-            type="text"
-            value={servingSizeUnit}
-            onChange={(e) => setServingSizeUnit(e.target.value)}
-            required
-          />
-        </label>
+            <tr>
+              <td>Fat (g):</td>
+              <td>
+                <input
+                  type="number"
+                  value={fat}
+                  onChange={(e) => setFat(e.target.value)}
+                  required
+                />
+              </td>
+            </tr>
 
-        <label> Servings Per Container
-          <input
-            type="number"
-            value={servingsPerContainer}
-            onChange={(e) => setServingsPerContainer(e.target.value)}
-            required
-          />
-        </label>
+            <tr>
+              <td>Protein (g):</td>
+              <td>
+                <input
+                  type="number"
+                  value={protein}
+                  onChange={(e) => setProtein(e.target.value)}
+                  required
+                />
+              </td>
+            </tr>
 
-        <label> Calories
-          <input
-            type="number"
-            value={calories}
-            onChange={(e) => setCalories(e.target.value)}
-            required
-          />
-        </label>
+            <tr>
+              <td>Serving Size (Number):</td>
+              <td>
+                <input
+                  type="number"
+                  value={servingSizeNum}
+                  onChange={(e) => setServingSizeNum(e.target.value)}
+                  required
+                />
+              </td>
+            </tr>
 
-        <label> Carbohydrates(grams)
-          <input
-            type="number"
-            value={carbohydrates}
-            onChange={(e) => setCarbohydrates(e.target.value)}
-            required
-          />
-        </label>
+            <tr>
+              <td>Serving Size (Unit):</td>
+              <td>
+                <input
+                  type="text"
+                  value={servingSizeUnit}
+                  onChange={(e) => setServingSizeUnit(e.target.value)}
+                  required
+                />
+              </td>
+            </tr>
 
-        <label> Protein(grams)
-          <input
-            type="number"
-            value={protein}
-            onChange={(e) => setProtein(e.target.value)}
-            required
-          />
-        </label>
+            <tr>
+              <td>Servings Per Container:</td>
+              <td>
+                <input
+                  type="number"
+                  value={servingsPerContainer}
+                  onChange={(e) => setServingsPerContainer(e.target.value)}
+                  required
+                />
+              </td>
+            </tr>
 
-        <label> Fat(grams)
-          <input
-            type="number"
-            value={fat}
-            onChange={(e) => setFat(e.target.value)}
-            required
-          />
-        </label>
-
+          </tbody>
+        </table>
         <button type="submit">Submit</button>
       </form>
     </div>
