@@ -34,6 +34,7 @@ const MyFoodList = () => {
           <a href="#" onClick={() => openDetails(food.id)}>{food.foodName}</a>
           {showDetails === food.id && ( // Show details only for the selected food item
             <ul className="food-details">
+              <button className="edit-button" onClick={() => history.push(`/food/edit/${food.id}`)}>Edit Food</button>
               <table>
                 <tbody>
                   <tr>

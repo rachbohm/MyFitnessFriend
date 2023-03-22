@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_FOODS = "foods/LOAD_FOODS";
 const CLEAR_FOODS = "foods/CLEAR_FOODS";
 const ADD_FOOD = "foods/ADD_FOOD";
+const UPDATE_FOOD = "foods/UPDATE_FOOD";
 
 //ACTIONS
 const loadFoodsAction = (foods) => ({
@@ -16,6 +17,11 @@ const clearFoodsAction = () => ({
 
 const addFoodAction = (food) => ({
   type: ADD_FOOD,
+  food
+});
+
+const updateFoodAction = (food) => ({
+  type: UPDATE_FOOD,
   food
 })
 
@@ -50,6 +56,20 @@ export const createFoodThunk = (payload) => async (dispatch) => {
     return food;
   }
   return res;
+};
+
+export const editFoodThunk = (payload, id) => async (dispatch) => {
+
+  const res = await csrfFetch(`/api/foods/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  if (res.ok) {
+    const food = await res.json();
+    dispatch(updateFoodAction(food))
+  }
 }
 
 const initialState = {}
@@ -66,6 +86,10 @@ const foodReducer = (state = initialState, action) => {
       return {};
     case ADD_FOOD:
       newState = { ...state };
+      newState[action.food.id] = action.food;
+      return newState;
+    case UPDATE_FOOD:
+      newState = { ...state }
       newState[action.food.id] = action.food;
       return newState;
     default:

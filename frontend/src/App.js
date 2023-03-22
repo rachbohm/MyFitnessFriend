@@ -5,6 +5,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import MyFoodList from "./components/MyFoodList/MyFoodList";
 import CreateFoodPage from "./components/CreateFoodPage/CreateFoodPage";
+import EditFoodPage from "./components/EditFoodPage/EditFoodPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path="/food/edit/:foodId">
+            <EditFoodPage />
           </Route>
           <Route path="/food/mine">
             <MyFoodList />
