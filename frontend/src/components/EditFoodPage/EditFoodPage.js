@@ -12,30 +12,25 @@ const EditFoodPage = () => {
 
   useEffect(() => {
     dispatch(loadMyFoodsThunk())
+      .then(() => {
+        setIsLoaded(true)
+      })
   }, [dispatch, foodId]);
+
+  const [initialFoodData, setInitialFoodData] = useState({});
+  const [foodName, setFoodName] = useState("");
+  const [calories, setCalories] = useState("");
+  const [carbohydrates, setCarbohydrates] = useState("");
+  const [protein, setProtein] = useState("");
+  const [fat, setFat] = useState("");
+  const [servingSizeNum, setServingSizeNum] = useState("");
+  const [servingSizeUnit, setServingSizeUnit] = useState("");
+  const [servingsPerContainer, setServingsPerContainer] = useState("");
+  const [errors, setErrors] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   let foodState = useSelector((state) => state.foodState)
   let oneFoodData = useSelector((state) => state.foodState[foodId]);
-
-  const [foodName, setFoodName] = useState(oneFoodData?.foodName || '')
-  const [calories, setCalories] = useState(oneFoodData?.calories || '')
-  const [carbohydrates, setCarbohydrates] = useState(oneFoodData?.carbohydrates || '')
-  const [protein, setProtein] = useState(oneFoodData?.protein || '')
-  const [fat, setFat] = useState(oneFoodData?.fat || '')
-  const [servingSizeNum, setServingSizeNum] = useState(oneFoodData?.servingSizeNum || '')
-  const [servingSizeUnit, setServingSizeUnit] = useState(oneFoodData?.servingSizeUnit || '')
-  const [servingsPerContainer, setServingsPerContainer] = useState(oneFoodData?.servingsPerContainer || '')
-  const [errors, setErrors] = useState([])
-
-  const [loading, setLoading] = useState(!oneFoodData && !Object.keys(foodState).length);
-
-  useEffect(() => {
-    if (!oneFoodData && Object.keys(foodState).length > 0) {
-      alert("Invalid food ID.");
-      history.push('/food/mine');
-    }
-    setLoading(false);
-  }, [oneFoodData, history, foodState]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,20 +58,34 @@ const EditFoodPage = () => {
     }
   }
 
+  useEffect(() => {
+    if (oneFoodData) {
+      setInitialFoodData(oneFoodData);
+      setFoodName(oneFoodData.foodName);
+      setCalories(oneFoodData.calories);
+      setCarbohydrates(oneFoodData.carbohydrates);
+      setProtein(oneFoodData.protein);
+      setFat(oneFoodData.fat);
+      setServingSizeNum(oneFoodData.servingSizeNum);
+      setServingSizeUnit(oneFoodData.servingSizeUnit);
+      setServingsPerContainer(oneFoodData.servingsPerContainer);
+    }
+  }, [oneFoodData]);
+
   if (!sessionUser) {
     history.push('/login');
     return null;
   }
 
-  if (loading) {
+  if (isLoaded == false) {
     return <div>Loading...</div>
   }
 
-  if (oneFoodData === undefined) {
+  if (!oneFoodData) {
     return <div>Invalid food ID.</div>;
   }
 
-  return (
+  return isLoaded && oneFoodData && (
      <div>
       <form className="add-food-form" onSubmit={handleSubmit}>
         {errors.length > 0 && errors.map((error, i) => {
