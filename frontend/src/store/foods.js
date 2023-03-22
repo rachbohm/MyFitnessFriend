@@ -4,6 +4,7 @@ const LOAD_FOODS = "foods/LOAD_FOODS";
 const CLEAR_FOODS = "foods/CLEAR_FOODS";
 const ADD_FOOD = "foods/ADD_FOOD";
 const UPDATE_FOOD = "foods/UPDATE_FOOD";
+const REMOVE_FOOD = "foods/REMOVE_FOOD";
 
 //ACTIONS
 const loadFoodsAction = (foods) => ({
@@ -23,6 +24,11 @@ const addFoodAction = (food) => ({
 const updateFoodAction = (food) => ({
   type: UPDATE_FOOD,
   food
+});
+
+const removeFoodAction = (foodId) => ({
+  type: REMOVE_FOOD,
+  foodId
 })
 
 //THUNKS
@@ -70,7 +76,17 @@ export const editFoodThunk = (payload, id) => async (dispatch) => {
     const food = await res.json();
     dispatch(updateFoodAction(food))
   }
-}
+};
+
+export const deleteFoodThunk = (foodId) => async dispatch => {
+  const res = await csrfFetch(`/api/foods/${foodId}`, {
+    method: 'DELETE'
+  });
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(removeFoodAction(foodId))
+  }
+};
 
 const initialState = {}
 const foodReducer = (state = initialState, action) => {
@@ -91,6 +107,10 @@ const foodReducer = (state = initialState, action) => {
     case UPDATE_FOOD:
       newState = { ...state }
       newState[action.food.id] = action.food;
+      return newState;
+    case REMOVE_FOOD:
+      newState = { ...state }
+      delete newState[action.foodId];
       return newState;
     default:
       return state;

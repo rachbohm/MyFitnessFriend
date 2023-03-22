@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadMyFoodsThunk } from '../../store/foods';
+import { loadMyFoodsThunk, deleteFoodThunk } from '../../store/foods';
 import './MyFoodList.css';
 
 const MyFoodList = () => {
@@ -25,6 +25,14 @@ const MyFoodList = () => {
     history.push('/login')
   }
 
+  const deleteHandler = (food) => {
+    if (window.confirm("Are you sure you want to delete this food?")) {
+      dispatch(deleteFoodThunk(food.id)).then(() => {
+        history.push('/food/mine');
+      });
+    }
+  };
+
   return (
     <ul>
       <h2>Your Personal Foods</h2>
@@ -35,6 +43,7 @@ const MyFoodList = () => {
           {showDetails === food.id && ( // Show details only for the selected food item
             <ul className="food-details">
               <button className="edit-button" onClick={() => history.push(`/food/edit/${food.id}`)}>Edit Food</button>
+              <button className="delete-button" onClick={() => deleteHandler(food)}>Delete Food</button>
               <table>
                 <tbody>
                   <tr>

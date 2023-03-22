@@ -18,7 +18,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
   return res.json(foods)
 })
 
-module.exports = router;
 
 //create a food
 const validateFood = [
@@ -108,3 +107,34 @@ router.put('/:foodId', requireAuth, async (req, res, next) => {
     return next(err)
   }
 })
+
+//delete a food
+router.delete('/:foodId', requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const { foodId } = req.params;
+
+  const doomedFood = await Food.findByPk(foodId);
+
+  if (!doomedFood) {
+    const err = new Error("Food couldn't be found");
+    err.status = 404;
+    err.errors = ["Food couldn't be found"];
+    return next(err)
+  }
+
+  if (doomedFood.userId === user.id) {
+    await doomedFood.destroy();
+
+    res.json({
+      message: "Successfully deleted",
+      statusCode: res.statusCode
+    })
+  } else {
+    const err = new Error("Unauthorized");
+    err.status = 403;
+    err.errors = ["Current user is unauthorized"];
+    return next(err)
+  }
+})
+
+module.exports = router;
