@@ -17,7 +17,7 @@ const EditFoodPage = () => {
       })
   }, [dispatch, foodId]);
 
-  const [initialFoodData, setInitialFoodData] = useState({});
+  // const [initialFoodData, setInitialFoodData] = useState({});
   const [foodName, setFoodName] = useState("");
   const [calories, setCalories] = useState("");
   const [carbohydrates, setCarbohydrates] = useState("");
@@ -60,7 +60,7 @@ const EditFoodPage = () => {
 
   useEffect(() => {
     if (oneFoodData) {
-      setInitialFoodData(oneFoodData);
+      // setInitialFoodData(oneFoodData);
       setFoodName(oneFoodData.foodName);
       setCalories(oneFoodData.calories);
       setCarbohydrates(oneFoodData.carbohydrates);
@@ -77,9 +77,9 @@ const EditFoodPage = () => {
     return null;
   }
 
-  if (isLoaded == false) {
-    return <div>Loading...</div>
-  }
+  // if (isLoaded == false) {
+  //   return <div>Loading...</div>
+  // }
 
   if (!oneFoodData) {
     return <div>Invalid food ID.</div>;
