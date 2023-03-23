@@ -24,10 +24,11 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul>
+    <ul className='nav-bar-container'>
       <li>
-        <NavLink exact to="/">Home</NavLink>
+        <NavLink exact to="/" ><i className="fa-solid fa-person-running">My-Fitness-Friend</i></NavLink>
         <NavLink to="/food/mine">My Foods</NavLink>
+        <NavLink to="/meal/mine">My Meals</NavLink>
       </li>
       {isLoaded && sessionLinks}
     </ul>

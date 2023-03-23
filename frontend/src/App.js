@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import MyFoodList from "./components/MyFoodList/MyFoodList";
 import CreateFoodPage from "./components/CreateFoodPage/CreateFoodPage";
 import EditFoodPage from "./components/EditFoodPage/EditFoodPage";
+import MyMealList from "./components/MyMealList/MyMealList";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route path="/food/new">
             <CreateFoodPage />
+          </Route>
+          <Route path="/meal/mine">
+            <MyMealList />
           </Route>
         </Switch>
       )}

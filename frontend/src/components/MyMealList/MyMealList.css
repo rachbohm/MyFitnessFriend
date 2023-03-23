@@ -1,0 +1,23 @@
+.meal-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.meal-table td, th {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.meal-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.meal-table th {
+  background-color: navy;
+  color: white;
+  font-weight: normal;
+  border: 1px solid #ddd;
+}
+
