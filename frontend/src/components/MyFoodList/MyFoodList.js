@@ -9,8 +9,8 @@ const MyFoodList = () => {
   const history = useHistory();
   const [showDetails, setShowDetails] = useState(null); // Use null to indicate no food item is selected
 
-  const openDetails = (id) => {
-    setShowDetails(id === showDetails ? null : id); // Toggle showDetails between the ID of the clicked item and null
+  const openDetails = (food) => {
+    setShowDetails(food === showDetails ? null : food); // Toggle showDetails between the clicked item and null
   };
 
   useEffect(() => {
@@ -39,43 +39,44 @@ const MyFoodList = () => {
       <button className="create-button" onClick={() => history.push('/food/new')}>Create Food</button>
       {foodsArr.map((food) => (
         <li key={food.id}>
-          <a href="#" onClick={() => openDetails(food.id)}>{food.foodName}</a>
-          {showDetails === food.id && ( // Show details only for the selected food item
-            <ul className="food-details">
-              <button className="edit-button" onClick={() => history.push(`/food/edit/${food.id}`)}>Edit Food</button>
-              <button className="delete-button" onClick={() => deleteHandler(food)}>Delete Food</button>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Calories:</td>
-                    <td>{food.calories}</td>
-                  </tr>
-                  <tr>
-                    <td>Carbohydrates (g):</td>
-                    <td>{food.carbohydrates}</td>
-                  </tr>
-                  <tr>
-                    <td>Fat (g):</td>
-                    <td>{food.fat}</td>
-                  </tr>
-                  <tr>
-                    <td>Protein (g):</td>
-                    <td>{food.protein}</td>
-                  </tr>
-                  <tr>
-                    <td>Serving Size:</td>
-                    <td>{food.servingSizeNum} {food.servingSizeUnit}</td>
-                  </tr>
-                  <tr>
-                    <td>Servings Per Container:</td>
-                    <td>{food.servingsPerContainer}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </ul>
-          )}
+          <a href="#" onClick={() => openDetails(food)}>{food.foodName}</a>
         </li>
       ))}
+      {showDetails !== null && (
+        <ul className="food-details">
+          <button className="edit-button" onClick={() => history.push(`/food/edit/${showDetails.id}`)}>Edit Food</button>
+          <button className="delete-button" onClick={() => deleteHandler(showDetails)}>Delete Food</button>
+          <h3>{showDetails.foodName}</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td>Calories:</td>
+                <td>{showDetails.calories}</td>
+              </tr>
+              <tr>
+                <td>Carbohydrates (g):</td>
+                <td>{showDetails.carbohydrates}</td>
+              </tr>
+              <tr>
+                <td>Fat (g):</td>
+                <td>{showDetails.fat}</td>
+              </tr>
+              <tr>
+                <td>Protein (g):</td>
+                <td>{showDetails.protein}</td>
+              </tr>
+              <tr>
+                <td>Serving Size:</td>
+                <td>{showDetails.servingSizeNum} {showDetails.servingSizeUnit}</td>
+              </tr>
+              <tr>
+                <td>Servings Per Container:</td>
+                <td>{showDetails.servingsPerContainer}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ul>
+      )}
     </ul>
   );
 };
