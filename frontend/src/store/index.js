@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import sessionReducer from './session';
 import foodReducer from "./foods";
 import mealReducer from "./meals";
+import diaryLogsReducer from "./diarylogs";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   foodState: foodReducer,
-  mealState: mealReducer
+  mealState: mealReducer,
+  diaryLogState: diaryLogsReducer,
 });
 
 let enhancer;

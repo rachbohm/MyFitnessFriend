@@ -16,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
       );
       DiaryLog.belongsTo(
         models.Food,
-        { foreignKey: 'foodId' }
+        { foreignKey: 'foodId', as: 'food' }
       );
       DiaryLog.belongsTo(
         models.Meal,
-        { foreignKey: 'mealId' }
+        { foreignKey: 'mealId', as: 'meal' }
       );
     }
   }

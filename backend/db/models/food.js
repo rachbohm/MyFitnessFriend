@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       );
       Food.hasMany(
         models.DiaryLog,
-        { foreignKey: 'foodId', onDelete: 'CASCADE', hooks: true }
+        { foreignKey: 'foodId', as: 'diaryLogs', onDelete: 'CASCADE', hooks: true }
       );
       Food.belongsToMany(
         models.Meal,
