@@ -21,3 +21,6 @@
   border: 1px solid #ddd;
 }
 
+.meal-list-container li {
+  list-style-type: none
+}

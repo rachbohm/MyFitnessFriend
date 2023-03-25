@@ -27,7 +27,7 @@ const MyMealList = () => {
   }
 
   return (
-    <div>
+    <div className='meal-list-container'>
       <h2>Your Personal Meals</h2>
       {mealsArr.map((meal) => (
         <li key={meal.id}>

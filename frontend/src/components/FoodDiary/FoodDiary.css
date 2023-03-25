@@ -18,6 +18,11 @@
   border: 1px solid #ddd;
 }
 
-.diary-log-container tr:nth-child(even) {
-  background-color: #f9f9f9;
+
+.diary-log-container tr {
+  background-color: rgb(230, 230, 230);
+}
+
+.total-row td {
+  background-color: white;
 }

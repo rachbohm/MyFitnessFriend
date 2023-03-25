@@ -8,6 +8,7 @@ import CreateFoodPage from "./components/CreateFoodPage/CreateFoodPage";
 import EditFoodPage from "./components/EditFoodPage/EditFoodPage";
 import MyMealList from "./components/MyMealList/MyMealList";
 import FoodDiary from "./components/FoodDiary/FoodDiary";
+import RememberMeal from "./components/FoodDiary/RememberMeal"
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route path="/meal/mine">
             <MyMealList />
+          </Route>
+          <Route path="/meal/new">
+            <RememberMeal />
           </Route>
         </Switch>
       )}
