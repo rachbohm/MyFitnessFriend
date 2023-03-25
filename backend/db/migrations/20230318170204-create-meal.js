@@ -25,15 +25,6 @@ module.exports = {
         },
         onDelete: 'cascade'
       },
-      mealNotes: {
-        type: Sequelize.TEXT
-      },
-      servingSizeNum: {
-        type: Sequelize.FLOAT
-      },
-      servingSizeUnit: {
-        type: Sequelize.STRING
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

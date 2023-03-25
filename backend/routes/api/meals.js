@@ -25,38 +25,28 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
 // Create a new meal with multiple food items
 router.post('/', async (req, res, next) => {
-  try {
-    const { mealName, mealNotes, servingSizeNum, servingSizeUnit, foods } = req.body;
-    const { user } = req;
+  const { mealName, foods, quantity } = req.body;
+  const { user } = req;
 
-    // Create a new meal record in the database
-    const meal = await Meal.create({
-      mealName,
-      userId: user.id,
-      mealNotes,
-      servingSizeNum,
-      servingSizeUnit
-    });
+  const newMeal = await Meal.create({
+    mealName,
+    userId: user.id,
+  });
 
-    // Associate food items with the new meal
-    await Promise.all(foods.map(async (food) => {
-      const [mealFood, created] = await MealFood.findOrCreate({
-        where: { mealId: meal.id, foodId: food.id },
-        defaults: { servingSizeNum: food.servingSizeNum, servingSizeUnit: food.servingSizeUnit }
+  console.log('``````````````quantity', quantity)
+
+  console.log('foods', foods)
+
+  for (let i = 0; i < quantity; i++) {
+    for (let j = 0; j < foods.length; j++){
+
+      const mealFood = await MealFood.create({
+        mealId: newMeal.id,
+        foodId: foods[j].id,
       });
-      return mealFood;
-    }));
-
-    // Fetch the updated meal record with associated food items
-    const createdMeal = await Meal.findByPk(meal.id, {
-      include: [Food]
-    });
-
-    res.status(201).json(createdMeal);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    }
   }
+  return res.json(newMeal);
 });
 
 module.exports = router;

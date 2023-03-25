@@ -26,10 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Meal.init({
     mealName: DataTypes.STRING,
-    userId: DataTypes.INTEGER,
-    mealNotes: DataTypes.TEXT,
-    servingSizeNum: DataTypes.FLOAT,
-    servingSizeUnit: DataTypes.STRING
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Meal',

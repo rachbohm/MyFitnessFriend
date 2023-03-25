@@ -8,34 +8,22 @@ const mealSeeds = [
   {
     id: 1,
     mealName: 'chocolate-covered avocado',
-    userId: 1,
-    mealNotes: 'the best way to make a brown avocado even more brown',
-    servingSizeNum: 1,
-    servingSizeUnit: 'portion'
+    userId: 1
   },
   {
     id: 2,
     mealName: 'avocado toast',
-    userId: 1,
-    mealNotes: 'avocado toast, but on a bagel',
-    servingSizeNum: 1,
-    servingSizeUnit: 'portion'
+    userId: 1
   },
   {
     id: 3,
     mealName: 'tofu sandwich',
-    userId: 2,
-    mealNotes: 'add some salt for extra flavor',
-    servingSizeNum: 1,
-    servingSizeUnit: 'portion'
+    userId: 2
   },
   {
     id: 4,
     mealName: 'chocolate pudding',
-    userId: 3,
-    mealNotes: 'chocolate pudding using tofu and avocado as the base',
-    servingSizeNum: .5,
-    servingSizeUnit: 'recipe'
+    userId: 3
   }
 ]
 
