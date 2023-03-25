@@ -11,10 +11,6 @@
   cursor: pointer;
 }
 
-.create-button:hover {
-  background-color: #3e8e41;
-}
-
 .edit-button{
   background-color: #4caf50;
   color: white;

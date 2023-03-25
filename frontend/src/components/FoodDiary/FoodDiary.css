@@ -1,0 +1,23 @@
+.diary-log-container table {
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+  width: 100%;
+}
+
+.diary-log-container th, td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.diary-log-container th {
+  background-color: navy;
+  color: white;
+  font-weight: normal;
+  border: 1px solid #ddd;
+}
+
+.diary-log-container tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

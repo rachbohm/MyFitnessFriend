@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadMyFoodsThunk, deleteFoodThunk } from '../../store/foods';
-import { loadMyMealsThunk } from '../../store/meals';
 import { loadDiaryLogsThunk } from '../../store/diarylogs';
-
+import './FoodDiary.css'
 
 const FoodDiary = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(loadDiaryLogsThunk());
+    dispatch(loadDiaryLogsThunk())
+      .then(() => { setIsLoaded(true) })
   }, [dispatch]);
 
   const diaryLogs = useSelector((state) => state.diaryLogState);
@@ -22,34 +22,60 @@ const FoodDiary = () => {
     history.push('/login')
   }
 
-  return (
+  return isLoaded && (
     <div>
       {diaryLogsArr.map((diaryLog) => {
-     <tbody>
-     {diaryLog.food && (
-       <tr>
-         <td>{diaryLog.food.foodName}</td>
-         <td>{diaryLog.food.calories}</td>
-         <td>{diaryLog.food.carbs}</td>
-         <td>{diaryLog.food.fat}</td>
-         <td>{diaryLog.food.protein}</td>
-       </tr>
-     )}
-     {diaryLog.meal && diaryLog.meal.foods && Array.isArray(diaryLog.meal.foods) && (
-       diaryLog.meal.foods.map((food) => (
-         <tr key={food.id}>
-           <td>{food.foodName}</td>
-           <td>{food.calories}</td>
-           <td>{food.carbs}</td>
-           <td>{food.fat}</td>
-           <td>{food.protein}</td>
-         </tr>
-       ))
-     )}
-   </tbody>
-
-
-
+        return (
+          <div key={diaryLog.id} className='diary-log-container'>
+            <h3>{diaryLog.logName}</h3>
+            {diaryLog.food && (
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Food Name</th>
+                    <th>Calories</th>
+                    <th>Carbs (g)</th>
+                    <th>Fat (g)</th>
+                    <th>Protein (g)</th>
+                  </tr>
+                  {[...Array(diaryLog.foodQuantity)].map((_, index) => (
+                    <tr key={index}>
+                      <td>{diaryLog.food.foodName}</td>
+                      <td>{diaryLog.food.calories}</td>
+                      <td>{diaryLog.food.carbohydrates}</td>
+                      <td>{diaryLog.food.fat}</td>
+                      <td>{diaryLog.food.protein}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+            {diaryLog.meal && (
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Food Name</th>
+                    <th>Calories</th>
+                    <th>Carbs (g)</th>
+                    <th>Fat (g)</th>
+                    <th>Protein (g)</th>
+                  </tr>
+                  {diaryLog.meal.Food.map((food) => (
+                    [...Array(diaryLog.mealQuantity)].map((_, index) => (
+                      <tr key={`${food.id}-${index}`}>
+                        <td>{food.foodName}</td>
+                        <td>{food.calories}</td>
+                        <td>{food.carbohydrates}</td>
+                        <td>{food.fat}</td>
+                        <td>{food.protein}</td>
+                      </tr>
+                    ))
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        );
       })}
     </div>
   );

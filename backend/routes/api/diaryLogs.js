@@ -7,7 +7,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-//get all foods of the current user
+// Get all diary logs of the current user
 router.get('/current', requireAuth, async (req, res, next) => {
   const { user } = req;
   const diaryLogs = await DiaryLog.findAll({
@@ -17,18 +17,18 @@ router.get('/current', requireAuth, async (req, res, next) => {
     include: [
       {
         model: Meal,
-        association: 'meal',
-        required: false
+        as: 'meal',
+        include: [ Food ]
       },
       {
         model: Food,
-        association: 'food',
-        required: false
+        as: 'food'
       }
     ]
-  });
+  })
   return res.json(diaryLogs)
 })
+
 
 
 module.exports = router;

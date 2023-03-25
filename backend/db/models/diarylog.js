@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const { Op } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class DiaryLog extends Model {
     /**
@@ -28,10 +30,56 @@ module.exports = (sequelize, DataTypes) => {
     logName: DataTypes.STRING,
     logDate: DataTypes.DATE,
     userId: DataTypes.INTEGER,
-    mealId: DataTypes.INTEGER,
-    mealQuantity: DataTypes.FLOAT,
-    foodId: DataTypes.INTEGER,
-    foodQuantity: DataTypes.INTEGER
+    mealId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        hasEitherMealOrFood() {
+          if (!this.foodId && !this.mealId) {
+            throw new Error('A diary log must have either a food or a meal');
+          }
+          if (this.foodId && this.mealId) {
+            throw new Error('A diary log cannot have both a food and a meal');
+          }
+        }
+      }
+    },
+    mealQuantity: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      validate: {
+        isPositive(value) {
+          if (value <= 0) {
+            throw new Error('Meal quantity must be positive');
+          }
+        }
+      }
+    },
+    foodId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        hasEitherMealOrFood() {
+          if (!this.foodId && !this.mealId) {
+            throw new Error('A diary log must have either a food or a meal');
+          }
+          if (this.foodId && this.mealId) {
+            throw new Error('A diary log cannot have both a food and a meal');
+          }
+        }
+      }
+    },
+    foodQuantity: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isPositive(value) {
+          if (value <= 0) {
+            throw new Error('Food quantity must be positive');
+          }
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'DiaryLog',

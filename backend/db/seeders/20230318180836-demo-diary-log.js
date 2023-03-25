@@ -6,25 +6,25 @@ if (process.env.NODE_ENV === 'production') {
 
 const diaryLogSeeds = [
   {
-    logName: 'Breakfast',
+    logName: 'Breakfast mealId: 1, mealQuantity: 3',
     logDate: new Date('2023-03-18'),
     userId: 1,
     mealId: 1,
-    mealQuantity: 1
+    mealQuantity: 3
   },
   {
-    logName: 'Lunch',
+    logName: 'Lunch mealId: 2, mealQuantity: 4',
     logDate: new Date('2023-03-18'),
     userId: 1,
     mealId: 2,
-    mealQuantity: 1
+    mealQuantity: 4
   },
   {
-    logName: 'Dinner',
+    logName: 'Dinner foodId: 1, foodQuantity: 5',
     logDate: new Date('2023-03-18'),
     userId: 1,
     foodId: 1,
-    foodQuantity: 2
+    foodQuantity: 5
   }
 ]
 
