@@ -37,16 +37,19 @@ router.post('/', async (req, res, next) => {
 
   console.log('foods', foods)
 
-  for (let i = 0; i < quantity; i++) {
-    for (let j = 0; j < foods.length; j++){
-
-      const mealFood = await MealFood.create({
-        mealId: newMeal.id,
-        foodId: foods[j].id,
-      });
+  try {
+    for (let i = 0; i < quantity; i++) {
+        const mealFood = await MealFood.create({
+          mealId: newMeal.id,
+          foodId: foods.id,
+        });
     }
+
+    return res.json(newMeal);
+  } catch (error) {
+    console.error('Error creating mealFood:', error);
+    return res.status(500).json({ error: 'Error creating mealFood' });
   }
-  return res.json(newMeal);
 });
 
 module.exports = router;

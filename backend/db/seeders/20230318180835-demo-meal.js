@@ -24,6 +24,11 @@ const mealSeeds = [
     id: 4,
     mealName: 'chocolate pudding',
     userId: 3
+  },
+  {
+    id: 5,
+    mealName: '2 chocolate bars',
+    userId: 1
   }
 ]
 

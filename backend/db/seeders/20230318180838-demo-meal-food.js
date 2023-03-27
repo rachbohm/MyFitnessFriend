@@ -40,6 +40,11 @@ const mealFoodSeeds = [
   {
     mealId: 4,
     foodId: 4
+  },
+  {
+    mealId: 5,
+    foodId: 2,
+    quantity: 2
   }
 ]
 

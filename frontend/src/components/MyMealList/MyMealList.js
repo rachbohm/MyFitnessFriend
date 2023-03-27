@@ -47,23 +47,32 @@ const MyMealList = () => {
             </tr>
           </thead>
           <tbody>
-            {mealsArr.find((meal) => meal.id === showDetails).Food.map((food) => (
-              <tr key={food.id}>
-                <td>{food.foodName}</td>
-                <td>{food.calories}</td>
-                <td>{food.carbohydrates}g</td>
-                <td>{food.fat}g</td>
-                <td>{food.protein}g</td>
-                <td>{food.servingSizeNum} {food.servingSizeUnit}</td>
-              </tr>
-            ))}
+            {mealsArr.find((meal) => meal.id === showDetails).Food.map((food) => {
+              console.log('food', food)
+              let quantity = 1;
+              if (food.MealFood.quantity) {
+                quantity = food.MealFood.quantity
+              }
+              let rows = [];
+              for (let i = 0; i < quantity; i++) {
+                rows.push(
+                  <tr key={i}>
+                    <td>{food.foodName}</td>
+                    <td>{food.calories}</td>
+                    <td>{food.carbohydrates}g</td>
+                    <td>{food.fat}g</td>
+                    <td>{food.protein}g</td>
+                    <td>{food.servingSizeNum} {food.servingSizeUnit}</td>
+                  </tr>
+                );
+              }
+              return rows;
+            })}
           </tbody>
         </table>
       )}
     </div>
   );
-
-
 };
 
 export default MyMealList;
