@@ -38,11 +38,25 @@ router.post('/', async (req, res, next) => {
   console.log('foods', foods)
 
   try {
-    for (let i = 0; i < quantity; i++) {
+    if (Array.isArray(foods)) {
+      const mealFoods = await Promise.all(foods.map(async (food) => {
         const mealFood = await MealFood.create({
           mealId: newMeal.id,
-          foodId: foods.id,
+          foodId: food.id,
+          quantity
         });
+        return mealFood;
+      }));
+
+      newMeal.MealFoods = mealFoods;
+    } else {
+      const mealFood = await MealFood.create({
+        mealId: newMeal.id,
+        foodId: foods.id,
+        quantity
+      });
+
+      newMeal.MealFoods = [mealFood];
     }
 
     return res.json(newMeal);
@@ -51,5 +65,6 @@ router.post('/', async (req, res, next) => {
     return res.status(500).json({ error: 'Error creating mealFood' });
   }
 });
+
 
 module.exports = router;
