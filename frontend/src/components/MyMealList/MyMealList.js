@@ -48,7 +48,6 @@ const MyMealList = () => {
           </thead>
           <tbody>
             {mealsArr.find((meal) => meal.id === showDetails).Food.map((food) => {
-              console.log('food', food)
               let quantity = 1;
               if (food.MealFood.quantity) {
                 quantity = food.MealFood.quantity

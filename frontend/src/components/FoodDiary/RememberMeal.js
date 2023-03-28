@@ -15,9 +15,6 @@ const RememberMeal = () => {
   let totalFat = 0;
   let totalProtein = 0;
 
-  console.log('diaryLog', diaryLog)
-  console.log("ternary", diaryLog.food ? diaryLog.food : diaryLog.meal.Food)
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
@@ -25,7 +22,7 @@ const RememberMeal = () => {
       foods: diaryLog.food ? diaryLog.food : diaryLog.meal.Food,
       quantity: diaryLog.food ? diaryLog.foodQuantity : diaryLog.mealQuantity
     };
-    console.log('payload', payload)
+    
     dispatch(createMealThunk(payload))
       .then(() => {
         history.push('/meal/mine')
