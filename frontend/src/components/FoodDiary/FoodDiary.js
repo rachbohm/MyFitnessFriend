@@ -29,89 +29,75 @@ const FoodDiary = () => {
         let totalCarbs = 0;
         let totalFat = 0;
         let totalProtein = 0;
+        const rows = [];
 
         return (
           <div key={diaryLog.id} className='diary-log-container'>
             <h3>{diaryLog.logName} {diaryLog.logDate.slice(0, 10)}</h3>
-            {diaryLog.food && ( //if the entry is a food
-              <table>
-                <tbody>
-                  <tr>
-                    <th>Food Name</th>
-                    <th>Calories</th>
-                    <th>Carbs (g)</th>
-                    <th>Fat (g)</th>
-                    <th>Protein (g)</th>
+
+            {diaryLog.Food.forEach((food) => {
+              for (let i = 0; i < food.DiaryLogFood.quantity; i++) {
+                totalCalories += food.calories;
+                totalCarbs += food.carbohydrates;
+                totalFat += food.fat;
+                totalProtein += food.protein;
+                rows.push(
+                  <tr key={`food-${food.id}-${food.DiaryLogFood.quantity}-${i}`}>
+                    <td>food {food.foodName}</td>
+                    <td>{food.calories}</td>
+                    <td>{food.carbohydrates}</td>
+                    <td>{food.fat}</td>
+                    <td>{food.protein}</td>
                   </tr>
-                  {[...Array(diaryLog.foodQuantity)].map((_, index) => { //new row for each 1 quantity
-                    const food = diaryLog.food;
+                )
+              }
+            })}
+            {diaryLog.Meals.forEach((meal) => {
+              for (let i = 0; i < meal.DiaryLogMeal.quantity; i++) {
+                meal.Food.map((food) => {
+                  for (let j = 0; j < food.MealFood.quantity; j++) {
                     totalCalories += food.calories;
                     totalCarbs += food.carbohydrates;
                     totalFat += food.fat;
                     totalProtein += food.protein;
-                    return (
-                      <tr key={index}>
-                        <td>{food.foodName}</td>
+                    rows.push(
+                      <tr key={`meal-${meal.id}-food-${food.id}-i${i}-j${j}`}>
+                        <td>meal {food.foodName}</td>
                         <td>{food.calories}</td>
                         <td>{food.carbohydrates}</td>
                         <td>{food.fat}</td>
                         <td>{food.protein}</td>
                       </tr>
                     );
-                  })}
-                  <tr className="total-row">
-                    <td>Total</td>
-                    <td>{totalCalories}</td>
-                    <td>{totalCarbs}</td>
-                    <td>{totalFat}</td>
-                    <td>{totalProtein}</td>
-                  </tr>
-                </tbody>
-              </table>
-            )}
-            {diaryLog.meal && ( //if it is a meal
-              <table>
-                <tbody>
-                  <tr>
-                    <th>Food Name</th>
-                    <th>Calories</th>
-                    <th>Carbs (g)</th>
-                    <th>Fat (g)</th>
-                    <th>Protein (g)</th>
-                  </tr>
-                  {diaryLog.meal.Food.map((food) => (
-                    [...Array(diaryLog.mealQuantity)].map((_, index) => { //new row for each 1 quantity
-                      totalCalories += food.calories;
-                      totalCarbs += food.carbohydrates;
-                      totalFat += food.fat;
-                      totalProtein += food.protein;
-                      return (
-                        <tr key={`${food.id}-${index}`}>
-                          <td>{food.foodName}</td>
-                          <td>{food.calories}</td>
-                          <td>{food.carbohydrates}</td>
-                          <td>{food.fat}</td>
-                          <td>{food.protein}</td>
-                        </tr>
-                      )
-                    })
-                  )
-                  )}
-                  <tr className='total-row'>
-                    <td>Total</td>
-                    <td>{totalCalories}</td>
-                    <td>{totalCarbs}</td>
-                    <td>{totalFat}</td>
-                    <td>{totalProtein}</td>
-                  </tr>
-                </tbody>
-              </table>
-            )
-            }
+                  }
+                })
+              }
+            })}
+            <table>
+              <thead>
+                <tr>
+                  <th>Food Name</th>
+                  <th>Calories</th>
+                  <th>Carbohydrates</th>
+                  <th>Fat</th>
+                  <th>Protein</th>
+                </tr>
+              </thead>
+              <tbody>{rows}</tbody>
+              <tfoot>
+                <tr className='total-row'>
+                  <td>Total</td>
+                  <td>{totalCalories}</td>
+                  <td>{totalCarbs}</td>
+                  <td>{totalFat}</td>
+                  <td>{totalProtein}</td>
+                </tr>
+              </tfoot>
+            </table>
             <button className="remember-meal-button"
               onClick={() => history.push({
                 pathname: '/meal/new',
-                state: {diaryLog}
+                state: { diaryLog }
               })}>Remember Meal</button>
           </div>
         )

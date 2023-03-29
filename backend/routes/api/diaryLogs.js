@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Food, Meal, MealFood, DiaryLog } = require('../../db/models');
+const { User, Food, Meal, MealFood, DiaryLog, DiaryLogMeal, DiaryLogFood } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -17,18 +17,31 @@ router.get('/current', requireAuth, async (req, res, next) => {
     include: [
       {
         model: Meal,
-        as: 'meal',
-        include: [ Food ]
+        through: {
+          model: DiaryLogMeal,
+          attributes: ['quantity']
+        },
+        include: [
+          {
+            model: Food,
+            through: {
+              model: MealFood,
+              attributes: ['quantity']
+            }
+          }
+        ]
       },
       {
         model: Food,
-        as: 'food'
+        through: {
+          model: DiaryLogFood,
+          attributes: ['quantity']
+        }
       }
     ]
-  })
+  });
+  // console.log('diaryLogs from backend', diaryLogs)
   return res.json(diaryLogs)
 })
-
-
 
 module.exports = router;

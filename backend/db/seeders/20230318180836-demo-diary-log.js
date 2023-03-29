@@ -8,30 +8,17 @@ const diaryLogSeeds = [
   {
     logName: 'Breakfast',
     logDate: new Date('2023-03-18'),
-    userId: 1,
-    mealId: 1,
-    mealQuantity: 3
-  },
-  {
-    logName: 'Breakfast',
-    logDate: new Date('2023-03-18'),
-    userId: 1,
-    foodId: 1,
-    foodQuantity: 1
+    userId: 1
   },
   {
     logName: 'Lunch',
     logDate: new Date('2023-03-18'),
-    userId: 1,
-    mealId: 2,
-    mealQuantity: 4
+    userId: 1
   },
   {
     logName: 'Dinner',
     logDate: new Date('2023-03-18'),
-    userId: 1,
-    foodId: 1,
-    foodQuantity: 5
+    userId: 1
   }
 ]
 

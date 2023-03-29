@@ -16,70 +16,20 @@ module.exports = (sequelize, DataTypes) => {
         models.User,
         { foreignKey: 'userId' }
       );
-      DiaryLog.belongsTo(
+      DiaryLog.belongsToMany(
         models.Food,
-        { foreignKey: 'foodId', as: 'food' }
+        { through: models.DiaryLogFood, foreignKey: 'diaryLogId' }
       );
-      DiaryLog.belongsTo(
+      DiaryLog.belongsToMany(
         models.Meal,
-        { foreignKey: 'mealId', as: 'meal' }
+        { through: models.DiaryLogMeal, foreignKey: 'diaryLogId' }
       );
     }
   }
   DiaryLog.init({
     logName: DataTypes.STRING,
     logDate: DataTypes.DATE,
-    userId: DataTypes.INTEGER,
-    mealId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      validate: {
-        hasEitherMealOrFood() {
-          if (!this.foodId && !this.mealId) {
-            throw new Error('A diary log must have either a food or a meal');
-          }
-          if (this.foodId && this.mealId) {
-            throw new Error('A diary log cannot have both a food and a meal');
-          }
-        }
-      }
-    },
-    mealQuantity: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-      validate: {
-        isPositive(value) {
-          if (value <= 0) {
-            throw new Error('Meal quantity must be positive');
-          }
-        }
-      }
-    },
-    foodId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      validate: {
-        hasEitherMealOrFood() {
-          if (!this.foodId && !this.mealId) {
-            throw new Error('A diary log must have either a food or a meal');
-          }
-          if (this.foodId && this.mealId) {
-            throw new Error('A diary log cannot have both a food and a meal');
-          }
-        }
-      }
-    },
-    foodQuantity: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      validate: {
-        isPositive(value) {
-          if (value <= 0) {
-            throw new Error('Food quantity must be positive');
-          }
-        }
-      }
-    }
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'DiaryLog',

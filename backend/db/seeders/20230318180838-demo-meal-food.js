@@ -7,39 +7,48 @@ if (process.env.NODE_ENV === 'production') {
 const mealFoodSeeds = [
   {
     mealId: 1,
-    foodId: 2
+    foodId: 2,
+    quantity: 1
   },
   {
     mealId: 1,
-    foodId: 3
+    foodId: 3,
+    quantity: 1
   },
   {
     mealId: 2,
-    foodId: 3
+    foodId: 3,
+    quantity: 1
   },
   {
     mealId: 2,
-    foodId: 1
+    foodId: 1,
+    quantity: 1
   },
   {
     mealId: 3,
-    foodId: 4
+    foodId: 4,
+    quantity: 1
   },
   {
     mealId: 3,
-    foodId: 1
+    foodId: 1,
+    quantity: 1
   },
   {
     mealId: 4,
-    foodId: 2
+    foodId: 2,
+    quantity: 1
   },
   {
     mealId: 4,
-    foodId: 3
+    foodId: 3,
+    quantity: 1
   },
   {
     mealId: 4,
-    foodId: 4
+    foodId: 4,
+    quantity: 1
   },
   {
     mealId: 5,

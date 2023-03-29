@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -7,26 +7,32 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('DiaryLogs', {
+    await queryInterface.createTable('DiaryLogFoods', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      logName: {
-        type: Sequelize.STRING
-      },
-      logDate: {
-        type: Sequelize.DATE
-      },
-      userId: {
+      diaryLogId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'DiaryLogs',
           key: 'id'
         },
         onDelete: 'cascade'
+      },
+      foodId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Food',
+          key: 'id'
+        },
+        onDelete: 'cascade'
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1
       },
       createdAt: {
         allowNull: false,
@@ -41,7 +47,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = 'DiaryLogs';
+    options.tableName = 'DiaryLogFoods';
     await queryInterface.dropTable(options);
   }
 };

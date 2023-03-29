@@ -14,15 +14,16 @@ const RememberMeal = () => {
   let totalCarbs = 0;
   let totalFat = 0;
   let totalProtein = 0;
+  let rows = [];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
       mealName,
-      foods: diaryLog.food ? diaryLog.food : diaryLog.meal.Food,
-      quantity: diaryLog.food ? diaryLog.foodQuantity : diaryLog.mealQuantity
+      foods: diaryLog.Food ? diaryLog.Food : diaryLog.Meals.Food,
+      quantity: diaryLog.Food ? diaryLog.foodQuantity : diaryLog.mealQuantity
     };
-    
+
     dispatch(createMealThunk(payload))
       .then(() => {
         history.push('/meal/mine')
@@ -43,7 +44,66 @@ const RememberMeal = () => {
       </form>
       <div key={diaryLog.id} className='diary-log-container'>
         <h3>Items in this Meal</h3>
-        {diaryLog.food && ( //if the entry is a food
+        {diaryLog.Food.forEach((food) => {
+              for (let i = 0; i < food.DiaryLogFood.quantity; i++) {
+                totalCalories += food.calories;
+                totalCarbs += food.carbohydrates;
+                totalFat += food.fat;
+                totalProtein += food.protein;
+                rows.push(
+                  <tr key={`food-${food.id}-${food.DiaryLogFood.quantity}-${i}`}>
+                    <td>food {food.foodName}</td>
+                    <td>{food.calories}</td>
+                    <td>{food.carbohydrates}</td>
+                    <td>{food.fat}</td>
+                    <td>{food.protein}</td>
+                  </tr>
+                )
+              }
+            })}
+            {diaryLog.Meals.forEach((meal) => {
+              for (let i = 0; i < meal.DiaryLogMeal.quantity; i++) {
+                meal.Food.map((food) => {
+                  for (let j = 0; j < food.MealFood.quantity; j++) {
+                    totalCalories += food.calories;
+                    totalCarbs += food.carbohydrates;
+                    totalFat += food.fat;
+                    totalProtein += food.protein;
+                    rows.push(
+                      <tr key={`meal-${meal.id}-food-${food.id}-i${i}-j${j}`}>
+                        <td>meal {food.foodName}</td>
+                        <td>{food.calories}</td>
+                        <td>{food.carbohydrates}</td>
+                        <td>{food.fat}</td>
+                        <td>{food.protein}</td>
+                      </tr>
+                    );
+                  }
+                })
+              }
+            })}
+            <table>
+              <thead>
+                <tr>
+                  <th>Food Name</th>
+                  <th>Calories</th>
+                  <th>Carbohydrates</th>
+                  <th>Fat</th>
+                  <th>Protein</th>
+                </tr>
+              </thead>
+              <tbody>{rows}</tbody>
+              <tfoot>
+                <tr className='total-row'>
+                  <td>Total</td>
+                  <td>{totalCalories}</td>
+                  <td>{totalCarbs}</td>
+                  <td>{totalFat}</td>
+                  <td>{totalProtein}</td>
+                </tr>
+              </tfoot>
+            </table>
+        {/* {diaryLog.food && ( //if the entry is a food
           <table>
             <tbody>
               <tr>
@@ -116,9 +176,9 @@ const RememberMeal = () => {
                 <td>{totalProtein}</td>
               </tr>
             </tbody>
-          </table>
-        )
-        }
+          </table> */}
+        {/* )
+        } */}
       </div>
     </div>
   )

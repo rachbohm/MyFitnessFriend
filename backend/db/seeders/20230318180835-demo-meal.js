@@ -7,27 +7,27 @@ if (process.env.NODE_ENV === 'production') {
 const mealSeeds = [
   {
     id: 1,
-    mealName: 'chocolate-covered avocado',
+    mealName: 'chocolate-covered avocado id 1',
     userId: 1
   },
   {
     id: 2,
-    mealName: 'avocado toast',
+    mealName: 'avocado toast id 2',
     userId: 1
   },
   {
     id: 3,
-    mealName: 'tofu sandwich',
-    userId: 2
+    mealName: 'tofu sandwich id 3',
+    userId: 1
   },
   {
     id: 4,
-    mealName: 'chocolate pudding',
-    userId: 3
+    mealName: 'chocolate pudding id 4',
+    userId: 1
   },
   {
     id: 5,
-    mealName: '2 chocolate bars',
+    mealName: '2 chocolate bars id 5',
     userId: 1
   }
 ]
