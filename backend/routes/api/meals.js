@@ -17,15 +17,23 @@ router.get('/current', requireAuth, async (req, res, next) => {
     include: [
       {
         model: Food,
+        through: {
+          model: MealFood,
+          attributes: ['quantity']
+        }
+      },
+      {
+        model: MealFood
       }
     ]
-  });
+  })
   return res.json(meals)
 });
 
+
 // Create a new meal with multiple food items
 router.post('/', async (req, res, next) => {
-  const { mealName, foods, quantity } = req.body;
+  const { mealName, foods, meals } = req.body;
   const { user } = req;
 
   const newMeal = await Meal.create({
@@ -33,33 +41,27 @@ router.post('/', async (req, res, next) => {
     userId: user.id,
   });
 
-  try {
-    if (Array.isArray(foods)) {
-      const mealFoods = await Promise.all(foods.map(async (food) => {
-        const mealFood = await MealFood.create({
+  await foods.map((food) => {
+     MealFood.create({
+       mealId: newMeal.id,
+       foodId: food.id,
+       quantity: food.DiaryLogFood.quantity
+     })
+  })
+
+  await meals.map((meal) => {
+    for (let i = 0; i < meal.DiaryLogMeal.quantity; i++){
+
+      meal.Food.map((food) => {
+        MealFood.create({
           mealId: newMeal.id,
           foodId: food.id,
-          quantity
-        });
-        return mealFood;
-      }));
-
-      newMeal.MealFoods = mealFoods;
-    } else {
-      const mealFood = await MealFood.create({
-        mealId: newMeal.id,
-        foodId: foods.id,
-        quantity
-      });
-
-      newMeal.MealFoods = [mealFood];
+          quantity: food.MealFood.quantity
+        })
+      })
     }
-
+  })
     return res.json(newMeal);
-  } catch (error) {
-    console.error('Error creating mealFood:', error);
-    return res.status(500).json({ error: 'Error creating mealFood' });
-  }
 });
 
 //edit a meal

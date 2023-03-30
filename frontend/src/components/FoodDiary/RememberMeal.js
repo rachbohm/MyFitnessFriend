@@ -20,8 +20,8 @@ const RememberMeal = () => {
     e.preventDefault();
     const payload = {
       mealName,
-      foods: diaryLog.Food ? diaryLog.Food : diaryLog.Meals.Food,
-      quantity: diaryLog.Food ? diaryLog.foodQuantity : diaryLog.mealQuantity
+      foods: diaryLog.Food,
+      meals: diaryLog.Meals
     };
 
     dispatch(createMealThunk(payload))
@@ -103,82 +103,6 @@ const RememberMeal = () => {
                 </tr>
               </tfoot>
             </table>
-        {/* {diaryLog.food && ( //if the entry is a food
-          <table>
-            <tbody>
-              <tr>
-                <th>Food Name</th>
-                <th>Calories</th>
-                <th>Carbs (g)</th>
-                <th>Fat (g)</th>
-                <th>Protein (g)</th>
-              </tr>
-              {[...Array(diaryLog.foodQuantity)].map((_, index) => { //new row for each 1 quantity
-                const food = diaryLog.food;
-                totalCalories += food.calories;
-                totalCarbs += food.carbohydrates;
-                totalFat += food.fat;
-                totalProtein += food.protein;
-                return (
-                  <tr key={index}>
-                    <td>{food.foodName}</td>
-                    <td>{food.calories}</td>
-                    <td>{food.carbohydrates}</td>
-                    <td>{food.fat}</td>
-                    <td>{food.protein}</td>
-                  </tr>
-                );
-              })}
-              <tr className="total-row">
-                <td>Total</td>
-                <td>{totalCalories}</td>
-                <td>{totalCarbs}</td>
-                <td>{totalFat}</td>
-                <td>{totalProtein}</td>
-              </tr>
-            </tbody>
-          </table>
-        )}
-        {diaryLog.meal && ( //if it is a meal
-          <table>
-            <tbody>
-              <tr>
-                <th>Food Name</th>
-                <th>Calories</th>
-                <th>Carbs (g)</th>
-                <th>Fat (g)</th>
-                <th>Protein (g)</th>
-              </tr>
-
-              {diaryLog.meal.Food.map((food) => (
-                [...Array(diaryLog.mealQuantity)].map((_, index) => { //new row for each 1 quantity
-                  totalCalories += food.calories;
-                  totalCarbs += food.carbohydrates;
-                  totalFat += food.fat;
-                  totalProtein += food.protein;
-                  return (
-                    <tr key={`${food.id}-${index}`}>
-                      <td>{food.foodName}</td>
-                      <td>{food.calories}</td>
-                      <td>{food.carbohydrates}</td>
-                      <td>{food.fat}</td>
-                      <td>{food.protein}</td>
-                    </tr>
-                  )
-                })
-              )
-              )}
-              <tr className='total-row'>
-                <td>Total</td>
-                <td>{totalCalories}</td>
-                <td>{totalCarbs}</td>
-                <td>{totalFat}</td>
-                <td>{totalProtein}</td>
-              </tr>
-            </tbody>
-          </table> */}
-        {/* )
-        } */}
       </div>
     </div>
   )

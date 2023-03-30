@@ -47,13 +47,11 @@ const MyMealList = () => {
             </tr>
           </thead>
           <tbody>
+            {console.log('mealsArr from comp', mealsArr)}
             {mealsArr.find((meal) => meal.id === showDetails).Food.map((food) => {
-              let quantity = 1;
-              if (food.MealFood.quantity) {
-                quantity = food.MealFood.quantity
-              }
+
               let rows = [];
-              for (let i = 0; i < quantity; i++) {
+              for (let i = 0; i < food.MealFood.quantity; i++) {
                 rows.push(
                   <tr key={i}>
                     <td>{food.foodName}</td>

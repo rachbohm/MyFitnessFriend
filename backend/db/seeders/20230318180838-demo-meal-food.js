@@ -8,7 +8,7 @@ const mealFoodSeeds = [
   {
     mealId: 1,
     foodId: 2,
-    quantity: 1
+    quantity: 2
   },
   {
     mealId: 1,

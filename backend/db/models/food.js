@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         models.Meal,
         { through: models.MealFood, foreignKey: 'foodId' }
       );
+      Food.hasMany(
+        models.MealFood,
+        {foreignKey: 'foodId'}
+      )
     }
   }
   Food.init({

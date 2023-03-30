@@ -19,7 +19,7 @@ export const loadMyMealsThunk = () => async dispatch => {
   const res = await csrfFetch('/api/meals/current')
   if (res.ok) {
     const meals = await res.json();
-    dispatch(loadMealsAction(meals))
+    dispatch(loadMealsAction(meals));
     return meals
   }
 };
