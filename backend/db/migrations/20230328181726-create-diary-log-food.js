@@ -30,10 +30,10 @@ module.exports = {
         },
         onDelete: 'cascade'
       },
-      quantity: {
-        type: Sequelize.INTEGER,
-        defaultValue: 1
-      },
+      // quantity: {
+      //   type: Sequelize.INTEGER,
+      //   defaultValue: 1
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -4,12 +4,14 @@ import sessionReducer from './session';
 import foodReducer from "./foods";
 import mealReducer from "./meals";
 import diaryLogsReducer from "./diarylogs";
+import mealFoodsReducer from "./mealFoods";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   foodState: foodReducer,
   mealState: mealReducer,
   diaryLogState: diaryLogsReducer,
+  mealFoodsState: mealFoodsReducer
 });
 
 let enhancer;

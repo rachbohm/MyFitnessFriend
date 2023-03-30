@@ -22,10 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         models.Food,
         { through: models.MealFood, foreignKey: 'mealId' }
       );
-      Meal.hasMany(
-        models.MealFood,
-        {foreignKey: 'mealId'}
-      )
     }
   }
   Meal.init({

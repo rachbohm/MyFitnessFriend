@@ -19,16 +19,28 @@ router.get('/current', requireAuth, async (req, res, next) => {
         model: Food,
         through: {
           model: MealFood,
-          attributes: ['quantity']
-        }
-      },
-      {
-        model: MealFood
-      }
-    ]
+        }}]
   })
   return res.json(meals)
 });
+
+//get all foods of the current meal
+router.get(`/:id`, requireAuth, async (req, res, next) => {
+  const id = req.params.id
+  const mealFoods = await MealFood.findAll({
+    where: {
+      mealId: id
+    }
+  });
+  const foodsInMeal = []
+  for (let i = 0; i < mealFoods.length; i++){
+    const food = await Food.findByPk(mealFoods[i].foodId)
+    foodsInMeal.push(food)
+  }
+  console.log('foodsInMeal', foodsInMeal.map((food)=>food.dataValues))
+  // console.log('mealFoods', mealFoods)
+  return res.json(foodsInMeal)
+})
 
 
 // Create a new meal with multiple food items

@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   DiaryLogFood.init({
     diaryLogId: DataTypes.INTEGER,
     foodId: DataTypes.INTEGER,
-    quantity: DataTypes.INTEGER
+    // quantity: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'DiaryLogFood',

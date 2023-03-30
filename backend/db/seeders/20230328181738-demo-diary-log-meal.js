@@ -9,22 +9,40 @@ const diaryLogMealSeeds = [
   {
     diaryLogId: 1,
     mealId: 1,
-    quantity: 1
+    // quantity: 1
   },
   {
     diaryLogId: 1,
     mealId: 2,
-    quantity: 2
+    // quantity: 2
+  },
+  {
+    diaryLogId: 1,
+    mealId: 2,
   },
   {
     diaryLogId: 2,
     mealId: 2,
-    quantity: 2
+    // quantity: 2
+  },
+  {
+    diaryLogId: 2,
+    mealId: 2,
   },
   {
     diaryLogId: 3,
     mealId: 3,
-    quantity: 3
+    // quantity: 3
+  },
+  {
+    diaryLogId: 3,
+    mealId: 3,
+    // quantity: 3
+  },
+  {
+    diaryLogId: 3,
+    mealId: 3,
+    // quantity: 3
   }
 ]
 

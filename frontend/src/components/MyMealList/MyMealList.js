@@ -4,19 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loadMyFoodsThunk, deleteFoodThunk } from '../../store/foods';
 import { loadMyMealsThunk } from '../../store/meals';
 import './MyMealList.css';
+import MealCard from './MealCard';
 
 const MyMealList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [showDetails, setShowDetails] = useState(null); // Use null to indicate no food item is selected
-
-  const openDetails = (id) => {
-    setShowDetails(id === showDetails ? null : id); // Toggle showDetails between the ID of the clicked item and null
-  };
 
   useEffect(() => {
     dispatch(loadMyMealsThunk());
   }, [dispatch]);
+
+  const [selectedMeal, setSelectedMeal] = useState(null);
 
   let meals = useSelector((state) => state.mealState);
   let mealsArr = Object.values(meals);
@@ -26,50 +24,30 @@ const MyMealList = () => {
     history.push('/login')
   }
 
-  return (
-    <div className='meal-list-container'>
-      <h2>Your Personal Meals</h2>
-      {mealsArr.map((meal) => (
-        <li key={meal.id}>
-          <a href="#" onClick={() => openDetails(meal.id)}>{meal.mealName}</a>
-        </li>
-      ))}
-      {showDetails && (
-        <table className="meal-table">
-          <thead>
-            <tr>
-              <th className='items-heading'>Items in This Meal</th>
-              <th>Calories</th>
-              <th>Carbs</th>
-              <th>Fat</th>
-              <th>Protein</th>
-              <th>Serving Size</th>
-            </tr>
-          </thead>
-          <tbody>
-            {console.log('mealsArr from comp', mealsArr)}
-            {mealsArr.find((meal) => meal.id === showDetails).Food.map((food) => {
+  const handleMealClick = (meal) => {
+    setSelectedMeal(meal);
+  };
 
-              let rows = [];
-              for (let i = 0; i < food.MealFood.quantity; i++) {
-                rows.push(
-                  <tr key={i}>
-                    <td>{food.foodName}</td>
-                    <td>{food.calories}</td>
-                    <td>{food.carbohydrates}g</td>
-                    <td>{food.fat}g</td>
-                    <td>{food.protein}g</td>
-                    <td>{food.servingSizeNum} {food.servingSizeUnit}</td>
-                  </tr>
-                );
-              }
-              return rows;
-            })}
-          </tbody>
-        </table>
-      )}
+  return (
+    <div className="meal-list-container">
+      <div>
+        <h2>Your Personal Meals</h2>
+        <div className="meal-list">
+          {mealsArr.map((meal) => (
+            <li key={meal.id}>
+              <a href="#" onClick={() => handleMealClick(meal)}>
+                {meal.mealName}
+              </a>
+            </li>
+          ))}
+        </div>
+      </div>
+      <div className="meal-card-container">
+        {selectedMeal && <MealCard meal={selectedMeal} />}
+      </div>
     </div>
   );
+
 };
 
 export default MyMealList;
