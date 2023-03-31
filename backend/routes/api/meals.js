@@ -34,8 +34,10 @@ router.get(`/:id`, requireAuth, async (req, res, next) => {
   });
   const foodsInMeal = []
   for (let i = 0; i < mealFoods.length; i++){
-    const food = await Food.findByPk(mealFoods[i].foodId)
-    foodsInMeal.push(food)
+    for (let j = 0; j < mealFoods[i].quantity; j++){
+      const food = await Food.findByPk(mealFoods[i].foodId)
+      foodsInMeal.push(food)
+    }
   }
   console.log('foodsInMeal', foodsInMeal.map((food)=>food.dataValues))
   // console.log('mealFoods', mealFoods)
