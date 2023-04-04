@@ -39,8 +39,6 @@ router.get(`/:id`, requireAuth, async (req, res, next) => {
       foodsInMeal.push(food)
     }
   }
-  console.log('foodsInMeal', foodsInMeal.map((food)=>food.dataValues))
-  // console.log('mealFoods', mealFoods)
   return res.json(foodsInMeal)
 })
 
@@ -95,14 +93,66 @@ router.put('/:mealId', requireAuth, async (req, res, next) => {
 
   if (targetMeal.userId === userId) {
     targetMeal.mealName = mealName
-    await targetFood.save();
-    return res.json(targetFood);
+    await targetMeal.save();
+    return res.json(targetMeal);
   } else {
     const err = new Error("Unauthorized")
     err.status = 403;
     err.errors = ['Current user is unauthorized']
     return next(err)
   }
-})
+});
+
+// remove a food from a meal
+router.delete('/:mealId/foods/:foodId', requireAuth, async (req, res, next) => {
+  const { mealId, foodId } = req.params;
+  const userId = req.user.id;
+
+  const targetMeal = await Meal.findByPk(mealId);
+
+  if (!targetMeal) {
+    const err = new Error("Meal not found")
+    err.status = 404;
+    err.errors = ["Meal couldn't be found"];
+    return next(err)
+  }
+
+  if (targetMeal.userId !== userId) {
+    const err = new Error("Unauthorized")
+    err.status = 403;
+    err.errors = ['Current user is unauthorized']
+    return next(err)
+  }
+
+  const mealFood = await MealFood.findOne({
+    where: { mealId, foodId },
+  });
+
+  if (!mealFood) {
+    const err = new Error("Meal food not found")
+    err.status = 404;
+    err.errors = ["Meal food couldn't be found"];
+    return next(err)
+  }
+
+  if (mealFood.quantity > 1) {
+    mealFood.quantity--;
+    await mealFood.save();
+  } else {
+    await mealFood.destroy();
+  }
+
+  const updatedMeal = await Meal.findByPk(mealId, {
+    // include: [MealFood]
+  });
+
+  if (updatedMeal.MealFoods.length === 0) {
+    await updatedMeal.destroy();
+    res.json({ message: "Meal has been deleted" });
+  } else {
+    res.json(updatedMeal);
+  }
+});
+
 
 module.exports = router;

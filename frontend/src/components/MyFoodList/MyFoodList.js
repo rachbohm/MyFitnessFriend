@@ -28,6 +28,7 @@ const MyFoodList = () => {
   const deleteHandler = (food) => {
     if (window.confirm("Are you sure you want to delete this food?")) {
       dispatch(deleteFoodThunk(food.id)).then(() => {
+        setShowDetails(null);
         history.push('/food/mine');
       });
     }

@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { loadMealFoodsThunk } from '../../store/mealFoods';
 import './MealCard.css'
 
 const MealCard = ({meal}) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -19,6 +21,7 @@ const MealCard = ({meal}) => {
     isLoaded && (
       <div className='meal-card-container'>
         <h3>{meal.mealName}</h3>
+        <button className="edit-meal-button" onClick={()=>history.push(`/meal/edit/${meal.id}`)}>Edit Meal</button>
         <table className="meal-table">
           <thead>
             <tr>
