@@ -12,7 +12,6 @@ const EditMeal = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mealName, setMealName] = useState('');
   const [errors, setErrors] = useState([]);
-  const [success, setSuccess] = useState(false)
 
   useEffect(() => {
     dispatch(loadMyMealsThunk());
@@ -31,9 +30,10 @@ const EditMeal = () => {
 
   const handleRemoveFood = (foodId) => {
     const newMealFoodsArr = mealFoodsArr.filter((food) => food.id !== foodId);
+    console.log('newMealFoodsArr', newMealFoodsArr)
     dispatch(removeFoodFromMealThunk(mealId, foodId, newMealFoodsArr))
       .then(() => {
-        setSuccess(true)
+        // if the removal is successful, update the state
         dispatch(loadMealFoodsThunk(mealId));
       })
       .catch(async (res) => {
@@ -53,7 +53,7 @@ const EditMeal = () => {
     if (window.confirm("Please confirm form submission")) {
       await dispatch(editMealThunk(payload, mealId))
         .then(() => {
-          setSuccess(true);
+          history.push("/meal/mine");
         })
         .catch(async (res) => {
           const data = await res.json();
@@ -75,8 +75,6 @@ const EditMeal = () => {
   return (
     isLoaded && meal && (
       <form className="edit-meal-form" onSubmit={handleSubmit}>
-        {success && <div>Meal successfully edited.</div>}
-
         <h3>
           <input
             type="text"

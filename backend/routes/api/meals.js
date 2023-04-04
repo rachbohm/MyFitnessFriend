@@ -142,11 +142,13 @@ router.delete('/:mealId/foods/:foodId', requireAuth, async (req, res, next) => {
     await mealFood.destroy();
   }
 
-  const updatedMeal = await Meal.findByPk(mealId, {
-    // include: [MealFood]
-  });
+  const updatedMeal = await Meal.findByPk(mealId);
 
-  if (updatedMeal.MealFoods.length === 0) {
+  const updatedMealFood = await MealFood.findOne({
+    where: {mealId}
+  })
+
+  if (!updatedMealFood) {
     await updatedMeal.destroy();
     res.json({ message: "Meal has been deleted" });
   } else {
