@@ -9,6 +9,7 @@ import MealCard from './MealCard';
 const MyMealList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     dispatch(loadMyMealsThunk());

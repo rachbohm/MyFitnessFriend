@@ -100,7 +100,9 @@ const EditMeal = () => {
 
   return (
     <div>
-      {edited && <h3>Meal Successfully Edited</h3>}
+        {errors.length > 0 && errors.map((error, i) => {
+          return <div key={i}>{error}</div>
+        })}
       {isLoaded && meal && (
         <form className="edit-meal-form" onSubmit={handleSubmit}>
           <div>

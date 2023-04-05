@@ -19,7 +19,8 @@ router.get('/current', requireAuth, async (req, res, next) => {
         model: Food,
         through: {
           model: MealFood,
-        }}]
+        }
+      }]
   })
   return res.json(meals)
 });
@@ -32,9 +33,10 @@ router.get(`/:id`, requireAuth, async (req, res, next) => {
       mealId: id
     }
   });
+  console.log('~~~~~~~~~~~~~~mealFoods from backend', mealFoods)
   const foodsInMeal = []
-  for (let i = 0; i < mealFoods.length; i++){
-    for (let j = 0; j < mealFoods[i].quantity; j++){
+  for (let i = 0; i < mealFoods.length; i++) {
+    for (let j = 0; j < mealFoods[i].quantity; j++) {
       const food = await Food.findByPk(mealFoods[i].foodId)
       foodsInMeal.push(food)
     }
@@ -53,28 +55,61 @@ router.post('/', async (req, res, next) => {
     userId: user.id,
   });
 
-  await foods.map((food) => {
-     MealFood.create({
-       mealId: newMeal.id,
-       foodId: food.id,
-       quantity: food.DiaryLogFood.quantity
-     })
-  })
+  console.log('foods from backend', foods)
+  console.log('meals from backend', meals)
 
-  await meals.map((meal) => {
-    for (let i = 0; i < meal.DiaryLogMeal.quantity; i++){
+  for (const food of foods) {
+    console.log('~~~~~~~~~~~~~~~~food from food', food)
+    const mealFood = await MealFood.findOne({
+      where: {
+        mealId: newMeal.id,
+        foodId: food.id
+      }
+    });
 
-      meal.Food.map((food) => {
-        MealFood.create({
-          mealId: newMeal.id,
-          foodId: food.id,
-          quantity: food.MealFood.quantity
-        })
-      })
+    if (mealFood) {
+      mealFood.quantity++;
+      await mealFood.save(); // Save changes to the database
+    } else {
+      await MealFood.create({
+        mealId: newMeal.id,
+        foodId: food.id,
+        quantity: food.DiaryLogFood.quantity
+      });
     }
-  })
-    return res.json(newMeal);
+  }
+
+  for (const meal of meals) {
+    for (let i = 0; i < meal.DiaryLogMeal.quantity; i++) {
+      for (const food of meal.Food) {
+        console.log('~~~~~~~~~~food from meal', food)
+        const mealFood = await MealFood.findOne({
+          where: {
+            mealId: newMeal.id,
+            foodId: food.id
+          }
+        });
+
+        if (mealFood) {
+          console.log('~~~~~~~~~~~~~ mealfood found from meal', mealFood)
+          for (let j = 0; j < food.MealFood.quantity; j++){
+            mealFood.quantity++;
+          }
+          await mealFood.save(); // Save changes to the database
+        } else {
+          await MealFood.create({
+            mealId: newMeal.id,
+            foodId: food.id,
+            quantity: food.MealFood.quantity
+          });
+        }
+      }
+    }
+  }
+
+  return res.json(newMeal);
 });
+
 
 //edit a meal
 router.put('/:mealId', requireAuth, async (req, res, next) => {
@@ -138,24 +173,18 @@ router.delete('/:mealId/foods/:foodId', requireAuth, async (req, res, next) => {
   }
 
   if (mealFood.quantity > 1) {
+    console.log('not going to delete mealFood is', mealFood)
+    console.log('~~~~~~~~~~~~~~~~~ quantity is', mealFood.quantity)
     mealFood.quantity--;
     await mealFood.save();
   } else {
+    console.log('~~~~~~~~~~~~~~~~~~ going to delete mealFood.quantity is', mealFood.quantity, mealFood)
     await mealFood.destroy();
   }
 
   const updatedMeal = await Meal.findByPk(mealId);
+  return res.json(updatedMeal);
 
-  // const updatedMealFood = await MealFood.findOne({
-  //   where: {mealId}
-  // })
-
-  // if (!updatedMealFood) {
-  //   await updatedMeal.destroy();
-  //   res.json({ message: "Meal has been deleted" });
-  // } else {
-    return res.json(updatedMeal);
-  // }
 });
 
 //delete a meal
