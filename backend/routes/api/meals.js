@@ -108,6 +108,8 @@ router.delete('/:mealId/foods/:foodId', requireAuth, async (req, res, next) => {
   const { mealId, foodId } = req.params;
   const userId = req.user.id;
 
+  console.log('~~~~~~~~~~~~~~~~~~~~~ in the backend delete route')
+
   const targetMeal = await Meal.findByPk(mealId);
 
   if (!targetMeal) {
@@ -144,15 +146,43 @@ router.delete('/:mealId/foods/:foodId', requireAuth, async (req, res, next) => {
 
   const updatedMeal = await Meal.findByPk(mealId);
 
-  const updatedMealFood = await MealFood.findOne({
-    where: {mealId}
-  })
+  // const updatedMealFood = await MealFood.findOne({
+  //   where: {mealId}
+  // })
 
-  if (!updatedMealFood) {
-    await updatedMeal.destroy();
-    res.json({ message: "Meal has been deleted" });
+  // if (!updatedMealFood) {
+  //   await updatedMeal.destroy();
+  //   res.json({ message: "Meal has been deleted" });
+  // } else {
+    return res.json(updatedMeal);
+  // }
+});
+
+//delete a meal
+router.delete('/:mealId', requireAuth, async (req, res, next) => {
+  const { user } = req;
+  const { mealId } = req.params;
+
+  const doomedMeal = await Meal.findByPk(mealId);
+
+  if (!doomedMeal) {
+    const err = new Error("Meal couldn't be found");
+    err.status = 404;
+    err.errors = ["Meal couldn't be found"];
+    return next(err)
+  }
+
+  if (doomedMeal.userId === user.id) {
+    await doomedMeal.destroy();
+    res.json({
+      message: "Successfully deleted",
+      statusCode: res.statusCode
+    })
   } else {
-    res.json(updatedMeal);
+    const err = new Error("Unauthorized");
+    err.status = 403;
+    err.errors = ["Current user is unauthorized"];
+    return next(err)
   }
 });
 

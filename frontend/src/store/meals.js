@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_MEALS = "meals/LOAD_MEALS";
 const ADD_MEAL = "meals/ADD_MEAL";
 const UPDATE_MEAL = "meals/UPDATE_MEAL";
+const REMOVE_MEAL = "meals/REMOVE_MEAL";
 
 //ACTIONS
 const loadMealsAction = (meals) => ({
@@ -19,6 +20,11 @@ const updateMealAction = (meal) => ({
   type: UPDATE_MEAL,
   meal
 });
+
+const removeMealAction = (mealId) => ({
+  type: REMOVE_MEAL,
+  mealId
+})
 
 //THUNKS
 export const loadMyMealsThunk = () => async dispatch => {
@@ -68,8 +74,17 @@ export const removeFoodFromMealThunk = (mealId, foodId) => async (dispatch) => {
     const meal = await res.json();
     dispatch(updateMealAction(meal))
   }
-}
+};
 
+export const removeMealThunk = (mealId) => async dispatch => {
+  const res = await csrfFetch(`/api/meals/${mealId}`, {
+    method: 'DELETE'
+  });
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(removeMealAction(mealId))
+  }
+}
 
 const initialState = {}
 const mealReducer = (state = initialState, action) => {
@@ -88,6 +103,10 @@ const mealReducer = (state = initialState, action) => {
     case UPDATE_MEAL:
       newState = { ...state }
       newState[action.meal.id] = action.meal;
+      return newState;
+    case REMOVE_MEAL:
+      newState = { ...state }
+      delete newState[action.mealId];
       return newState;
     default:
       return state;
