@@ -33,7 +33,6 @@ router.get(`/:id`, requireAuth, async (req, res, next) => {
       mealId: id
     }
   });
-  console.log('~~~~~~~~~~~~~~mealFoods from backend', mealFoods)
   const foodsInMeal = []
   for (let i = 0; i < mealFoods.length; i++) {
     for (let j = 0; j < mealFoods[i].quantity; j++) {
@@ -55,11 +54,7 @@ router.post('/', async (req, res, next) => {
     userId: user.id,
   });
 
-  console.log('foods from backend', foods)
-  console.log('meals from backend', meals)
-
   for (const food of foods) {
-    console.log('~~~~~~~~~~~~~~~~food from food', food)
     const mealFood = await MealFood.findOne({
       where: {
         mealId: newMeal.id,
@@ -82,7 +77,6 @@ router.post('/', async (req, res, next) => {
   for (const meal of meals) {
     for (let i = 0; i < meal.DiaryLogMeal.quantity; i++) {
       for (const food of meal.Food) {
-        console.log('~~~~~~~~~~food from meal', food)
         const mealFood = await MealFood.findOne({
           where: {
             mealId: newMeal.id,
@@ -91,7 +85,6 @@ router.post('/', async (req, res, next) => {
         });
 
         if (mealFood) {
-          console.log('~~~~~~~~~~~~~ mealfood found from meal', mealFood)
           for (let j = 0; j < food.MealFood.quantity; j++){
             mealFood.quantity++;
           }

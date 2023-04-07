@@ -40,8 +40,60 @@ router.get('/current', requireAuth, async (req, res, next) => {
       }
     ]
   });
-  // console.log('diaryLogs from backend', diaryLogs)
   return res.json(diaryLogs)
+});
+
+//Create a new diaryLog with multiple food and/or meal items
+router.post('/', async (req, res, next) => {
+  const { logName, logDate, foods, meals } = req.body;
+  const { user } = req;
+
+  const newDiaryLog = await DiaryLog.create({
+    logName,
+    logDate,
+    userId: user.id
+  });
+
+  for (const food of foods) {
+    const diaryLogFood = await DiaryLogFood.findOne({
+      where: {
+        diaryLogId: newDiaryLog.id,
+        foodId: food.id
+      }
+    });
+
+    if (diaryLogFood) {
+      diaryLogFood.quantity++;
+      await diaryLogFood.save();
+    } else {
+      await DiaryLogFood.create({
+        diaryLogId: newDiaryLog.id,
+        foodId: food.id,
+        quantity: 1
+      })
+    }
+  };
+
+  for (const meal of meals) {
+    const diaryLogMeal = await DiaryLogMeal.findOne({
+      where: {
+        diaryLogId: newDiaryLog.id,
+        mealId: meal.id
+      }
+    });
+
+    if (diaryLogMeal) {
+      diaryLogMeal.quantity++;
+      await diaryLogMeal.save();
+    } else {
+      await DiaryLogMeal.create({
+        diaryLogId: newDiaryLog.id,
+        mealId: meal.id,
+        quantity: 1
+      })
+    }
+  }
+  return res.json(newDiaryLog)
 })
 
 module.exports = router;

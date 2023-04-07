@@ -4,20 +4,24 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
+const today = new Date();
+const yesterday = new Date();
+yesterday.setDate(today.getDate() - 1);
+
 const diaryLogSeeds = [
   {
     logName: 'Breakfast',
-    logDate: new Date('2023-03-18'),
+    logDate: today,
     userId: 1
   },
   {
     logName: 'Lunch',
-    logDate: new Date('2023-03-18'),
+    logDate: yesterday,
     userId: 1
   },
   {
     logName: 'Dinner',
-    logDate: new Date('2023-03-18'),
+    logDate: yesterday,
     userId: 1
   }
 ]
