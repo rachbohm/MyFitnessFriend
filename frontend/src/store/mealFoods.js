@@ -15,7 +15,8 @@ export const loadMealFoodsThunk = (id) => async dispatch => {
   if (res.ok) {
     const mealFoods = await res.json();
     return dispatch(loadMealFoodsAction(mealFoods))
-  }
+  };
+  return res;
 }
 
 const initialState = {}

@@ -33,6 +33,16 @@ router.get(`/:id`, requireAuth, async (req, res, next) => {
       mealId: id
     }
   });
+
+  const meal = await Meal.findByPk(id)
+
+  if (!meal) {
+    const err = new Error("Meal not found")
+    err.status = 404;
+    err.errors = ["Meal couldn't be found"];
+    return next(err)
+  }
+
   const foodsInMeal = []
   for (let i = 0; i < mealFoods.length; i++) {
     for (let j = 0; j < mealFoods[i].quantity; j++) {
@@ -64,7 +74,7 @@ router.post('/', async (req, res, next) => {
 
     if (mealFood) {
       mealFood.quantity++;
-      await mealFood.save(); // Save changes to the database
+      await mealFood.save();
     } else {
       await MealFood.create({
         mealId: newMeal.id,
@@ -88,7 +98,7 @@ router.post('/', async (req, res, next) => {
           for (let j = 0; j < food.MealFood.quantity; j++){
             mealFood.quantity++;
           }
-          await mealFood.save(); // Save changes to the database
+          await mealFood.save();
         } else {
           await MealFood.create({
             mealId: newMeal.id,
@@ -136,8 +146,6 @@ router.delete('/:mealId/foods/:foodId', requireAuth, async (req, res, next) => {
   const { mealId, foodId } = req.params;
   const userId = req.user.id;
 
-  console.log('~~~~~~~~~~~~~~~~~~~~~ in the backend delete route')
-
   const targetMeal = await Meal.findByPk(mealId);
 
   if (!targetMeal) {
@@ -166,12 +174,9 @@ router.delete('/:mealId/foods/:foodId', requireAuth, async (req, res, next) => {
   }
 
   if (mealFood.quantity > 1) {
-    console.log('not going to delete mealFood is', mealFood)
-    console.log('~~~~~~~~~~~~~~~~~ quantity is', mealFood.quantity)
     mealFood.quantity--;
     await mealFood.save();
   } else {
-    console.log('~~~~~~~~~~~~~~~~~~ going to delete mealFood.quantity is', mealFood.quantity, mealFood)
     await mealFood.destroy();
   }
 

@@ -20,7 +20,6 @@ const FoodDiary = () => {
 
   const diaryLogs = useSelector((state) => state.diaryLogState);
   const diaryLogsArr = Object.values(diaryLogs).filter(diaryLog => new Date(diaryLog.logDate).toISOString().slice(0, 10) === selectedDate.toISOString().slice(0, 10));
-  console.log('diaryLogsArr', diaryLogsArr)
 
   const sessionUser = useSelector(state => state.session.user);
   if (!sessionUser) {
@@ -49,7 +48,7 @@ const FoodDiary = () => {
               totalProtein += food.protein;
               rows.push(
                 <tr key={`food-${food.id}-${food.DiaryLogFood.quantity}-${i}`}>
-                  <td>food {food.foodName}</td>
+                  <td>{food.foodName}</td>
                   <td>{food.calories}</td>
                   <td>{food.carbohydrates}</td>
                   <td>{food.fat}</td>
@@ -68,7 +67,7 @@ const FoodDiary = () => {
                   totalProtein += food.protein;
                   rows.push(
                     <tr key={`meal-${meal.id}-food-${food.id}-i${i}-j${j}`}>
-                      <td>meal {food.foodName}</td>
+                      <td>{food.foodName}</td>
                       <td>{food.calories}</td>
                       <td>{food.carbohydrates}</td>
                       <td>{food.fat}</td>
@@ -105,11 +104,11 @@ const FoodDiary = () => {
               pathname: '/meal/new',
               state: { diaryLog }
             })}>Remember Meal</button>
-           <button className="add-food-button"
+           {/* <button className="add-food-button"
             onClick={() => history.push({
               pathname: '/food/diary/add',
               state: { diaryLog }
-            })}>Add Food</button>
+            })}>Add Food</button> */}
         </div>
       );
     } else {

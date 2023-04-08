@@ -12,40 +12,15 @@ const diaryLogFoodSeeds = [
     quantity: 1
   },
   {
-    diaryLogId: 1,
-    foodId: 2,
-    quantity: 2
-  },
-  // {
-  //   diaryLogId: 1,
-  //   foodId: 2,
-  //   // quantity: 2
-  // },
-  {
     diaryLogId: 2,
     foodId: 2,
-    quantity: 2
+    quantity: 1
   },
-  // {
-  //   diaryLogId: 2,
-  //   foodId: 2,
-  //   // quantity: 2
-  // },
   {
     diaryLogId: 3,
-    foodId: 3,
-    quantity: 3
-  },
-  // {
-  //   diaryLogId: 3,
-  //   foodId: 3,
-  //   // quantity: 3
-  // },
-  // {
-  //   diaryLogId: 3,
-  //   foodId: 3,
-  //   // quantity: 3
-  // }
+    foodId: 4,
+    quantity: 1
+  }
 ]
 
 /** @type {import('sequelize-cli').Migration} */

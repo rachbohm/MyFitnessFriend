@@ -11,8 +11,10 @@ import FoodDiary from "./components/FoodDiary/FoodDiary";
 import RememberMeal from "./components/FoodDiary/RememberMeal";
 import EditMeal from "./components/Meals/EditMeal";
 import NewLog from "./components/FoodDiary/NewLog";
+import HomePage from "./components/HomePage/HomePage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,35 +28,56 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/login">
+          <Route exact path="/login">
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/food/edit/:foodId">
-            <EditFoodPage />
+          <Route exact path="/food/edit/:foodId">
+            <ProtectedRoute>
+              <EditFoodPage />
+            </ProtectedRoute>
           </Route>
-          <Route path="/food/mine">
-            <MyFoodList />
+          <Route exact path="/food/mine">
+            <ProtectedRoute>
+              <MyFoodList />
+            </ProtectedRoute>
           </Route>
-          <Route path="/food/new">
-            <CreateFoodPage />
+          <Route exact path="/food/new">
+            <ProtectedRoute>
+              <CreateFoodPage />
+            </ProtectedRoute>
           </Route>
-          <Route path="/food/diary/new">
-            <NewLog />
+          <Route exact path="/food/diary/new">
+            <ProtectedRoute>
+              <NewLog />
+            </ProtectedRoute>
           </Route>
-          <Route path="/food/diary">
-            <FoodDiary />
+          <Route exact path="/food/diary">
+            <ProtectedRoute>
+              <FoodDiary />
+            </ProtectedRoute>
           </Route>
-          <Route path="/meal/edit/:mealId">
-            <EditMeal />
+          <Route exact path="/meal/edit/:mealId">
+            <ProtectedRoute>
+              <EditMeal />
+            </ProtectedRoute>
           </Route>
-          <Route path="/meal/mine">
-            <MyMealList />
+          <Route exact path="/meal/mine">
+            <ProtectedRoute>
+              <MyMealList />
+            </ProtectedRoute>
           </Route>
-          <Route path="/meal/new">
-            <RememberMeal />
+          <Route exact path="/meal/new">
+            <ProtectedRoute>
+              <RememberMeal />
+            </ProtectedRoute>
+          </Route>
+          <Route path="">
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
           </Route>
         </Switch>
       )}

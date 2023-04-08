@@ -20,6 +20,10 @@ const EditMeal = () => {
       .then(() => {
         setIsLoaded(true)
       })
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data.errors) setErrors(Object.values(data.errors));
+      });
   }, [dispatch, mealId]);
 
   let meals = useSelector((state) => state.mealState);
@@ -31,7 +35,6 @@ const EditMeal = () => {
 
   const handleRemoveFood = async (e, foodId, foodName) => {
     e.preventDefault();
-    console.log('in the handleRemoveFood')
     if (window.confirm(`Are you sure you want to remove ${foodName} from ${mealName}?`)) {
 
       dispatch(removeFoodFromMealThunk(mealId, foodId))
@@ -42,7 +45,6 @@ const EditMeal = () => {
         .catch(async (res) => {
           const data = await res.json();
           if (data.errors) setErrors(Object.values(data.errors));
-          console.log('errors set to', errors)
         });
     }
   };
@@ -76,7 +78,6 @@ const EditMeal = () => {
         .catch(async (res) => {
           const data = await res.json();
           if (data.errors) setErrors(Object.values(data.errors));
-          console.log('errors set to', errors)
         });
     }
   };
@@ -88,7 +89,7 @@ const EditMeal = () => {
   }, [meal]);
 
   useEffect(() => {
-    if (!mealFoodsArr.length) {
+    if (!mealFoodsArr.length && isLoaded && meal) {
       dispatch(removeMealThunk(mealId))
         .then(() => {
           window.alert('Meal deleted. A meal must have at least 1 food.')
@@ -101,9 +102,8 @@ const EditMeal = () => {
   return (
     <div>
       {errors.length > 0 && errors.map((error, i) => {
-          {console.log(error)}
-          return <div key={i}>{error}</div>
-        })}
+        return <div key={i}>{error}</div>
+      })}
       {isLoaded && meal && (
         <form className="edit-meal-form" onSubmit={handleSubmit}>
           <div>

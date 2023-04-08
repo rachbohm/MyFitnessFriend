@@ -10,11 +10,6 @@ const mealFoodSeeds = [
     foodId: 2,
     quantity: 2
   },
-  // {
-  //   mealId: 1,
-  //   foodId: 2,
-  //   // quantity: 2
-  // },
   {
     mealId: 1,
     foodId: 3,
@@ -60,11 +55,16 @@ const mealFoodSeeds = [
     foodId: 2,
     quantity: 2
   },
-  // {
-  //   mealId: 5,
-  //   foodId: 2,
-  //   // quantity: 2
-  // }
+  {
+    mealId: 6,
+    foodId: 5,
+    quantity: 1
+  },
+  {
+    mealId: 6,
+    foodId: 4,
+    quantity: 1
+  }
 ]
 
 /** @type {import('sequelize-cli').Migration} */

@@ -33,7 +33,8 @@ export const loadMyMealsThunk = () => async dispatch => {
     const meals = await res.json();
     dispatch(loadMealsAction(meals));
     return meals
-  }
+  };
+  return res;
 };
 
 export const createMealThunk = (payload) => async (dispatch) => {

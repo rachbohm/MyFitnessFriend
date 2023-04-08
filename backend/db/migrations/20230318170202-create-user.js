@@ -34,6 +34,9 @@ module.exports = {
       lastName: {
         type: Sequelize.STRING(256)
       },
+      profilePicture: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

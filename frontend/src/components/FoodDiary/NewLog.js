@@ -58,7 +58,6 @@ const NewLog = () => {
       if (!quantity) return [];
       return Array.from({length: quantity}, () => food);
     });
-    console.log('foodsToAdd', foodsToAdd)
     if (window.confirm('Please confirm form submission')) {
       await dispatch(createDiaryLogThunk({logName, logDate, foods: foodsToAdd}))
         .then(() => {

@@ -15,7 +15,8 @@ module.exports = {
         username: 'Demo-lition',
         hashedPassword: bcrypt.hashSync('password'),
         firstName: "Arnold",
-        lastName: "Schwarzenegger"
+        lastName: "Schwarzenegger",
+        profilePicture: "https://i.insider.com/62de9331bd18c30019d1a729?width=700"
       },
       {
         email: 'user1@user.io',
