@@ -42,13 +42,13 @@ const EditMeal = () => {
         .catch(async (res) => {
           const data = await res.json();
           if (data.errors) setErrors(Object.values(data.errors));
+          console.log('errors set to', errors)
         });
     }
   };
 
   const handleDeleteMeal = async (e, mealId) => {
     e.preventDefault();
-    console.log('in the handleDeleteMeal')
 
     if (window.confirm("Are you sure you want to delete this meal?")) {
       await dispatch(removeMealThunk(mealId))
@@ -62,7 +62,6 @@ const EditMeal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('in the handleSubmit')
 
     const payload = {
       mealName,
@@ -77,6 +76,7 @@ const EditMeal = () => {
         .catch(async (res) => {
           const data = await res.json();
           if (data.errors) setErrors(Object.values(data.errors));
+          console.log('errors set to', errors)
         });
     }
   };
@@ -100,7 +100,8 @@ const EditMeal = () => {
 
   return (
     <div>
-        {errors.length > 0 && errors.map((error, i) => {
+      {errors.length > 0 && errors.map((error, i) => {
+          {console.log(error)}
           return <div key={i}>{error}</div>
         })}
       {isLoaded && meal && (

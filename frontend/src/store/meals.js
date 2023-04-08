@@ -62,7 +62,8 @@ export const editMealThunk = (payload, id) => async (dispatch) => {
   if (res.ok) {
     const meal = await res.json();
     dispatch(updateMealAction(meal))
-  }
+  };
+  return res;
 };
 
 export const removeFoodFromMealThunk = (mealId, foodId) => async (dispatch) => {

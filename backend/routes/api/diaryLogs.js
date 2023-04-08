@@ -45,7 +45,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
 //Create a new diaryLog with multiple food and/or meal items
 router.post('/', async (req, res, next) => {
-  const { logName, logDate, foods, meals } = req.body;
+  const { logName, logDate, foods } = req.body;
   const { user } = req;
 
   const newDiaryLog = await DiaryLog.create({
@@ -74,25 +74,25 @@ router.post('/', async (req, res, next) => {
     }
   };
 
-  for (const meal of meals) {
-    const diaryLogMeal = await DiaryLogMeal.findOne({
-      where: {
-        diaryLogId: newDiaryLog.id,
-        mealId: meal.id
-      }
-    });
+  // for (const meal of meals) {
+  //   const diaryLogMeal = await DiaryLogMeal.findOne({
+  //     where: {
+  //       diaryLogId: newDiaryLog.id,
+  //       mealId: meal.id
+  //     }
+  //   });
 
-    if (diaryLogMeal) {
-      diaryLogMeal.quantity++;
-      await diaryLogMeal.save();
-    } else {
-      await DiaryLogMeal.create({
-        diaryLogId: newDiaryLog.id,
-        mealId: meal.id,
-        quantity: 1
-      })
-    }
-  }
+  //   if (diaryLogMeal) {
+  //     diaryLogMeal.quantity++;
+  //     await diaryLogMeal.save();
+  //   } else {
+  //     await DiaryLogMeal.create({
+  //       diaryLogId: newDiaryLog.id,
+  //       mealId: meal.id,
+  //       quantity: 1
+  //     })
+  //   }
+  // }
   return res.json(newDiaryLog)
 })
 

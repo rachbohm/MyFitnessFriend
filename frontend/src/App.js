@@ -10,6 +10,7 @@ import MyMealList from "./components/Meals/MyMealList";
 import FoodDiary from "./components/FoodDiary/FoodDiary";
 import RememberMeal from "./components/FoodDiary/RememberMeal";
 import EditMeal from "./components/Meals/EditMeal";
+import NewLog from "./components/FoodDiary/NewLog";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -39,6 +40,9 @@ function App() {
           </Route>
           <Route path="/food/new">
             <CreateFoodPage />
+          </Route>
+          <Route path="/food/diary/new">
+            <NewLog />
           </Route>
           <Route path="/food/diary">
             <FoodDiary />

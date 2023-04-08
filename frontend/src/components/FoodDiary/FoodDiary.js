@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadDiaryLogsThunk } from '../../store/diarylogs';
 import './FoodDiary.css';
@@ -7,8 +7,11 @@ import './FoodDiary.css';
 const FoodDiary = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const { logDate = new Date() } = location.state || {};
+
+  const [selectedDate, setSelectedDate] = useState(logDate ? logDate : new Date());
 
   useEffect(() => {
     dispatch(loadDiaryLogsThunk())
@@ -17,6 +20,7 @@ const FoodDiary = () => {
 
   const diaryLogs = useSelector((state) => state.diaryLogState);
   const diaryLogsArr = Object.values(diaryLogs).filter(diaryLog => new Date(diaryLog.logDate).toISOString().slice(0, 10) === selectedDate.toISOString().slice(0, 10));
+  console.log('diaryLogsArr', diaryLogsArr)
 
   const sessionUser = useSelector(state => state.session.user);
   if (!sessionUser) {
@@ -103,8 +107,8 @@ const FoodDiary = () => {
             })}>Remember Meal</button>
            <button className="add-food-button"
             onClick={() => history.push({
-              pathname: '/log/new',
-              state: { logName: diaryLog.logName, logDate: selectedDate }
+              pathname: '/food/diary/add',
+              state: { diaryLog }
             })}>Add Food</button>
         </div>
       );
@@ -115,7 +119,7 @@ const FoodDiary = () => {
           <p>Not Logged Yet</p>
           <button className="add-log-button"
             onClick={() => history.push({
-              pathname: '/log/new',
+              pathname: '/food/diary/new',
               state: { logName: logName, logDate: selectedDate }
             })}>Add Food</button>
         </div>

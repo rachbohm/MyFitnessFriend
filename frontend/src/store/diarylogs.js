@@ -44,14 +44,14 @@ const diaryLogsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case LOAD_DIARY_LOGS:
-      newState = { ...state };
+      newState = {  };
       action.diaryLogs.forEach((diaryLog) => {
         newState[diaryLog.id] = diaryLog;
       })
       return newState;
     case ADD_DIARY_LOG:
-      newState = { ...state };
-      newState[action.diaryLog.id] = action.diaryLog;
+      newState = {  };
+      // newState[action.diaryLog.id] = action.diaryLog;
       return newState;
     default:
       return state;

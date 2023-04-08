@@ -55,7 +55,8 @@ module.exports = (sequelize, DataTypes) => {
       lastName: {
         type: DataTypes.STRING,
         allowNull: false
-      }
+      },
+      
     },
     {
       sequelize,
