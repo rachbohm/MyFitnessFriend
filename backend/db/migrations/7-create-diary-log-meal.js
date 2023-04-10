@@ -47,6 +47,7 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('DiaryLogMeals');
+    options.tableName = "DiaryLogMeals"
+    return queryInterface.dropTable(options);
   }
 };
