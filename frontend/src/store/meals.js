@@ -93,7 +93,7 @@ const mealReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case LOAD_MEALS:
-      newState = { ...state };
+      newState = {  };
       action.meals.forEach((meal) => {
         newState[meal.id] = meal;
       })

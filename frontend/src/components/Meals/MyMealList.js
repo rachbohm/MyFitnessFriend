@@ -10,9 +10,13 @@ const MyMealList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(loadMyMealsThunk());
+    dispatch(loadMyMealsThunk())
+    .then(() => {
+      setIsLoaded(true)
+    })
   }, [dispatch]);
 
   const [selectedMeal, setSelectedMeal] = useState(null);
@@ -29,7 +33,7 @@ const MyMealList = () => {
     setSelectedMeal(meal);
   };
 
-  return (
+  return isLoaded && (
     <div className="meal-list-container">
       <div>
         <h2>Your Personal Meals</h2>
