@@ -3,9 +3,10 @@
 }
 
 .meal-list-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 50px;
+  margin-left: 100px;
 }
 
 .meal-list {
@@ -14,6 +15,15 @@
   width: auto;
 }
 
-.meal-card-container {
-  width: auto;
+/* .meal-card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+} */
+
+.add-text{
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  margin: 50px;
+  border-radius: 10pt;
 }

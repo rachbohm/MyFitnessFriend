@@ -36,6 +36,7 @@ const MyMealList = () => {
   return isLoaded && (
     <div className="meal-list-container">
       <div>
+        <p className="add-text">To create a new meal, navigate to Food Diary and click "Add Food". Add the foods to the log. After the diary log is created, click "Remember Meal" to save it to your personal meals.</p>
         <h2>Your Personal Meals</h2>
         <div className="meal-list">
           {mealsArr.map((meal) => (

@@ -31,36 +31,39 @@ function LoginFormPage() {
   }
 
   return (
-    <div>
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
-      <label>
-        Username or Email
-        <input
-          type="text"
-          value={credential}
-          onChange={(e) => setCredential(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
-    <form onSubmit={handleSubmitDemo}>
-    <button>
-      Demo Login
-    </button>
-  </form>
+    <div className="login-form-container">
+      <form onSubmit={handleSubmit} className="login-form">
+        <h1 className="login-form-title">Log In</h1>
+        <ul className="login-form-errors">
+          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </ul>
+        <div className="login-form-input-group">
+          <label htmlFor="username-email">Username or Email</label>
+          <input
+            id="username-email"
+            type="text"
+            value={credential}
+            onChange={(e) => setCredential(e.target.value)}
+            required
+          />
+        </div>
+        <div className="login-form-input-group">
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="login-form-submit">Log In</button>
+      {/* <form onSubmit={handleSubmitDemo} className="demo-form"> */}
+          <button onClick={handleSubmitDemo} className="demo-form-button">
+          Demo Login
+        </button>
+      {/* </form> */}
+      </form>
     </div>
   );
 }

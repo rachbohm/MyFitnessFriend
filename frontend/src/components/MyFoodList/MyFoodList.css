@@ -1,8 +1,7 @@
 .create-button {
-  display: flex;
-  justify-content: end;
+  display: block;
   margin: 20px auto 0;
-  background-color: #4caf50;
+  background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 5px;
@@ -11,19 +10,37 @@
   cursor: pointer;
 }
 
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .edit-button{
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   font-size: 10pt;
   cursor: pointer;
+  margin: 10px;
+}
+
+.delete-button{
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  font-size: 10pt;
+  cursor: pointer;
+  margin: 10px;
 }
 
 .food-details table {
   border-collapse: collapse;
-  width: 100%;
+  width: auto;
   margin-top: 10px;
 }
 
@@ -44,5 +61,21 @@
 }
 
 ul {
-  list-style-type: none
+  list-style-type: none;
+}
+
+.food-name-li{
+  text-transform: capitalize;
+  margin: 20px;
+}
+
+.food-name {
+  text-transform: capitalize;
+}
+
+.food-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  margin-top: 100px;
+  justify-content: space-around;
 }

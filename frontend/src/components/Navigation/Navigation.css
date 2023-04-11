@@ -1,38 +1,54 @@
 .nav-bar-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  height: 64px;
+  min-height: 64px;
   background-color: #00a652;
   color: #fff;
-  padding: 0 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  box-shadow: 5px 5px black;
+  box-sizing: border-box;
 }
 
 .nav-bar-container li {
-  margin-right: 20px;
   list-style: none;
 }
 
-.nav-bar-container li:first-child {
-  font-size: 24px;
-  font-weight: bold;
-  text-transform: uppercase;
+.left-side {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
 }
 
-.nav-bar-container li a {
+.left-side a {
   color: #fff;
   text-decoration: none;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 0 30px;
+  box-sizing: border-box;
+}
+
+.session-links a{
+  color: #fff;
   font-size: 16px;
-  font-weight: bold;
+  box-sizing: border-box;
   margin-right: 20px;
 }
 
-.nav-bar-container li a:hover {
-  text-decoration: underline;
+.logo i{
+  font-size:40px;
+  margin-right: 20px;
 }
 
-.nav-bar-container li:last-child {
-  margin-left: auto;
+.logo{
+  display: flex;
+  align-items: center;
+}
+
+.nav-bar-container li a:hover {
+  background-color: gray;
+  box-sizing: border-box;
 }
 
 .profile-button {
@@ -47,5 +63,5 @@
 }
 
 .profile-button:hover {
-  background-color: #f5f5f5;
+  box-shadow: 5px 5px black;
 }

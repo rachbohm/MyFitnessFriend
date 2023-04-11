@@ -35,19 +35,23 @@ const MyFoodList = () => {
   };
 
   return (
-    <ul>
+    <ul className="food-container">
+      <div className="heading">
       <h2>Your Personal Foods</h2>
       <button className="create-button" onClick={() => history.push('/food/new')}>Create Food</button>
+      </div>
+      <ul className="food-list">
       {foodsArr.map((food) => (
-        <li key={food.id}>
+        <li className="food-name-li" key={food.id}>
           <a href="#" onClick={() => openDetails(food)}>{food.foodName}</a>
         </li>
       ))}
+      </ul>
       {showDetails !== null && (
         <ul className="food-details">
           <button className="edit-button" onClick={() => history.push(`/food/edit/${showDetails.id}`)}>Edit Food</button>
           <button className="delete-button" onClick={() => deleteHandler(showDetails)}>Delete Food</button>
-          <h3>{showDetails.foodName}</h3>
+          <h3 className="food-name">{showDetails.foodName}</h3>
           <table>
             <tbody>
               <tr>
