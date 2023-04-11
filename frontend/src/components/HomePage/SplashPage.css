@@ -12,6 +12,7 @@
 .splash-page p,
 .splash-page h1 {
   background-color: white;
-  margin: none;
   padding: 20px;
+  width: auto;
+  box-sizing: border-box
 }

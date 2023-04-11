@@ -1,4 +1,5 @@
 import './SplashPage.css';
+import Footer from '../Footer/Footer';
 
 const SplashPage = () => {
   return (
@@ -22,6 +23,7 @@ const SplashPage = () => {
         believe MyFitnessFriend can help you achieve your goals. Sign up today
         and start tracking your macronutrients!
       </p>
+      <Footer />
     </div>
   );
 };
