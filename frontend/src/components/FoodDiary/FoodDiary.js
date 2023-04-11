@@ -38,7 +38,7 @@ const FoodDiary = () => {
       const rows = [];
       return (
         <div key={diaryLog.id} className='diary-log-container'>
-          <h3>{diaryLog.logName} {diaryLog.logDate.slice(0, 10)}</h3>
+          <h3>{diaryLog.logName}</h3>
 
           {diaryLog.Food.forEach((food) => {
             for (let i = 0; i < food.DiaryLogFood.quantity; i++) {
@@ -114,7 +114,7 @@ const FoodDiary = () => {
     } else {
       return (
         <div key={logName} className='diary-log-container'>
-          <h3>{logName} {selectedDate.toISOString().slice(0, 10)}</h3>
+          <h3>{logName}</h3>
           <p>Not Logged Yet</p>
           <button className="add-log-button"
             onClick={() => history.push({
@@ -128,7 +128,7 @@ const FoodDiary = () => {
 
 
   return isLoaded && (
-    <div>
+    <div className="container-container">
       <input type="date" value={selectedDate.toISOString().slice(0, 10)} onChange={(e) => setSelectedDate(new Date(e.target.value))} />
       {diaryLogsToRender}
     </div>

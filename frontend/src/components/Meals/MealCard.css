@@ -21,4 +21,31 @@
   border: 1px solid #ddd;
 }
 
+.meal-card-container h3{
+  text-transform: capitalize;
+  border: 2px solid black;
+  padding: 10px;
+  background-color: navy;
+  color: white;
+  font-weight: normal;
+}
 
+.edit-meal-button {
+  display: block;
+  width: 110px;
+  margin: 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block
+}
+
+.meal-card-container {
+  display: flex;
+  flex-direction: column;
+
+}

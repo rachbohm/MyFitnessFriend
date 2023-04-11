@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { loadMealFoodsThunk } from '../../store/mealFoods';
 import { loadMyMealsThunk, editMealThunk, removeFoodFromMealThunk, removeMealThunk } from '../../store/meals';
+import "./EditMeal.css"
 
 const EditMeal = () => {
   const sessionUser = useSelector(state => state.session.user);
@@ -106,14 +107,14 @@ const EditMeal = () => {
       })}
       {isLoaded && meal && (
         <form className="edit-meal-form" onSubmit={handleSubmit}>
-          <div>
+          <div className="top-options">
             <input
               type="text"
               value={mealName}
               onChange={(e) => setMealName(e.target.value)}
             />
-            <button type="submit">Save</button>
-            <button type="button" onClick={(e) => handleDeleteMeal(e, mealId)}>Delete Meal</button>
+            <button className="submit-edit-button" type="submit">Save</button>
+            <button className="delete-edit-button" type="button" onClick={(e) => handleDeleteMeal(e, mealId)}>Delete Meal</button>
           </div>
           <table className="meal-table">
             <thead>
@@ -138,7 +139,7 @@ const EditMeal = () => {
                     <td>{food.fat}g</td>
                     <td>{food.protein}g</td>
                     <td>{food.servingSizeNum} {food.servingSizeUnit}</td>
-                    <td><button type="button" onClick={(e) => handleRemoveFood(e, food.id, food.foodName)}>Remove</button></td>
+                    <td><button type="button" className="remove-button" onClick={(e) => handleRemoveFood(e, food.id, food.foodName)}>Remove</button></td>
                   </tr>
                 );
                 return rows;

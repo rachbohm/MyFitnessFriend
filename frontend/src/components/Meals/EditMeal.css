@@ -1,0 +1,47 @@
+.edit-meal-form {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.top-options {
+  margin: 20px;
+  display: flex;
+  justify-content: start;
+}
+
+.top-options input {
+  width: 200px;
+}
+
+.submit-edit-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  font-size: 10pt;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.delete-edit-button {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  font-size: 10pt;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.remove-button {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 10pt;
+  cursor: pointer;
+}

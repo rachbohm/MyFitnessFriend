@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
@@ -12,16 +12,20 @@ import RememberMeal from "./components/FoodDiary/RememberMeal";
 import EditMeal from "./components/Meals/EditMeal";
 import NewLog from "./components/FoodDiary/NewLog";
 import HomePage from "./components/HomePage/HomePage";
+import SplashPage from "./components/HomePage/SplashPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector(state => state.session.user)
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
+
 
   return (
     <>
@@ -74,10 +78,8 @@ function App() {
               <RememberMeal />
             </ProtectedRoute>
           </Route>
-          <Route path="">
-            <ProtectedRoute>
-              <HomePage />
-            </ProtectedRoute>
+          <Route exact path="/">
+            {sessionUser ? <HomePage /> : <SplashPage />}
           </Route>
         </Switch>
       )}

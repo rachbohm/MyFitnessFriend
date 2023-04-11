@@ -15,15 +15,19 @@
   width: auto;
 }
 
-/* .meal-card-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
-} */
+.meal-list li a {
+  text-transform: capitalize;
+}
+
+.meal-card-container {
+  margin: 20px;
+}
 
 .add-text{
   background-color: blue;
   color: white;
   padding: 10px;
-  margin: 50px;
+  margin-right: 20px;
   border-radius: 10pt;
+  width: 500px;
 }

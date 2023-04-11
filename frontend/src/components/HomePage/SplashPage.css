@@ -1,0 +1,17 @@
+.splash-page {
+  background-image: url("https://i.insider.com/62de9331bd18c30019d1a729?width=700");
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.splash-page p,
+.splash-page h1 {
+  background-color: white;
+  margin: none;
+  padding: 20px;
+}
