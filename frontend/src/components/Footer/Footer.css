@@ -1,21 +1,8 @@
-footer{
+.footer{
   background-color: #e7e5e595;
 }
 
-.footer-title{
-  display: flex;
-  justify-content: center;
-  padding-top: 30px;
-  font-size: 15px;
-}
-
-ul {
-  list-style-type: none;
-  display: flex;
-  flex-direction: row;
-}
-
-li {
+.footer li {
   padding: 2px;
   margin: 2px;
   display: flex;
@@ -23,7 +10,6 @@ li {
   justify-content: center;
 }
 
-a{
+.footer a{
   margin: 10px;
 }
-
