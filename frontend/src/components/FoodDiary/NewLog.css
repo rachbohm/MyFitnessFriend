@@ -1,0 +1,53 @@
+.new-diary-log-food-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  margin: auto;
+  padding: 20px;
+}
+
+.new-diary-log-food-container h2 {
+  border: 1px solid black;
+  width: fit-content;
+  padding: 10px;
+  background-color: blue;
+  color: white;
+  font-weight: normal;
+}
+
+.new-diary-log-food-container form div{
+  margin: 0px;
+  padding: 20px;
+  border: 1px dashed blue;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 600px;
+}
+
+/* .new-diary-log-food-container label{
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+
+} */
+
+.new-diary-log-food-container button {
+  margin: 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 200px;
+}
+
+.new-diary-log-food-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

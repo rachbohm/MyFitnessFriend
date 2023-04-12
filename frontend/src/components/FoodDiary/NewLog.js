@@ -5,6 +5,7 @@ import { loadDiaryLogsThunk, createDiaryLogThunk } from '../../store/diarylogs';
 import { loadMyFoodsThunk } from '../../store/foods';
 import { loadMealFoodsThunk } from '../../store/mealFoods';
 import { loadMyMealsThunk } from '../../store/meals';
+import './NewLog.css';
 
 
 const NewLog = () => {
@@ -15,6 +16,7 @@ const NewLog = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [foodQuantities, setFoodQuantities] = useState({});
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
   useEffect(() => {
     dispatch(loadMyFoodsThunk())
@@ -37,11 +39,13 @@ const NewLog = () => {
     if (isChecked) {
       setSelectedFoods([...selectedFoods, food]);
       setFoodQuantities({ ...foodQuantities, [food.id]: 1 });
+      setIsCheckboxChecked(true);
     } else {
       setSelectedFoods(selectedFoods.filter(f => f.id !== food.id));
       const newQuantities = { ...foodQuantities };
       delete newQuantities[food.id];
       setFoodQuantities(newQuantities);
+      setIsCheckboxChecked(selectedFoods.length>1)
     }
   };
 
@@ -53,6 +57,10 @@ const NewLog = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (selectedFoods.length === 0 || !isCheckboxChecked) {
+      window.alert("Please select at least one food.");
+      return;
+    }
     const foodsToAdd = selectedFoods.flatMap((food) => {
       const quantity = foodQuantities[food.id];
       if (!quantity) return [];

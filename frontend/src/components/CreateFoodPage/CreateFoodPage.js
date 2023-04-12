@@ -79,6 +79,7 @@ const CreateFoodPage = () => {
                   value={calories}
                   onChange={(e) => setCalories(e.target.value)}
                   required
+                  min="0"
                 />
               </td>
             </tr>
@@ -91,6 +92,7 @@ const CreateFoodPage = () => {
                   value={carbohydrates}
                   onChange={(e) => setCarbohydrates(e.target.value)}
                   required
+                  min="0"
                 />
               </td>
             </tr>
@@ -103,6 +105,7 @@ const CreateFoodPage = () => {
                   value={fat}
                   onChange={(e) => setFat(e.target.value)}
                   required
+                  min="0"
                 />
               </td>
             </tr>
@@ -115,6 +118,7 @@ const CreateFoodPage = () => {
                   value={protein}
                   onChange={(e) => setProtein(e.target.value)}
                   required
+                  min="0"
                 />
               </td>
             </tr>
@@ -127,6 +131,7 @@ const CreateFoodPage = () => {
                   value={servingSizeNum}
                   onChange={(e) => setServingSizeNum(e.target.value)}
                   required
+                  min="0"
                 />
               </td>
             </tr>
@@ -151,6 +156,7 @@ const CreateFoodPage = () => {
                   value={servingsPerContainer}
                   onChange={(e) => setServingsPerContainer(e.target.value)}
                   required
+                  min="0"
                 />
               </td>
             </tr>

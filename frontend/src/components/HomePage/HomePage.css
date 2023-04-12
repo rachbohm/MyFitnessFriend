@@ -1,6 +1,4 @@
-img {
-  height: 150px;
-}
+
 
 .abs-container{
   width: auto;
@@ -21,6 +19,11 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: start;
+  background-image: url("https://blog.insidetracker.com/hs-fs/hubfs/healthy%20beans%20lentils%20legumes.jpg?width=840&name=healthy%20beans%20lentils%20legumes.jpg");
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  background-attachment: fixed;
 }
 
 .welcome-back {

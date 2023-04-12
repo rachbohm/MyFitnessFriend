@@ -78,4 +78,14 @@ ul {
   grid-template-columns: 1fr 1fr 2fr;
   margin-top: 100px;
   justify-content: space-around;
+  background-color: white;
+  padding: 40px;
+}
+
+body{
+  background-image: url("https://blog.insidetracker.com/hs-fs/hubfs/healthy%20beans%20lentils%20legumes.jpg?width=840&name=healthy%20beans%20lentils%20legumes.jpg");
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  background-attachment: fixed;
 }

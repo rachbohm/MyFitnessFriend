@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createMealThunk } from '../../store/meals';
+import './RememberMeal.css';
+
 
 
 const RememberMeal = () => {
@@ -31,16 +33,17 @@ const RememberMeal = () => {
   }
 
   return (
-    <div>
+    <div className="create-meal-container">
 
       <form className="create-meal-form" onSubmit={handleSubmit}>
-        <label>Name this meal </label>
+        <label>Remembering Meal From {diaryLog.logName} on {diaryLog.logDate.slice(0,10)}  </label>
         <input
           type="text"
           value={mealName}
+          placeholder="Enter name here"
           onChange={(e) => setMealName(e.target.value)}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" className="submit-edit-button">Submit</button>
       </form>
       <div key={diaryLog.id} className='diary-log-container'>
         <h3>Items in this Meal</h3>

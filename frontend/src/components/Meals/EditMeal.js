@@ -101,7 +101,7 @@ const EditMeal = () => {
   })
 
   return (
-    <div>
+    <div className="edit-meal-container">
       {errors.length > 0 && errors.map((error, i) => {
         return <div key={i}>{error}</div>
       })}

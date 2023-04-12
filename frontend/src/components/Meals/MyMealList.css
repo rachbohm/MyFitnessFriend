@@ -5,8 +5,10 @@
 .meal-list-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  margin-top: 50px;
-  margin-left: 100px;
+  margin: 100px;
+  padding: 50px;
+  background-color: white;
+
 }
 
 .meal-list {
