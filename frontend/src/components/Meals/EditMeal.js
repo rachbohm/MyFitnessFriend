@@ -108,7 +108,8 @@ const EditMeal = () => {
       {isLoaded && meal && (
         <form className="edit-meal-form" onSubmit={handleSubmit}>
           <div className="top-options">
-            <input
+            <label className="edit-meal-label">Meal Name </label>
+            <input className="edit-meal-input"
               type="text"
               value={mealName}
               onChange={(e) => setMealName(e.target.value)}

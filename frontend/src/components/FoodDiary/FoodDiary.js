@@ -129,7 +129,9 @@ const FoodDiary = () => {
 
   return isLoaded && (
     <div className="container-container">
-      <input type="date" value={selectedDate.toISOString().slice(0, 10)} onChange={(e) => setSelectedDate(new Date(e.target.value))} />
+      <input type="date"
+        value={selectedDate.toISOString().slice(0, 10)}
+        onChange={(e) => setSelectedDate(new Date(e.target.value))} />
       {diaryLogsToRender}
     </div>
   )

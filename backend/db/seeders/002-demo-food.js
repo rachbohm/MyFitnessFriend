@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const foodSeeds = [
   {
-    id: 1,
+    // id: 1,
     foodName: 'Bagel',
     userId: 1,
     calories: 260,
@@ -18,7 +18,7 @@ const foodSeeds = [
     servingsPerContainer: 5
   },
   {
-    id: 2,
+    // id: 2,
     foodName: 'Chocolate',
     userId: 1,
     calories: 160,
@@ -30,7 +30,7 @@ const foodSeeds = [
     servingsPerContainer: 3
   },
   {
-    id: 3,
+    // id: 3,
     foodName: 'Avocado',
     userId: 1,
     calories: 240,
@@ -42,7 +42,7 @@ const foodSeeds = [
     servingsPerContainer: 1
   },
   {
-    id: 4,
+    // id: 4,
     foodName: 'Super firm tofu',
     userId: 1,
     calories: 130,
@@ -54,7 +54,7 @@ const foodSeeds = [
     servingsPerContainer: 5
   },
   {
-    id: 5,
+    // id: 5,
     foodName: 'Chickpeas, boiled',
     userId: 2,
     calories: 164,

@@ -12,12 +12,25 @@
   background-color: white;
   margin: auto;
   padding: 50px;
+  display: flex;
 }
 
 .create-meal-form {
   display: flex;
+  flex-direction: column;
+  width: fit-content;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+}
+
+.text-box {
+  height: 30px;
+  margin: 10px;
+  font-size: 14pt;
+}
+
+.create-meal-form .input-and-button{
+  display: flex;
   margin: 50px;
+  justify-content: center;
 }
