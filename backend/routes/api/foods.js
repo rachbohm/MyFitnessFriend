@@ -48,7 +48,9 @@ const validateFood = [
   check('servingSizeUnit')
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Serving size (unit) is required'),
+    .withMessage('Serving size (unit) is required')
+    .matches(/^[a-zA-Z]+$/)
+    .withMessage('Serving size (unit) must contain only letters'),
   check('servingsPerContainer')
     .exists({ checkFalsy: true })
     .notEmpty()
@@ -75,7 +77,7 @@ router.post('/', requireAuth, validateFood, async (req, res, next) => {
 })
 
 //edit a food
-router.put('/:foodId', requireAuth, async (req, res, next) => {
+router.put('/:foodId', requireAuth, validateFood, async (req, res, next) => {
   const { foodId } = req.params;
   const { foodName, calories, carbohydrates, protein, fat, servingSizeNum, servingSizeUnit, servingsPerContainer } = req.body;
   const userId = req.user.id;

@@ -1,7 +1,8 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD_DIARY_LOGS = "diaryLogs/LOAD_DIARY_LOGS";
-const ADD_DIARY_LOG = "diaryLogs/ADD_DIARY_LOG";
+const NEW_DIARY_LOG = "diaryLogs/NEW_DIARY_LOG";
+const EDIT_DIARY_LOG = "diaryLogs/EDIT_DIARY_LOG";
 
 //ACTIONS
 const loadDiaryLogsAction = (diaryLogs) => ({
@@ -9,8 +10,13 @@ const loadDiaryLogsAction = (diaryLogs) => ({
   diaryLogs
 });
 
-const addDiaryLogAction = (diaryLog) => ({
-  type: ADD_DIARY_LOG,
+const newDiaryLogAction = (diaryLog) => ({
+  type: NEW_DIARY_LOG,
+  diaryLog
+});
+
+const editDiaryLogAction = (diaryLog) => ({
+  type: EDIT_DIARY_LOG,
   diaryLog
 })
 
@@ -24,7 +30,7 @@ export const loadDiaryLogsThunk = () => async dispatch => {
   }
 };
 
-export const createDiaryLogThunk = (payload) => async (dispatch) => {
+export const newDiaryLogThunk = (payload) => async (dispatch) => {
   const res = await csrfFetch('/api/diaryLogs', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -33,10 +39,23 @@ export const createDiaryLogThunk = (payload) => async (dispatch) => {
 
   if (res.ok) {
     const diaryLog = await res.json();
-    dispatch(addDiaryLogAction(diaryLog));
+    dispatch(newDiaryLogAction(diaryLog));
     return diaryLog;
   }
   return res;
+};
+
+export const editDiaryLogThunk = (payload, id) => async (dispatch) => {
+  const res = await csrfFetch(`/api/diaryLogs/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  if (res.ok) {
+    const diaryLog = await res.json();
+    dispatch(editDiaryLogAction(diaryLog))
+  }
 }
 
 const initialState = {}
@@ -49,9 +68,13 @@ const diaryLogsReducer = (state = initialState, action) => {
         newState[diaryLog.id] = diaryLog;
       })
       return newState;
-    case ADD_DIARY_LOG:
+    case NEW_DIARY_LOG:
       newState = {  };
       // newState[action.diaryLog.id] = action.diaryLog;
+      return newState;
+    case EDIT_DIARY_LOG:
+      newState = { ...state };
+      newState[action.diaryLog.id] = action.diaryLog;
       return newState;
     default:
       return state;

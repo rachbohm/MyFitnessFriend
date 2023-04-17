@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadDiaryLogsThunk, newDiaryLogThunk } from '../../store/diarylogs';
+import { loadDiaryLogsThunk, editDiaryLogThunk } from '../../store/diarylogs';
 import { loadMyFoodsThunk } from '../../store/foods';
 import { loadMealFoodsThunk } from '../../store/mealFoods';
 import { loadMyMealsThunk } from '../../store/meals';
 import './NewLog.css';
 
 
-const NewLog = () => {
+const AddLog = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
-  const { logName, logDate } = location.state;
+  const { diaryLog } = location.state;
   const [isLoaded, setIsLoaded] = useState(false);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [foodQuantities, setFoodQuantities] = useState({});
@@ -67,11 +67,11 @@ const NewLog = () => {
       return Array.from({length: quantity}, () => food);
     });
     if (window.confirm('Please confirm form submission')) {
-      await dispatch(newDiaryLogThunk({logName, logDate, foods: foodsToAdd}))
+      await dispatch(editDiaryLogThunk({diaryLog, foods: foodsToAdd}))
         .then(() => {
           history.push({
             pathname: '/food/diary',
-            state: { logDate: logDate }
+            state: { diaryLog }
           });
         });
     }
@@ -80,7 +80,7 @@ const NewLog = () => {
   return (
     isLoaded && (
       <div className="new-diary-log-food-container">
-        <h2>Add Food To {logName} on {logDate.toISOString().slice(0, 10)}</h2>
+        <h2>Add Food To {diaryLog.logName} on {diaryLog.logDate.slice(0,10)}</h2>
         <form onSubmit={handleSubmit}>
           {foodsArr.map((food) => (
             <div key={food.id}>
@@ -118,4 +118,4 @@ const NewLog = () => {
   );
 };
 
-export default NewLog;
+export default AddLog;

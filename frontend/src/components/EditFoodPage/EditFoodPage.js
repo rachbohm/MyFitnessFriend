@@ -83,7 +83,7 @@ const EditFoodPage = () => {
      <div>
       <form className="add-food-form" onSubmit={handleSubmit}>
         {errors.length > 0 && errors.map((error, i) => {
-          return <div key={i}>{error}</div>
+          return <div className="create-food-form-errors" key={i}>{error}</div>
         })}
         <h3>Edit Food</h3>
         <table>

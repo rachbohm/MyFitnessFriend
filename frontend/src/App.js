@@ -13,6 +13,7 @@ import EditMeal from "./components/Meals/EditMeal";
 import NewLog from "./components/FoodDiary/NewLog";
 import HomePage from "./components/HomePage/HomePage";
 import SplashPage from "./components/HomePage/SplashPage";
+import AddLog from "./components/FoodDiary/AddLog";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -56,6 +57,11 @@ function App() {
           <Route exact path="/food/diary/new">
             <ProtectedRoute>
               <NewLog />
+            </ProtectedRoute>
+          </Route>
+          <Route exact path="/food/diary/:diaryLogId/add">
+            <ProtectedRoute>
+              <AddLog />
             </ProtectedRoute>
           </Route>
           <Route exact path="/food/diary">

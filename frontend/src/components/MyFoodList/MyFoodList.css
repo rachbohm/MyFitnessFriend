@@ -76,7 +76,7 @@ ul {
 .food-container {
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
-  margin-top: 100px;
+  margin: 100px;
   justify-content: space-around;
   background-color: white;
   padding: 40px;

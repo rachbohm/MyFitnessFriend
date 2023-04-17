@@ -94,6 +94,43 @@ router.post('/', async (req, res, next) => {
   //   }
   // }
   return res.json(newDiaryLog)
+});
+
+//Add food to an existing diaryLog
+router.put('/:diaryLogId', requireAuth, async (req, res, next) => {
+  const { diaryLog, foods } = req.body;
+  const { user } = req;
+
+  const targetDiaryLog = await DiaryLog.findByPk(diaryLog.id);
+
+  if (diaryLog.userId === user.id) {
+
+    for (const food of foods) {
+      const diaryLogFood = await DiaryLogFood.findOne({
+        where: {
+          diaryLogId: diaryLog.id,
+          foodId: food.id
+        }
+      });
+
+      if (diaryLogFood) {
+        diaryLogFood.quantity++;
+        await diaryLogFood.save();
+      } else {
+        await DiaryLogFood.create({
+          diaryLogId: diaryLog.id,
+          foodId: food.id,
+          quantity: 1
+        })
+      }
+    }
+    return res.json(targetDiaryLog)
+  } else {
+    const err = new Error("Unauthorized")
+    err.status = 403;
+    err.errors = ['Current user is unauthorized']
+    return next(err)
+  }
 })
 
 module.exports = router;

@@ -10,7 +10,7 @@
 
 .create-meal-container {
   background-color: white;
-  margin: auto;
+  margin: 100px;
   padding: 50px;
   display: flex;
 }

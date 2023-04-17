@@ -36,10 +36,10 @@ const FoodDiary = () => {
       let totalFat = 0;
       let totalProtein = 0;
       const rows = [];
-      return (
+      return isLoaded && (
         <div key={diaryLog.id} className='diary-log-container'>
           <h3>{diaryLog.logName}</h3>
-
+          {console.log('diaryLog is', diaryLog)}
           {diaryLog.Food.forEach((food) => {
             for (let i = 0; i < food.DiaryLogFood.quantity; i++) {
               totalCalories += food.calories;
@@ -104,11 +104,11 @@ const FoodDiary = () => {
               pathname: '/meal/new',
               state: { diaryLog }
             })}>Remember Meal</button>
-           {/* <button className="add-food-button"
+           <button className="add-log-button"
             onClick={() => history.push({
-              pathname: '/food/diary/add',
+              pathname: `/food/diary/${diaryLog.id}/add`,
               state: { diaryLog }
-            })}>Add Food</button> */}
+            })}>Add Food</button>
         </div>
       );
     } else {
