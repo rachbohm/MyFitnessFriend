@@ -18,7 +18,7 @@ const newDiaryLogAction = (diaryLog) => ({
 const editDiaryLogAction = (diaryLog) => ({
   type: EDIT_DIARY_LOG,
   diaryLog
-})
+});
 
 //THUNKS
 export const loadDiaryLogsThunk = () => async dispatch => {
@@ -56,7 +56,19 @@ export const editDiaryLogThunk = (payload, id) => async (dispatch) => {
     const diaryLog = await res.json();
     dispatch(editDiaryLogAction(diaryLog))
   }
-}
+};
+
+export const removeFoodFromDiaryLogThunk = (diaryLogId, foodId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/diaryLogs/${diaryLogId}/foods/${foodId}`, {
+    method: "DELETE",
+  });
+
+  if (res.ok) {
+    const diaryLog = await res.json();
+    dispatch(editDiaryLogAction(diaryLog))
+  }
+};
+
 
 const initialState = {}
 const diaryLogsReducer = (state = initialState, action) => {
@@ -73,8 +85,9 @@ const diaryLogsReducer = (state = initialState, action) => {
       // newState[action.diaryLog.id] = action.diaryLog;
       return newState;
     case EDIT_DIARY_LOG:
-      newState = { ...state };
-      newState[action.diaryLog.id] = action.diaryLog;
+      newState = {};
+      // newState = { ...state };
+      // newState[action.diaryLog.id] = action.diaryLog;
       return newState;
     default:
       return state;

@@ -43,7 +43,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
   return res.json(diaryLogs)
 });
 
-//Create a new diaryLog with multiple food and/or meal items
+//Create a new diaryLog with multiple food items
 router.post('/', async (req, res, next) => {
   const { logName, logDate, foods } = req.body;
   const { user } = req;
@@ -131,6 +131,28 @@ router.put('/:diaryLogId', requireAuth, async (req, res, next) => {
     err.errors = ['Current user is unauthorized']
     return next(err)
   }
-})
+});
+
+//remove a food from a diaryLog
+router.delete('/:diaryLogId/foods/:foodId', requireAuth, async (req, res, next) => {
+  const { diaryLogId, foodId } = req.params;
+  const userId = req.user.id;
+
+  const targetDiaryLog = await DiaryLog.findByPk(diaryLogId);
+
+  const diaryLogFood = await DiaryLogFood.findOne({
+    where: { diaryLogId, foodId }
+  });
+
+  if (diaryLogFood.quantity > 1) {
+    diaryLogFood.quantity--;
+    await diaryLogFood.save();
+  } else {
+    await diaryLogFood.destroy();
+  }
+
+  const updatedDiaryLog = await DiaryLog.findByPk(diaryLogId);
+  return res.json(updatedDiaryLog);
+});
 
 module.exports = router;

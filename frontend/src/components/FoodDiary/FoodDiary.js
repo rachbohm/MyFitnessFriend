@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadDiaryLogsThunk } from '../../store/diarylogs';
+import { loadDiaryLogsThunk, removeFoodFromDiaryLogThunk } from '../../store/diarylogs';
 import './FoodDiary.css';
 
 const FoodDiary = () => {
@@ -10,6 +10,7 @@ const FoodDiary = () => {
   const location = useLocation();
   const [isLoaded, setIsLoaded] = useState(false);
   const { logDate = new Date() } = location.state || {};
+  const [edited, setEdited] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(logDate ? logDate : new Date());
 
@@ -28,6 +29,17 @@ const FoodDiary = () => {
 
   const logNames = ["Breakfast", "Lunch", "Dinner"];
 
+  const handleRemoveFood = async (e, foodId, foodName, logName, diaryLogId) => {
+    e.preventDefault();
+    if (window.confirm(`Are you sure you want to remove ${foodName} from ${logName}?`)) {
+      dispatch(removeFoodFromDiaryLogThunk(diaryLogId, foodId))
+        .then(() => {
+          setEdited(true);
+          dispatch(loadDiaryLogsThunk());
+      })
+    }
+  }
+
   const diaryLogsToRender = logNames.map((logName) => {
     const diaryLog = diaryLogsArr.find((log) => log.logName === logName);
     if (diaryLog) {
@@ -39,7 +51,6 @@ const FoodDiary = () => {
       return isLoaded && (
         <div key={diaryLog.id} className='diary-log-container'>
           <h3>{diaryLog.logName}</h3>
-          {console.log('diaryLog is', diaryLog)}
           {diaryLog.Food.forEach((food) => {
             for (let i = 0; i < food.DiaryLogFood.quantity; i++) {
               totalCalories += food.calories;
@@ -53,6 +64,7 @@ const FoodDiary = () => {
                   <td>{food.carbohydrates}</td>
                   <td>{food.fat}</td>
                   <td>{food.protein}</td>
+                  <td><button type="button" className="remove-button" onClick={(e)=> handleRemoveFood(e, food.id, food.foodName, diaryLog.logName, diaryLog.id)}>Remove</button></td>
                 </tr>
               )
             }
@@ -72,6 +84,7 @@ const FoodDiary = () => {
                       <td>{food.carbohydrates}</td>
                       <td>{food.fat}</td>
                       <td>{food.protein}</td>
+                      {/* <td><button type="button" className="remove-button">Remove</button></td> */}
                     </tr>
                   );
                 }
