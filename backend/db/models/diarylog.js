@@ -20,10 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         models.Food,
         { through: models.DiaryLogFood, foreignKey: 'diaryLogId' }
       );
-      DiaryLog.belongsToMany(
-        models.Meal,
-        { through: models.DiaryLogMeal, foreignKey: 'diaryLogId' }
-      );
+      // DiaryLog.belongsToMany(
+      //   models.Meal,
+      //   { through: models.DiaryLogMeal, foreignKey: 'diaryLogId' }
+      // );
     }
   }
   DiaryLog.init({

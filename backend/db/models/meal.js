@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         models.User,
         { foreignKey: 'userId' }
       );
-      Meal.belongsToMany(
-        models.DiaryLog,
-        { through: models.DiaryLogMeal, foreignKey: 'mealId'}
-      );
+      // Meal.belongsToMany(
+      //   models.DiaryLog,
+      //   { through: models.DiaryLogMeal, foreignKey: 'mealId'}
+      // );
       Meal.belongsToMany(
         models.Food,
         { through: models.MealFood, foreignKey: 'mealId' }

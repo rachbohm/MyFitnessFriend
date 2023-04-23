@@ -84,31 +84,31 @@ router.post('/', async (req, res, next) => {
     }
   }
 
-  for (const meal of meals) {
-    for (let i = 0; i < meal.DiaryLogMeal.quantity; i++) {
-      for (const food of meal.Food) {
-        const mealFood = await MealFood.findOne({
-          where: {
-            mealId: newMeal.id,
-            foodId: food.id
-          }
-        });
+  // for (const meal of meals) {
+  //   for (let i = 0; i < meal.DiaryLogMeal.quantity; i++) {
+  //     for (const food of meal.Food) {
+  //       const mealFood = await MealFood.findOne({
+  //         where: {
+  //           mealId: newMeal.id,
+  //           foodId: food.id
+  //         }
+  //       });
 
-        if (mealFood) {
-          for (let j = 0; j < food.MealFood.quantity; j++){
-            mealFood.quantity++;
-          }
-          await mealFood.save();
-        } else {
-          await MealFood.create({
-            mealId: newMeal.id,
-            foodId: food.id,
-            quantity: food.MealFood.quantity
-          });
-        }
-      }
-    }
-  }
+  //       if (mealFood) {
+  //         for (let j = 0; j < food.MealFood.quantity; j++){
+  //           mealFood.quantity++;
+  //         }
+  //         await mealFood.save();
+  //       } else {
+  //         await MealFood.create({
+  //           mealId: newMeal.id,
+  //           foodId: food.id,
+  //           quantity: food.MealFood.quantity
+  //         });
+  //       }
+  //     }
+  //   }
+  // }
 
   return res.json(newMeal);
 });

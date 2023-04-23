@@ -36,7 +36,7 @@ const FoodDiary = () => {
         .then(() => {
           setEdited(true);
           dispatch(loadDiaryLogsThunk());
-      })
+        })
     }
   }
 
@@ -64,31 +64,9 @@ const FoodDiary = () => {
                   <td>{food.carbohydrates}</td>
                   <td>{food.fat}</td>
                   <td>{food.protein}</td>
-                  <td><button type="button" className="remove-button" onClick={(e)=> handleRemoveFood(e, food.id, food.foodName, diaryLog.logName, diaryLog.id)}>Remove</button></td>
+                  <td><button type="button" className="remove-button" onClick={(e) => handleRemoveFood(e, food.id, food.foodName, diaryLog.logName, diaryLog.id)}>Remove</button></td>
                 </tr>
               )
-            }
-          })}
-          {diaryLog.Meals.forEach((meal) => {
-            for (let i = 0; i < meal.DiaryLogMeal.quantity; i++) {
-              meal.Food.map((food) => {
-                for (let j = 0; j < food.MealFood.quantity; j++) {
-                  totalCalories += food.calories;
-                  totalCarbs += food.carbohydrates;
-                  totalFat += food.fat;
-                  totalProtein += food.protein;
-                  rows.push(
-                    <tr key={`meal-${meal.id}-food-${food.id}-i${i}-j${j}`}>
-                      <td>{food.foodName}</td>
-                      <td>{food.calories}</td>
-                      <td>{food.carbohydrates}</td>
-                      <td>{food.fat}</td>
-                      <td>{food.protein}</td>
-                      {/* <td><button type="button" className="remove-button">Remove</button></td> */}
-                    </tr>
-                  );
-                }
-              })
             }
           })}
           <table>
@@ -117,11 +95,16 @@ const FoodDiary = () => {
               pathname: '/meal/new',
               state: { diaryLog }
             })}>Remember Meal</button>
-           <button className="add-log-button"
+          <button className="add-log-button"
             onClick={() => history.push({
               pathname: `/food/diary/${diaryLog.id}/add`,
               state: { diaryLog }
             })}>Add Food</button>
+            <button className="add-log-button"
+            onClick={() => history.push({
+              pathname: `/meal/diary/${diaryLog.id}/add`,
+              state: { diaryLog }
+            })}>Add Meal</button>
         </div>
       );
     } else {
@@ -134,6 +117,11 @@ const FoodDiary = () => {
               pathname: '/food/diary/new',
               state: { logName: logName, logDate: selectedDate }
             })}>Add Food</button>
+           <button className="add-log-button"
+            onClick={() => history.push({
+              pathname: `/meal/diary/new`,
+              state: { logName: logName, logDate: selectedDate }
+            })}>Add Meal</button>
         </div>
       );
     }

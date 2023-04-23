@@ -67,27 +67,6 @@ const RememberMeal = () => {
             )
           }
         })}
-        {diaryLog.Meals.forEach((meal) => {
-          for (let i = 0; i < meal.DiaryLogMeal.quantity; i++) {
-            meal.Food.map((food) => {
-              for (let j = 0; j < food.MealFood.quantity; j++) {
-                totalCalories += food.calories;
-                totalCarbs += food.carbohydrates;
-                totalFat += food.fat;
-                totalProtein += food.protein;
-                rows.push(
-                  <tr key={`meal-${meal.id}-food-${food.id}-i${i}-j${j}`}>
-                    <td>meal {food.foodName}</td>
-                    <td>{food.calories}</td>
-                    <td>{food.carbohydrates}</td>
-                    <td>{food.fat}</td>
-                    <td>{food.protein}</td>
-                  </tr>
-                );
-              }
-            })
-          }
-        })}
         <table>
           <thead>
             <tr>
