@@ -58,6 +58,20 @@ export const editDiaryLogThunk = (payload, id) => async (dispatch) => {
   }
 };
 
+export const editDiaryLogMealThunk = ({ diaryLog, meal }) => async (dispatch) => {
+  const res = await csrfFetch(`/api/diaryLogs/${diaryLog.id}/meal`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({diaryLog, mealId: meal})
+  });
+
+  if (res.ok) {
+    const updatedDiaryLog = await res.json();
+    dispatch(editDiaryLogAction(updatedDiaryLog))
+  }
+  return res;
+};
+
 export const removeFoodFromDiaryLogThunk = (diaryLogId, foodId) => async (dispatch) => {
   const res = await csrfFetch(`/api/diaryLogs/${diaryLogId}/foods/${foodId}`, {
     method: "DELETE",

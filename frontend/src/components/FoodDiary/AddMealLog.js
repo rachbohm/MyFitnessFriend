@@ -1,38 +1,86 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadDiaryLogsThunk, editDiaryLogThunk } from '../../store/diarylogs';
-import { loadMyFoodsThunk } from '../../store/foods';
-import { loadMealFoodsThunk } from '../../store/mealFoods';
+import { loadMyFoodsThunk, deleteFoodThunk } from '../../store/foods';
 import { loadMyMealsThunk } from '../../store/meals';
+import { loadMealFoodsThunk } from '../../store/mealFoods';
+import { editDiaryLogThunk, editDiaryLogMealThunk } from '../../store/diarylogs';
+import MealCard from '../Meals/MealCard';
+import './AddMealLog.css';
 
 const AddMealLog = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const location = useLocation();
   const { diaryLog } = location.state;
+  const [errors, setErrors] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [selectedMeal, setSelectedMeal] = useState([]);
-  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [selectedMeal, setSelectedMeal] = useState({});
 
   useEffect(() => {
     dispatch(loadMyMealsThunk())
       .then(() => {
-        setIsLoaded(true);
-      });
+        setIsLoaded(true)
+      })
   }, [dispatch]);
 
-  const foods = useSelector((state) => state.foodState);
-  const foodsArr = Object.values(foods);
+
+  let meals = useSelector((state) => state.mealState);
+  let mealsArr = Object.values(meals);
 
   const sessionUser = useSelector(state => state.session.user);
   if (!sessionUser) {
-    history.push('/login');
+    history.push('/login')
   }
 
-  return (
-    <h1>AddMealLog</h1>
-  )
-}
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!selectedMeal) {
+      setErrors(['Please select a meal']);
+      return;
+    }
+
+    if (window.confirm('Please confirm form submission')) {
+      await dispatch(editDiaryLogMealThunk({ diaryLog, meal: selectedMeal.id }))
+        .then(() => {
+          history.push({
+            pathname: '/food/diary',
+            state: { diaryLog }
+          });
+        });
+    }
+  };
+
+  return isLoaded && (
+    <div className="new-diary-log-food-container">
+      <h2>Add Meal To {diaryLog.logName} on {diaryLog.logDate.slice(0, 10)}</h2>
+      <div className='left-right-meal'>
+        <form onSubmit={handleSubmit}>
+          {mealsArr.map((meal) => (
+            <div key={meal.id}>
+              <label>
+                <input
+                  type="radio"
+                  name="meal"
+                  value={meal.id}
+                  onChange={(event) => setSelectedMeal(meal)}
+                />
+                {meal.mealName}
+              </label>
+            </div>
+          ))}
+          <button type="submit">Add Selected Meal</button>
+        </form>
+        {selectedMeal && (
+          <div className="food-diary-meal-card-container">
+            <MealCard meal={selectedMeal} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+};
 
 export default AddMealLog;

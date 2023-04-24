@@ -133,6 +133,48 @@ router.put('/:diaryLogId', requireAuth, async (req, res, next) => {
   }
 });
 
+//add meal to an existing diaryLog
+router.put('/:diaryLogId/meal', requireAuth, async (req, res, next) => {
+  const { diaryLog, mealId } = req.body;
+  const { user } = req;
+
+  const targetDiaryLog = await DiaryLog.findByPk(diaryLog.id);
+  const mealFoods = await MealFood.findAll({
+    where: {
+      mealId: mealId
+    }
+  });
+
+  if (diaryLog.userId === user.id) {
+
+    for (const food of mealFoods) {
+      const diaryLogFood = await DiaryLogFood.findOne({
+        where: {
+          diaryLogId: diaryLog.id,
+          foodId: food.foodId
+        }
+      });
+
+      if (diaryLogFood) {
+        diaryLogFood.quantity += food.quantity;
+        await diaryLogFood.save();
+      } else {
+        await DiaryLogFood.create({
+          diaryLogId: diaryLog.id,
+          foodId: food.foodId,
+          quantity: food.quantity
+        })
+      }
+    }
+    return res.json(targetDiaryLog)
+  } else {
+    const err = new Error("Unauthorized")
+    err.status = 403;
+    err.errors = ['Current user is unauthorized']
+    return next(err)
+  }
+})
+
 //remove a food from a diaryLog
 router.delete('/:diaryLogId/foods/:foodId', requireAuth, async (req, res, next) => {
   const { diaryLogId, foodId } = req.params;
@@ -151,8 +193,16 @@ router.delete('/:diaryLogId/foods/:foodId', requireAuth, async (req, res, next) 
     await diaryLogFood.destroy();
   }
 
-  const updatedDiaryLog = await DiaryLog.findByPk(diaryLogId);
-  return res.json(updatedDiaryLog);
+  const diaryLogExists = await DiaryLogFood.findOne({
+    where: {
+      diaryLogId
+    }
+  })
+
+  if (!diaryLogExists) {
+    await targetDiaryLog.destroy()
+  }
+  return res.json(targetDiaryLog);
 });
 
 module.exports = router;
