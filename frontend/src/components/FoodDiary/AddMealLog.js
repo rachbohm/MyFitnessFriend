@@ -22,7 +22,7 @@ const AddMealLog = () => {
       .then(() => {
         setIsLoaded(true)
       })
-  }, [dispatch]);
+  }, [dispatch, diaryLog]);
 
 
   let meals = useSelector((state) => state.mealState);
@@ -36,7 +36,7 @@ const AddMealLog = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!selectedMeal) {
+    if (Object.keys(selectedMeal).length === 0) {
       setErrors(['Please select a meal']);
       return;
     }
@@ -70,9 +70,9 @@ const AddMealLog = () => {
               </label>
             </div>
           ))}
-          <button type="submit">Add Selected Meal</button>
+          <button type="submit" disabled={Object.keys(selectedMeal).length === 0}>Add Selected Meal</button>
         </form>
-        {selectedMeal && (
+        {Object.keys(selectedMeal).length && (
           <div className="food-diary-meal-card-container">
             <MealCard meal={selectedMeal} />
           </div>
