@@ -72,7 +72,7 @@ const AddMealLog = () => {
           ))}
           <button type="submit" disabled={Object.keys(selectedMeal).length === 0}>Add Selected Meal</button>
         </form>
-        {Object.keys(selectedMeal).length && (
+        {Object.keys(selectedMeal).length > 0 && (
           <div className="food-diary-meal-card-container">
             <MealCard meal={selectedMeal} />
           </div>

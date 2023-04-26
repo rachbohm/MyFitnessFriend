@@ -4,15 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loadDiaryLogsThunk, removeFoodFromDiaryLogThunk } from '../../store/diarylogs';
 import './FoodDiary.css';
 
+// const formatter = new Intl.DateTimeFormat('en-US', { timeZone: 'UTC' });
+
 const FoodDiary = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
   const [isLoaded, setIsLoaded] = useState(false);
-  const { logDate = new Date() } = location.state || {};
   const [edited, setEdited] = useState(false);
-
-  const [selectedDate, setSelectedDate] = useState(logDate ? logDate : new Date());
+  const userTimezoneOffset = new Date().getTimezoneOffset() * 60000; // get the user's timezone offset in milliseconds
+  const [selectedDate, setSelectedDate] = useState(new Date(Date.now() - userTimezoneOffset));
 
   useEffect(() => {
     dispatch(loadDiaryLogsThunk())
@@ -127,12 +127,14 @@ const FoodDiary = () => {
     }
   });
 
+const today = new Date(Date.now() - userTimezoneOffset); // apply the offset to today's date
 
   return isLoaded && (
     <div className="container-container">
       <input type="date"
         value={selectedDate.toISOString().slice(0, 10)}
-        onChange={(e) => setSelectedDate(new Date(e.target.value))} />
+        onChange={(e) => setSelectedDate(new Date(e.target.value))}
+        max={today.toISOString().slice(0, 10)} />
       {diaryLogsToRender}
     </div>
   )

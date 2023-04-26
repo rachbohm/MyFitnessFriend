@@ -15,22 +15,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
       userId: user.id
     },
     include: [
-      // {
-      //   model: Meal,
-      //   through: {
-      //     model: DiaryLogMeal,
-      //     attributes: ['quantity']
-      //   },
-      //   include: [
-      //     {
-      //       model: Food,
-      //       through: {
-      //         model: MealFood,
-      //         attributes: ['quantity']
-      //       }
-      //     }
-      //   ]
-      // },
       {
         model: Food,
         through: {

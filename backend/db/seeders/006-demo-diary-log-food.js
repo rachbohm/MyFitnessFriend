@@ -14,12 +14,12 @@ const diaryLogFoodSeeds = [
   {
     diaryLogId: 2,
     foodId: 2,
-    quantity: 1
+    quantity: 2
   },
   {
     diaryLogId: 3,
     foodId: 4,
-    quantity: 1
+    quantity: 3
   }
 ]
 
