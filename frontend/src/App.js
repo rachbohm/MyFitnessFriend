@@ -16,6 +16,7 @@ import SplashPage from "./components/HomePage/SplashPage";
 import AddLog from "./components/FoodDiary/AddLog";
 import AddMealLog from "./components/FoodDiary/AddMealLog";
 import NewMealLog from "./components/FoodDiary/NewMealLog";
+import SearchBar from "./components/Search/SearchBar";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route exact path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/search">
+            <SearchBar />
           </Route>
           <Route exact path="/food/edit/:foodId">
             <ProtectedRoute>

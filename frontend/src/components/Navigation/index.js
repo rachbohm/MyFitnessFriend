@@ -30,6 +30,7 @@ function Navigation({ isLoaded }){
         <NavLink to="/food/diary">Food Diary</NavLink>
         <NavLink to="/food/mine">My Foods</NavLink>
         <NavLink to="/meal/mine">My Meals</NavLink>
+        <NavLink to="/search">Search</NavLink>
       </li>
       {isLoaded && sessionLinks}
     </ul>
