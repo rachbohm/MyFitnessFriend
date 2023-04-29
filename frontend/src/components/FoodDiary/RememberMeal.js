@@ -58,7 +58,7 @@ const RememberMeal = () => {
             totalProtein += food.protein;
             rows.push(
               <tr key={`food-${food.id}-${food.DiaryLogFood.quantity}-${i}`}>
-                <td>food {food.foodName}</td>
+                <td>{food.foodName}</td>
                 <td>{food.calories}</td>
                 <td>{food.carbohydrates}</td>
                 <td>{food.fat}</td>

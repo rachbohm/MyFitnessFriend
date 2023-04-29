@@ -4,15 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loadDiaryLogsThunk, removeFoodFromDiaryLogThunk } from '../../store/diarylogs';
 import './FoodDiary.css';
 
-// const formatter = new Intl.DateTimeFormat('en-US', { timeZone: 'UTC' });
-
 const FoodDiary = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const [isLoaded, setIsLoaded] = useState(false);
   const [edited, setEdited] = useState(false);
   const userTimezoneOffset = new Date().getTimezoneOffset() * 60000; // get the user's timezone offset in milliseconds
-  const [selectedDate, setSelectedDate] = useState(new Date(Date.now() - userTimezoneOffset));
+  const [selectedDate, setSelectedDate] = useState(location.state?.logDate ? new Date(location.state.logDate) : new Date(Date.now() - userTimezoneOffset));
 
   useEffect(() => {
     dispatch(loadDiaryLogsThunk())

@@ -57,26 +57,6 @@ router.post('/', async (req, res, next) => {
       })
     }
   };
-
-  // for (const meal of meals) {
-  //   const diaryLogMeal = await DiaryLogMeal.findOne({
-  //     where: {
-  //       diaryLogId: newDiaryLog.id,
-  //       mealId: meal.id
-  //     }
-  //   });
-
-  //   if (diaryLogMeal) {
-  //     diaryLogMeal.quantity++;
-  //     await diaryLogMeal.save();
-  //   } else {
-  //     await DiaryLogMeal.create({
-  //       diaryLogId: newDiaryLog.id,
-  //       mealId: meal.id,
-  //       quantity: 1
-  //     })
-  //   }
-  // }
   return res.json(newDiaryLog)
 });
 
