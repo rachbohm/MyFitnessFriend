@@ -7,3 +7,11 @@
 .search-bar {
   margin-bottom: 50px;
 }
+
+.search-left-right {
+  display: flex;
+}
+
+.search-results-container {
+  list-style: none;
+}
