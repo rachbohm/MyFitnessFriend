@@ -1,58 +1,69 @@
 import { useEffect, useState } from 'react';
+import { createFoodThunk } from '../../store/foods';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-const FoodCard = ({item}) => {
+const FoodCard = ({ item }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log('item', item)
+  const [errors, setErrors] = useState([])
 
-  const servingsPerContainer = (item) => {
-    let unit = item.servingSizeUnit;
-    console.log('unit', unit)
-    let containerUnitIndex = item.packageWeight.indexOf(unit);
-    console.log('containerUnitIndex', containerUnitIndex)
-    if (containerUnitIndex === -1) {
-      return 1
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors([]);
+
+    const payload = {
+      foodName: item.description,
+      calories: item.foodNutrients[3].value,
+      carbohydrates: item.foodNutrients[2].value,
+      protein: item.foodNutrients[0].value,
+      fat: item.foodNutrients[1].value,
+      servingSizeNum: item.servingSize,
+      servingSizeUnit: item.servingSizeUnit,
+      servingsPerContainer: 1
+    };
+
+    if (window.confirm('Please confirm form submission')) {
+      await dispatch(createFoodThunk(payload))
+        .then(() => {
+          history.push('/food/mine')
+        }).catch(async res => {
+          const data = await res.json();
+          if (data.errors) setErrors(Object.values(data.errors));
+        })
     }
-    let weight = item.packageWeight.slice(containerUnitIndex + unit.length + 1);
-    console.log('weight', weight)
-    let containerUnits = parseFloat(weight);
-    console.log('containerUnits', containerUnits)
-    return containerUnits / item.servingSize;
   }
 
   return (
     <div className='food-details'>
       <h3 className="food-name">{item.description}</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>Calories:</td>
-            <td>{item.foodNutrients[3].value}</td>
-          </tr>
-          <tr>
-            <td>Carbohydrates (g):</td>
-            <td>{item.foodNutrients[2].value}</td>
-          </tr>
-          <tr>
-            <td>Fat (g):</td>
-            <td>{item.foodNutrients[1].value}</td>
-          </tr>
-          <tr>
-            <td>Protein (g):</td>
-            <td>{item.foodNutrients[0].value}</td>
-          </tr>
-          <tr>
-            <td>Serving Size:</td>
-            <td>{item.servingSize} {item.servingSizeUnit}</td>
-          </tr>
-          <tr>
-            <td>Servings Per Container:</td>
-            <td>{servingsPerContainer(item)}</td>
-          </tr>
-        </tbody>
-      </table>
+      <form className="create-food-form" onSubmit={handleSubmit}>
+        <table>
+          <tbody>
+            <tr>
+              <td>Calories:</td>
+              <td>{item.foodNutrients[3].value}</td>
+            </tr>
+            <tr>
+              <td>Carbohydrates (g):</td>
+              <td>{item.foodNutrients[2].value}</td>
+            </tr>
+            <tr>
+              <td>Fat (g):</td>
+              <td>{item.foodNutrients[1].value}</td>
+            </tr>
+            <tr>
+              <td>Protein (g):</td>
+              <td>{item.foodNutrients[0].value}</td>
+            </tr>
+            <tr>
+              <td>Serving Size:</td>
+              <td>{item.servingSize} {item.servingSizeUnit}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="submit">Submit</button>
+      </form>
     </div>
   )
 }

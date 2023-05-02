@@ -10,6 +10,9 @@
 
 .search-left-right {
   display: flex;
+  background-color: white;
+  margin: 100px;
+  padding: 100px;
 }
 
 .search-results-container {

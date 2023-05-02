@@ -38,11 +38,13 @@ const SearchBar = () => {
   }
 
   return (
-    <form className="search-bar-form" onSubmit={handleSubmit}>
-      <input className='search-bar' placeholder='Search...' type="text" value={searchTerm} onChange={handleInputChange} />
-      <button type="submit" className='search-bar-button'>
-        <i className="fa-solid fa-magnifying-glass"></i>
-      </button>
+    <>
+      <form className="search-bar-form" onSubmit={handleSubmit}>
+        <input className='search-bar' placeholder='Search...' type="text" value={searchTerm} onChange={handleInputChange} />
+        <button type="submit" className='search-bar-button'>
+          <i className="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
       <div className='search-left-right'>
         <div className="search-results-container">
           {searchResults}
@@ -53,7 +55,7 @@ const SearchBar = () => {
           </div>
         )}
       </div>
-    </form>
+    </>
   );
 
 };
