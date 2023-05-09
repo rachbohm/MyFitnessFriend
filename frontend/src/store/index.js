@@ -5,13 +5,15 @@ import foodReducer from "./foods";
 import mealReducer from "./meals";
 import diaryLogsReducer from "./diarylogs";
 import mealFoodsReducer from "./mealFoods";
+import searchReducer from "./search";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   foodState: foodReducer,
   mealState: mealReducer,
   diaryLogState: diaryLogsReducer,
-  mealFoodsState: mealFoodsReducer
+  mealFoodsState: mealFoodsReducer,
+  searchState: searchReducer
 });
 
 let enhancer;

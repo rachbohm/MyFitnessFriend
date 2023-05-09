@@ -38,6 +38,7 @@ const FoodCard = ({ item }) => {
     <div className='food-details'>
       <h3 className="food-name">{item.description}</h3>
       <form className="create-food-form" onSubmit={handleSubmit}>
+        {console.log('item', item)}
         <table>
           <tbody>
             <tr>
