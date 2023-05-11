@@ -8,39 +8,40 @@ const fetch = require('node-fetch');
 
 const router = express.Router();
 
-//get all meals of the current user
+//get search results from external API for a search term
 router.get('/:searchTerm', requireAuth, async (req, res, next) => {
   const { searchTerm } = req.params;
-  const results = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?&api_key=eZ1TOC3jqLgozDmGlFWCjPz0Gc0sy41bzPfmr77e&query=${searchTerm}`);
+  const results = await fetch(`https://trackapi.nutritionix.com/v2/search/instant?query=${searchTerm}`, {
+    method: "GET",
+    headers: {
+      "x-app-id": '9bf4a516',
+      "x-app-key": '0daf84f02266486023b2f4f99069baf8'
+    }
+  })
   const data = await results.json();
-  const filteredData = data.foods.slice(0, 50).map(food => {
-    console.log("~~~~~~~~~~~~~~~~~~~~~~` food:", "food keys", Object.keys(food))
-    const { description, foodNutrients, servingSize, fdcId } = food;
-    const protein = foodNutrients.find(n => n.nutrientName === 'Protein' && n.unitName === 'G');
-    const proteinValue = protein ? protein.value : null;
-    const carbs = foodNutrients.find(n => n.nutrientName === 'Carbohydrate, by difference' && n.unitName === 'G');
-    const carbsValue = carbs ? carbs.value : null;
-    const fat = foodNutrients.find(n => n.nutrientName === 'Total lipid (fat)' && n.unitName === 'G');
-    const fatValue = fat ? fat.value : null;
-
-    const per100gNutrients = foodNutrients.find(n => n.nutrientNumber === '255' && n.unitName === 'G');
-    const isPer100g = per100gNutrients ? true : false;
-    console.log("~~~~~~~~~~~~~~~~~~~~~isPer100g", isPer100g)
-    console.log("foodMeasures", food.foodMeasures)
+  console.log('~~~~~~~~~~~~~~data', data)
 
 
-    // calculate calories
-    const caloriesValue = proteinValue * 4 + carbsValue * 4 + fatValue * 9;
+  return res.json(data);
+});
 
-    const servingSizeNum = isPer100g ? 100 : null;
-    const servingSizeUnit = isPer100g ? "g" : null;
-
-
-    return isPer100g && { fdcId, description, proteinValue, carbsValue, fatValue, caloriesValue, servingSizeNum, servingSizeUnit };
-
+//get nutrition information for a common food item
+router.get('/common/:food_name', requireAuth, async (req, res, next) => {
+  const { food_name } = req.params;
+  const results = await fetch('https://trackapi.nutritionix.com/v2/natural/nutrients', {
+    method: "POST",
+    headers: {
+      "x-app-id": '9bf4a516',
+      "x-app-key": '0daf84f02266486023b2f4f99069baf8',
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ "query": food_name })
   });
-  // console.log('filteredData', filteredData)
-  return res.json(filteredData);
+
+  const data = await results.json();
+  console.log('data', data);
+  return res.json(data);
+
 });
 
 

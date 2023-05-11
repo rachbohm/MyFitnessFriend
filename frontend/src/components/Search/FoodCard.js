@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 const FoodCard = ({ item }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,10 +15,10 @@ const FoodCard = ({ item }) => {
 
     const payload = {
       foodName: item.description,
-      calories: item.foodNutrients[3].value,
-      carbohydrates: item.foodNutrients[2].value,
-      protein: item.foodNutrients[0].value,
-      fat: item.foodNutrients[1].value,
+      calories: item.caloriesValue,
+      carbohydrates: item.carbsValue,
+      protein: item.proteinValue,
+      fat: item.fatValue,
       servingSizeNum: item.servingSize,
       servingSizeUnit: item.servingSizeUnit,
       servingsPerContainer: 1
@@ -43,23 +44,23 @@ const FoodCard = ({ item }) => {
           <tbody>
             <tr>
               <td>Calories:</td>
-              <td>{item.foodNutrients[3].value}</td>
+              <td>{item.caloriesValue}</td>
             </tr>
             <tr>
               <td>Carbohydrates (g):</td>
-              <td>{item.foodNutrients[2].value}</td>
+              <td>{item.carbsValue}</td>
             </tr>
             <tr>
               <td>Fat (g):</td>
-              <td>{item.foodNutrients[1].value}</td>
+              <td>{item.fatValue}</td>
             </tr>
             <tr>
               <td>Protein (g):</td>
-              <td>{item.foodNutrients[0].value}</td>
+              <td>{item.proteinValue}</td>
             </tr>
             <tr>
               <td>Serving Size:</td>
-              <td>{item.servingSize} {item.servingSizeUnit}</td>
+              <td>{item.servingSizeNum} {item.servingSizeUnit}</td>
             </tr>
           </tbody>
         </table>

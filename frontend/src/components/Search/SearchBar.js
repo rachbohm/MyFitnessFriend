@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FoodCard from './FoodCard';
 import './SearchBar.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadSearchResultsThunk } from '../../store/search';
+import { loadSearchResultsThunk, fetchNutritionInfoThunk } from '../../store/search';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -10,19 +10,21 @@ const SearchBar = () => {
   const [selectedFood, setSelectedFood] = useState(null);
 
   const searchResults = useSelector(state => state.searchState);
-  const searchResultsArr = Object.values(searchResults);
+  const commonArr = searchResults && searchResults.common;
+  const brandedArr = searchResults && searchResults.branded;
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleFoodClick = (food) => {
-    setSelectedFood(food);
+  const handleFoodClick = (item) => {
+    dispatch(fetchNutritionInfoThunk(item.food_name)).then((result) => {
+      setSelectedFood(result)
+    })
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // console.log('handleSubmit')
     dispatch(loadSearchResultsThunk(searchTerm)).then((result) => {
       // console.log('after the dispatch', result);
       // Update state with search results
@@ -31,26 +33,57 @@ const SearchBar = () => {
     });
   }
 
+  const isSearchTermEmpty = searchTerm.trim() === '';
 
   return (
     <>
       <form className="search-bar-form" onSubmit={handleSubmit}>
         <input className='search-bar' placeholder='Search...' type="text" value={searchTerm} onChange={handleInputChange} />
-        <button type="submit" className='search-bar-button'>
+        <button type="submit" className='search-bar-button' disabled={isSearchTermEmpty}>
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
+
       <div className='search-left-right'>
         <div className="search-results-container">
-          {searchResultsArr.map((item) => (
-            <li key={item.fdcId}>
-              <a href="#" onClick={() => handleFoodClick(item)}>
-                {item.description}
-              </a>
-            </li>
-          ))}
-        </div>
+          {commonArr && (
+            <div className="common-list">
+              <h2>Common Foods</h2>
+              <ul>
+                {commonArr.map((item) => (
+                 <li key={`${item.tag_id}-${item.food_name}`}>
 
+                    <a href="#" onClick={() => handleFoodClick(item)}>
+                      {item.food_name}
+                    <div>
+                      <p>Serving Size: {item.serving_qty} {item.serving_unit}</p>
+                      <img src={item.photo.thumb} alt={item.food_name} />
+                    </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {brandedArr && (
+            <div className="branded-list">
+              <h2>Branded Foods</h2>
+              <ul>
+                {brandedArr.map((item) => (
+                   <li key={`${item.tag_id}-${item.food_name}`}>
+                    <a href="#" onClick={() => handleFoodClick(item)}>
+                      {item.food_name}
+                    <div>
+                      <p>Serving Size: {item.serving_qty} {item.serving_unit}</p>
+                      <img src={item.photo.thumb} alt={item.food_name} />
+                    </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
         {selectedFood && (
           <div className="food-card-container">
             <FoodCard item={selectedFood} />
