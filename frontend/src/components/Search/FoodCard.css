@@ -19,3 +19,13 @@
   width: 50%;
   text-align: right;
 }
+
+.food-card-submit {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  font-size: 10pt;
+  cursor: pointer;
+}

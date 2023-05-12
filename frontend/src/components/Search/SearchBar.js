@@ -19,7 +19,7 @@ const SearchBar = () => {
 
   const handleFoodClick = (item) => {
     dispatch(fetchNutritionInfoThunk(item.food_name)).then((result) => {
-      setSelectedFood(result)
+      setSelectedFood(result.foods[0])
     })
   };
 
@@ -43,53 +43,50 @@ const SearchBar = () => {
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
+      <div className="search-results-container">
+        {commonArr && (
+          <div className="common-list">
+            <h2>Common Foods</h2>
+            <ul>
+              {commonArr.map((item) => (
+                <li key={`${item.tag_id}-${item.food_name}`}>
 
-      <div className='search-left-right'>
-        <div className="search-results-container">
-          {commonArr && (
-            <div className="common-list">
-              <h2>Common Foods</h2>
-              <ul>
-                {commonArr.map((item) => (
-                 <li key={`${item.tag_id}-${item.food_name}`}>
-
-                    <a href="#" onClick={() => handleFoodClick(item)}>
-                      {item.food_name}
+                  <a href="#" onClick={() => handleFoodClick(item)}>
+                    {item.food_name}
                     <div>
                       <p>Serving Size: {item.serving_qty} {item.serving_unit}</p>
                       <img src={item.photo.thumb} alt={item.food_name} />
                     </div>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {brandedArr && (
-            <div className="branded-list">
-              <h2>Branded Foods</h2>
-              <ul>
-                {brandedArr.map((item) => (
-                   <li key={`${item.tag_id}-${item.food_name}`}>
-                    <a href="#" onClick={() => handleFoodClick(item)}>
-                      {item.food_name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {brandedArr && (
+          <div className="branded-list">
+            <h2>Branded Foods</h2>
+            <ul>
+              {brandedArr.map((item) => (
+                <li key={`${item.tag_id}-${item.food_name}`}>
+                  <a href="#" onClick={() => handleFoodClick(item)}>
+                    {item.food_name}
                     <div>
                       <p>Serving Size: {item.serving_qty} {item.serving_unit}</p>
                       <img src={item.photo.thumb} alt={item.food_name} />
                     </div>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-        {selectedFood && (
-          <div className="food-card-container">
-            <FoodCard item={selectedFood} />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       </div>
+      {selectedFood && (
+        <div className="food-card-container">
+          <FoodCard item={selectedFood} onBack={() => setSelectedFood(null)} />
+        </div>
+      )}
     </>
   );
 };

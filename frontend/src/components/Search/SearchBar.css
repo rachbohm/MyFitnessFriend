@@ -25,22 +25,6 @@
   padding: 10px;
 }
 
-.search-left-right{
-  background-color: white;
-  margin: 100px;
-  padding: 100px;
-}
-
-.common-list,
-.branded-list {
-  list-style: none;
-  border: 1px solid #f5f5f5;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  border-radius: 5px;
-  width: 50%;
-}
-
 .food-card-container {
   position: fixed;
   top: 50%;
@@ -57,20 +41,12 @@
   box-shadow: 0px 0px .01px 20px rgba(86, 20, 20, 0.696);
 }
 
-
-/* .food-card-container {
-  position: sticky;
-  /* top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999; */
-  /* background-color: rgb(233, 233, 133);
-  padding: 100px; */
-/* } */ */
-
 .search-results-container {
   display: flex;
   flex-direction: row;
+  background-color: white;
+  margin: 100px;
+  padding: 100px;
 }
 
 .search-bar-form img {
@@ -83,7 +59,7 @@
   width: 150px;
   height: 150px;
   object-fit: cover;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .common-list,
@@ -93,6 +69,11 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+  list-style: none;
+  border: 1px solid #f5f5f5;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .common-list li,

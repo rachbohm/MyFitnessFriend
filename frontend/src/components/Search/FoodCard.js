@@ -3,7 +3,7 @@ import { createFoodThunk } from '../../store/foods';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-const FoodCard = ({ item }) => {
+const FoodCard = ({ item, onBack }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState([]);
@@ -33,7 +33,12 @@ const FoodCard = ({ item }) => {
           if (data.errors) setErrors(Object.values(data.errors));
         })
     }
-  }
+  };
+
+  const handleBack = () => {
+    onBack(); // Call the callback function from SearchBar to reset the selectedFood state
+    history.push('/search'); // Navigate back to the search page
+  };
 
   return (
     <div className='food-details'>
@@ -44,28 +49,29 @@ const FoodCard = ({ item }) => {
           <tbody>
             <tr>
               <td>Calories:</td>
-              <td>{item.caloriesValue}</td>
+              <td>{item.nf_calories}</td>
             </tr>
             <tr>
               <td>Carbohydrates (g):</td>
-              <td>{item.carbsValue}</td>
+              <td>{item.nf_total_carbohydrate}</td>
             </tr>
             <tr>
               <td>Fat (g):</td>
-              <td>{item.fatValue}</td>
+              <td>{item.nf_total_fat}</td>
             </tr>
             <tr>
               <td>Protein (g):</td>
-              <td>{item.proteinValue}</td>
+              <td>{item.nf_protein}</td>
             </tr>
             <tr>
               <td>Serving Size:</td>
-              <td>{item.servingSizeNum} {item.servingSizeUnit}</td>
+              <td>{item.serving_qty} {item.serving_unit}</td>
             </tr>
           </tbody>
         </table>
-        <button type="submit">Submit</button>
+        <button type="submit" className="food-card-submit">Add to My Foods</button>
       </form>
+      <button onClick={handleBack}>Back</button>
     </div>
   )
 }
