@@ -1,26 +1,34 @@
-.food-details table {
+.food-details-card table {
   border-collapse: collapse;
   width: auto;
   margin-top: 10px;
 }
 
-.food-details td {
+.food-details-card td {
   padding: 5px;
   border: 1px solid #ccc;
 }
 
-.food-details td:first-child {
+.food-details-card td:first-child {
   font-weight: bold;
   width: 50%;
   background-color: #f2f2f2;
 }
 
-.food-details td:nth-child(2) {
+.food-details-card td:nth-child(2) {
   width: 50%;
   text-align: right;
 }
 
-.food-card-submit {
+
+.buttons-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-button-card {
   background-color: #4caf50;
   color: white;
   border: none;
@@ -28,4 +36,16 @@
   padding: 10px 10px;
   font-size: 10pt;
   cursor: pointer;
+  margin: 10px;
+}
+
+.back-button-card {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  font-size: 10pt;
+  cursor: pointer;
+  margin: 10px;
 }

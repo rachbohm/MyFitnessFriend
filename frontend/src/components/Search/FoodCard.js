@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { createFoodThunk } from '../../store/foods';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import './FoodCard.css';
 
 const FoodCard = ({ item, onBack }) => {
   const dispatch = useDispatch();
@@ -41,9 +42,9 @@ const FoodCard = ({ item, onBack }) => {
   };
 
   return (
-    <div className='food-details'>
-      <h3 className="food-name">{item.description}</h3>
-      <form className="create-food-form" onSubmit={handleSubmit}>
+    <div className='food-details-card'>
+      <h3 className="food-name-card">{item.food_name}</h3>
+      <form className="create-food-form-card" onSubmit={handleSubmit}>
         {console.log('item', item)}
         <table>
           <tbody>
@@ -69,9 +70,11 @@ const FoodCard = ({ item, onBack }) => {
             </tr>
           </tbody>
         </table>
-        <button type="submit" className="food-card-submit">Add to My Foods</button>
+        <div className='buttons-card'>
+          <button className="back-button-card" onClick={handleBack}>Back to Search</button>
+          <button type="submit" className="create-button-card">Add to My Foods</button>
+        </div>
       </form>
-      <button onClick={handleBack}>Back</button>
     </div>
   )
 }
