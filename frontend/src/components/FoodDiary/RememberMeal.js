@@ -12,10 +12,10 @@ const RememberMeal = () => {
   const location = useLocation();
   const { diaryLog } = location.state;
   const [mealName, setMealName] = useState('');
-  let totalCalories = 0;
-  let totalCarbs = 0;
-  let totalFat = 0;
-  let totalProtein = 0;
+  // let totalCalories = 0;
+  // let totalCarbs = 0;
+  // let totalFat = 0;
+  // let totalProtein = 0;
   let rows = [];
 
   const handleSubmit = async (e) => {
@@ -52,10 +52,10 @@ const RememberMeal = () => {
         <h3>Items in this Meal</h3>
         {diaryLog.Food.forEach((food) => {
           for (let i = 0; i < food.DiaryLogFood.quantity; i++) {
-            totalCalories += food.calories;
-            totalCarbs += food.carbohydrates;
-            totalFat += food.fat;
-            totalProtein += food.protein;
+            // totalCalories += food.calories;
+            // totalCarbs += food.carbohydrates;
+            // totalFat += food.fat;
+            // totalProtein += food.protein;
             rows.push(
               <tr key={`food-${food.id}-${food.DiaryLogFood.quantity}-${i}`}>
                 <td>{food.foodName}</td>
@@ -78,7 +78,7 @@ const RememberMeal = () => {
             </tr>
           </thead>
           <tbody>{rows}</tbody>
-          <tfoot>
+          {/* <tfoot>
             <tr className='total-row'>
               <td>Total</td>
               <td>{totalCalories}</td>
@@ -86,7 +86,7 @@ const RememberMeal = () => {
               <td>{totalFat}</td>
               <td>{totalProtein}</td>
             </tr>
-          </tfoot>
+          </tfoot> */}
         </table>
       </div>
     </div>
