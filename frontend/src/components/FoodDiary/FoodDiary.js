@@ -42,20 +42,20 @@ const FoodDiary = () => {
   const diaryLogsToRender = logNames.map((logName) => {
     const diaryLog = diaryLogsArr.find((log) => log.logName === logName);
     if (diaryLog) {
-      let totalCalories = 0;
-      let totalCarbs = 0;
-      let totalFat = 0;
-      let totalProtein = 0;
+      // let totalCalories = 0;
+      // let totalCarbs = 0;
+      // let totalFat = 0;
+      // let totalProtein = 0;
       const rows = [];
       return isLoaded && (
         <div key={diaryLog.id} className='diary-log-container'>
           <h3>{diaryLog.logName}</h3>
           {diaryLog.Food.forEach((food) => {
             for (let i = 0; i < food.DiaryLogFood.quantity; i++) {
-              totalCalories += food.calories;
-              totalCarbs += food.carbohydrates;
-              totalFat += food.fat;
-              totalProtein += food.protein;
+              // totalCalories += food.calories;
+              // totalCarbs += food.carbohydrates;
+              // totalFat += food.fat;
+              // totalProtein += food.protein;
               rows.push(
                 <tr key={`food-${food.id}-${food.DiaryLogFood.quantity}-${i}`}>
                   <td>{food.foodName}</td>
@@ -79,15 +79,15 @@ const FoodDiary = () => {
               </tr>
             </thead>
             <tbody>{rows}</tbody>
-            <tfoot>
+            {/* <tfoot>
               <tr className='total-row'>
                 <td>Total</td>
-                <td>{totalCalories.toFixed(2)}</td>
-                <td>{totalCarbs.toFixed(2)}</td>
-                <td>{totalFat.toFixed(2)}</td>
-                <td>{totalProtein.toFixed(2)}</td>
+                <td>{totalCalories}</td>
+                <td>{totalCarbs}</td>
+                <td>{totalFat}</td>
+                <td>{totalProtein}</td>
               </tr>
-            </tfoot>
+            </tfoot> */}
           </table>
           <button className="remember-meal-button"
             onClick={() => history.push({
@@ -99,7 +99,7 @@ const FoodDiary = () => {
               pathname: `/food/diary/${diaryLog.id}/add`,
               state: { diaryLog }
             })}>Add Food</button>
-          <button className="add-log-button"
+            <button className="add-log-button"
             onClick={() => history.push({
               pathname: `/meal/diary/${diaryLog.id}/add`,
               state: { diaryLog }
@@ -116,7 +116,7 @@ const FoodDiary = () => {
               pathname: '/food/diary/new',
               state: { logName: logName, logDate: selectedDate }
             })}>Add Food</button>
-          <button className="add-log-button"
+           <button className="add-log-button"
             onClick={() => history.push({
               pathname: `/meal/diary/new`,
               state: { logName: logName, logDate: selectedDate }
@@ -126,7 +126,7 @@ const FoodDiary = () => {
     }
   });
 
-  const today = new Date(Date.now() - userTimezoneOffset); // apply the offset to today's date
+const today = new Date(Date.now() - userTimezoneOffset); // apply the offset to today's date
 
   return isLoaded && (
     <div className="container-container">
