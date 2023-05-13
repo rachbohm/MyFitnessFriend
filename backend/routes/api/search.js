@@ -9,7 +9,7 @@ const fetch = require('node-fetch');
 const router = express.Router();
 
 //get search results from external API for a search term
-router.get('/:searchTerm', requireAuth, async (req, res, next) => {
+router.get('/:searchTerm', async (req, res, next) => {
   const { searchTerm } = req.params;
   const results = await fetch(`https://trackapi.nutritionix.com/v2/search/instant?query=${searchTerm}`, {
     method: "GET",
