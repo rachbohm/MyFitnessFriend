@@ -82,10 +82,10 @@ const FoodDiary = () => {
             <tfoot>
               <tr className='total-row'>
                 <td>Total</td>
-                <td>{totalCalories}</td>
-                <td>{totalCarbs}</td>
-                <td>{totalFat}</td>
-                <td>{totalProtein}</td>
+                <td>{totalCalories.toFixed(2)}</td>
+                <td>{totalCarbs.toFixed(2)}</td>
+                <td>{totalFat.toFixed(2)}</td>
+                <td>{totalProtein.toFixed(2)}</td>
               </tr>
             </tfoot>
           </table>
@@ -99,7 +99,7 @@ const FoodDiary = () => {
               pathname: `/food/diary/${diaryLog.id}/add`,
               state: { diaryLog }
             })}>Add Food</button>
-            <button className="add-log-button"
+          <button className="add-log-button"
             onClick={() => history.push({
               pathname: `/meal/diary/${diaryLog.id}/add`,
               state: { diaryLog }
@@ -116,7 +116,7 @@ const FoodDiary = () => {
               pathname: '/food/diary/new',
               state: { logName: logName, logDate: selectedDate }
             })}>Add Food</button>
-           <button className="add-log-button"
+          <button className="add-log-button"
             onClick={() => history.push({
               pathname: `/meal/diary/new`,
               state: { logName: logName, logDate: selectedDate }
@@ -126,7 +126,7 @@ const FoodDiary = () => {
     }
   });
 
-const today = new Date(Date.now() - userTimezoneOffset); // apply the offset to today's date
+  const today = new Date(Date.now() - userTimezoneOffset); // apply the offset to today's date
 
   return isLoaded && (
     <div className="container-container">
