@@ -19,7 +19,7 @@ router.get('/:searchTerm', requireAuth, async (req, res, next) => {
     }
   })
   const data = await results.json();
-  console.log('~~~~~~~~~~~~~~data', data)
+  // console.log('~~~~~~~~~~~~~~data', data)
 
 
   return res.json(data);
@@ -39,7 +39,7 @@ router.get('/common/:food_name', requireAuth, async (req, res, next) => {
   });
 
   const data = await results.json();
-  console.log('data', data);
+  // console.log('data', data);
   return res.json(data);
 
 });

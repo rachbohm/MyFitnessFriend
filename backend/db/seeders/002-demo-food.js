@@ -15,7 +15,7 @@ const foodSeeds = [
     fat: 5,
     servingSizeNum: 1,
     servingSizeUnit: 'bagel',
-    servingsPerContainer: 5
+    // servingsPerContainer: 5
   },
   {
     // id: 2,
@@ -27,7 +27,7 @@ const foodSeeds = [
     fat: 12,
     servingSizeNum: .33,
     servingSizeUnit: 'bar',
-    servingsPerContainer: 3
+    // servingsPerContainer: 3
   },
   {
     // id: 3,
@@ -39,7 +39,7 @@ const foodSeeds = [
     fat: 22,
     servingSizeNum: 1,
     servingSizeUnit: 'medium avocado',
-    servingsPerContainer: 1
+    // servingsPerContainer: 1
   },
   {
     // id: 4,
@@ -51,7 +51,7 @@ const foodSeeds = [
     fat: 7,
     servingSizeNum: 91,
     servingSizeUnit: 'grams',
-    servingsPerContainer: 5
+    // servingsPerContainer: 5
   },
   {
     // id: 5,
@@ -63,7 +63,7 @@ const foodSeeds = [
     fat: 3,
     servingSizeNum: 100,
     servingSizeUnit: 'grams',
-    servingsPerContainer: 1
+    // servingsPerContainer: 1
   }
 ]
 

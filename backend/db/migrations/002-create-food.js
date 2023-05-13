@@ -28,33 +28,48 @@ module.exports = {
         onDelete: 'cascade'
       },
       calories: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL(6, 2),
         allowNull: false,
+        // validate: {
+        //   validateCalories() {
+        //     const expectedCalories =
+        //       4 * this.carbohydrates +
+        //       4 * this.protein +
+        //       9 * this.fat;
+        //     const tolerance = 0.01; // Adjust the tolerance value as needed
+
+        //     if (Math.abs(this.calories - expectedCalories) > tolerance) {
+        //       throw new Error('Calories do not match the expected value.');
+        //     }
+        //   }
       },
       carbohydrates: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
+        type: Sequelize.DECIMAL(6, 2),
+        allowNull: true, // Updated to allow null values
+        defaultValue: 0 // Added default value of 0
       },
       protein: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
+        type: Sequelize.DECIMAL(6, 2),
+        allowNull: true, // Updated to allow null values
+        defaultValue: 0 // Added default value of 0
       },
       fat: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
+        type: Sequelize.DECIMAL(6, 2),
+        allowNull: true, // Updated to allow null values
+        defaultValue: 0 // Added default value of 0
       },
       servingSizeNum: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL(6, 2),
         allowNull: false,
       },
       servingSizeUnit: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      servingsPerContainer: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-      },
+      // servingsPerContainer: {
+      //   type: Sequelize.FLOAT,
+      //   allowNull: false,
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

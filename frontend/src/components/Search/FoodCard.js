@@ -22,8 +22,10 @@ const FoodCard = ({ item, onBack }) => {
       fat: item.nf_total_fat,
       servingSizeNum: item.serving_qty,
       servingSizeUnit: item.serving_unit,
-      servingsPerContainer: 1
+      // servingsPerContainer: 1
     };
+
+    console.log('payload', payload)
 
     if (window.confirm('Please confirm form submission')) {
       await dispatch(createFoodThunk(payload))
@@ -45,7 +47,7 @@ const FoodCard = ({ item, onBack }) => {
     <div className='food-details-card'>
       <h3 className="food-name-card">{item.food_name}</h3>
       <form className="create-food-form-card" onSubmit={handleSubmit}>
-        {console.log('item', item)}
+        {/* {console.log('item', item)} */}
         <table>
           <tbody>
             <tr>

@@ -29,18 +29,18 @@ const validateFood = [
     .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage('Calories are required'),
-  check('carbohydrates')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Carbohydrates are required'),
-  check('protein')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Protein is required'),
-  check('fat')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Fat is required'),
+  // check('carbohydrates')
+  //   // .exists({ checkFalsy: true })
+  //   .optional({ nullable: true })
+  //   .withMessage('Carbohydrates are required'),
+  // check('protein')
+  //   // .exists({ checkFalsy: true })
+  //   .optional({ nullable: true })
+  //   .withMessage('Protein is required'),
+  // check('fat')
+  //   // .exists({ checkFalsy: true })
+  //   .optional({ nullable: true })
+  //   .withMessage('Fat is required'),
   check('servingSizeNum')
     .exists({ checkFalsy: true })
     .notEmpty()
@@ -48,18 +48,18 @@ const validateFood = [
   check('servingSizeUnit')
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Serving size (unit) is required')
-    .matches(/^[a-zA-Z]+$/)
-    .withMessage('Serving size (unit) must contain only letters'),
-  check('servingsPerContainer')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Servings per Container is required'),
+    .withMessage('Serving size (unit) is required'),
+    // .matches(/^[a-zA-Z]+$/)
+    // .withMessage('Serving size (unit) must contain only letters'),
+  // check('servingsPerContainer')
+  //   .exists({ checkFalsy: true })
+  //   .notEmpty()
+  //   .withMessage('Servings per Container is required'),
   handleValidationErrors
 ]
 router.post('/', requireAuth, validateFood, async (req, res, next) => {
   const { user } = req;
-  const { foodName, calories, carbohydrates, protein, fat, servingSizeNum, servingSizeUnit, servingsPerContainer } = req.body;
+  const { foodName, calories, carbohydrates, protein, fat, servingSizeNum, servingSizeUnit } = req.body;
 
   const newFood = await Food.create({
     userId: user.id,
@@ -70,8 +70,8 @@ router.post('/', requireAuth, validateFood, async (req, res, next) => {
     fat,
     servingSizeNum,
     servingSizeUnit,
-    servingsPerContainer
-  })
+    // servingsPerContainer
+  });
 
   return res.json(newFood)
 })
@@ -79,7 +79,7 @@ router.post('/', requireAuth, validateFood, async (req, res, next) => {
 //edit a food
 router.put('/:foodId', requireAuth, validateFood, async (req, res, next) => {
   const { foodId } = req.params;
-  const { foodName, calories, carbohydrates, protein, fat, servingSizeNum, servingSizeUnit, servingsPerContainer } = req.body;
+  const { foodName, calories, carbohydrates, protein, fat, servingSizeNum, servingSizeUnit} = req.body;
   const userId = req.user.id;
 
   const targetFood = await Food.findByPk(foodId);
@@ -99,7 +99,7 @@ router.put('/:foodId', requireAuth, validateFood, async (req, res, next) => {
     targetFood.fat = fat;
     targetFood.servingSizeNum = servingSizeNum;
     targetFood.servingSizeUnit = servingSizeUnit;
-    targetFood.servingsPerContainer = servingsPerContainer;
+    // targetFood.servingsPerContainer = servingsPerContainer;
     await targetFood.save();
     return res.json(targetFood);
   } else {

@@ -34,36 +34,56 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     calories: {
-      type: DataTypes.FLOAT,
-      allowNull: false
+      type: DataTypes.DECIMAL(6, 2),
+      allowNull: false,
+      // validate: {
+      //   validateCalories() {
+      //     const expectedCalories =
+      //       4 * this.carbohydrates +
+      //       4 * this.protein +
+      //       9 * this.fat;
+      //     const tolerance = 0.01; // Adjust the tolerance value as needed
+
+      //     if (Math.abs(this.calories - expectedCalories) > tolerance) {
+      //       throw new Error('Calories do not match the expected value.');
+      //     }
+      //   }
+      // },
     },
     carbohydrates: {
-      type: DataTypes.FLOAT,
-      allowNull: false
+      type: DataTypes.DECIMAL(6, 2),
+      allowNull: true, // Allow null values
+      defaultValue: 0 // Set a default value of 0
     },
     protein: {
-      type: DataTypes.FLOAT,
-      allowNull: false
+      type: DataTypes.DECIMAL(6, 2),
+      allowNull: true, // Allow null values
+      defaultValue: 0 // Set a default value of 0
     },
     fat: {
-      type: DataTypes.FLOAT,
-      allowNull: false
+      type: DataTypes.DECIMAL(6, 2),
+      allowNull: true, // Allow null values
+      defaultValue: 0 // Set a default value of 0
     },
     servingSizeNum: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL(6, 2),
       allowNull: false
     },
     servingSizeUnit: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    servingsPerContainer: {
-      type: DataTypes.FLOAT,
-      allowNull: false
-    }
+    // servingsPerContainer: {
+    //   type: DataTypes.FLOAT,
+    //   allowNull: false
+    // }
   }, {
     sequelize,
     modelName: 'Food',
+  });
+  Food.beforeSave((food, options) => {
+    const calculatedCalories = 4 * food.carbohydrates + 4 * food.protein + 9 * food.fat;
+    food.calories = parseFloat(calculatedCalories).toFixed(2);
   });
   return Food;
 };

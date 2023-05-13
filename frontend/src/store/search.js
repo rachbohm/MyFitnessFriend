@@ -58,7 +58,7 @@ const searchReducer = (state = initialState, action) => {
       return newState;
     case LOAD_NUTRITION:
       newState = {...state}
-      console.log('action', action)
+      // console.log('action', action)
       newState.nutrition = action.nutritionInfo.foods
       return newState;
     default:

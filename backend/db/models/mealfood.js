@@ -10,8 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // MealFood.belongsTo(models.Meal, { foreignKey: 'mealId' });
-      // MealFood.belongsTo(models.Food, {foreignKey: 'foodId'})
+    //   MealFood.associate = (models) => {
+    //     MealFood.belongsTo(models.Food, {
+    //       foreignKey: 'foodId',
+    //       onDelete: 'CASCADE' // Add this line to specify the onDelete behavior
+    //     });
+    //     MealFood.belongsTo(models.Meal, {
+    //       foreignKey: 'mealId',
+    //       onDelete: 'CASCADE' // Add this line to specify the onDelete behavior
+    //     });
+    //   };
     }
   }
   MealFood.init({

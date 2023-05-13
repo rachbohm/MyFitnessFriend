@@ -24,9 +24,14 @@ const EditFoodPage = () => {
   const [fat, setFat] = useState("");
   const [servingSizeNum, setServingSizeNum] = useState("");
   const [servingSizeUnit, setServingSizeUnit] = useState("");
-  const [servingsPerContainer, setServingsPerContainer] = useState("");
+  // const [servingsPerContainer, setServingsPerContainer] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const calculatedCalories = 4 * protein + 4 * carbohydrates + 9 * fat;
+    setCalories(calculatedCalories);
+  }, [protein, carbohydrates, fat]);
 
   let foodState = useSelector((state) => state.foodState)
   let oneFoodData = useSelector((state) => state.foodState[foodId]);
@@ -43,8 +48,10 @@ const EditFoodPage = () => {
       fat,
       servingSizeNum,
       servingSizeUnit,
-      servingsPerContainer
+      // servingsPerContainer
     };
+
+    // console.log('payload', payload)
 
     if (window.confirm('Please confirm form submission')) {
       await dispatch(editFoodThunk(payload, foodId))
@@ -66,7 +73,7 @@ const EditFoodPage = () => {
       setFat(oneFoodData.fat);
       setServingSizeNum(oneFoodData.servingSizeNum);
       setServingSizeUnit(oneFoodData.servingSizeUnit);
-      setServingsPerContainer(oneFoodData.servingsPerContainer);
+      // setServingsPerContainer(oneFoodData.servingsPerContainer);
     }
   }, [oneFoodData]);
 
@@ -108,6 +115,8 @@ const EditFoodPage = () => {
                   value={calories}
                   onChange={(e) => setCalories(e.target.value)}
                   required
+                  min="0"
+                  disabled
                 />
               </td>
             </tr>
@@ -120,6 +129,7 @@ const EditFoodPage = () => {
                   value={carbohydrates}
                   onChange={(e) => setCarbohydrates(e.target.value)}
                   required
+                  min="0"
                 />
               </td>
             </tr>
@@ -132,6 +142,7 @@ const EditFoodPage = () => {
                   value={fat}
                   onChange={(e) => setFat(e.target.value)}
                   required
+                  min="0"
                 />
               </td>
             </tr>
@@ -144,6 +155,7 @@ const EditFoodPage = () => {
                   value={protein}
                   onChange={(e) => setProtein(e.target.value)}
                   required
+                  min="0"
                 />
               </td>
             </tr>
@@ -156,6 +168,7 @@ const EditFoodPage = () => {
                   value={servingSizeNum}
                   onChange={(e) => setServingSizeNum(e.target.value)}
                   required
+                  min="0"
                 />
               </td>
             </tr>
@@ -172,7 +185,7 @@ const EditFoodPage = () => {
               </td>
             </tr>
 
-            <tr>
+            {/* <tr>
               <td>Servings Per Container:</td>
               <td>
                 <input
@@ -182,7 +195,7 @@ const EditFoodPage = () => {
                   required
                 />
               </td>
-            </tr>
+            </tr> */}
 
           </tbody>
         </table>

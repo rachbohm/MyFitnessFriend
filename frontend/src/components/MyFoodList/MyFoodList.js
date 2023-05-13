@@ -74,10 +74,10 @@ const MyFoodList = () => {
                 <td>Serving Size:</td>
                 <td>{showDetails.servingSizeNum} {showDetails.servingSizeUnit}</td>
               </tr>
-              <tr>
+              {/* <tr>
                 <td>Servings Per Container:</td>
                 <td>{showDetails.servingsPerContainer}</td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </ul>

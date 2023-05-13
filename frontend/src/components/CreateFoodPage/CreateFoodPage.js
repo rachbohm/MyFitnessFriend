@@ -1,5 +1,5 @@
 import { createFoodThunk } from "../../store/foods";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './CreateFoodPage.css'
@@ -16,8 +16,13 @@ const CreateFoodPage = () => {
   const [fat, setFat] = useState('')
   const [servingSizeNum, setServingSizeNum] = useState('')
   const [servingSizeUnit, setServingSizeUnit] = useState('')
-  const [servingsPerContainer, setServingsPerContainer] = useState('')
+  // const [servingsPerContainer, setServingsPerContainer] = useState('')
   const [errors, setErrors] = useState([])
+
+      useEffect(() => {
+        const calculatedCalories = 4 * protein + 4 * carbohydrates + 9 * fat;
+        setCalories(calculatedCalories);
+      }, [protein, carbohydrates, fat]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +36,7 @@ const CreateFoodPage = () => {
       fat,
       servingSizeNum,
       servingSizeUnit,
-      servingsPerContainer
+      // servingsPerContainer
     };
 
     if (window.confirm('Please confirm form submission')) {
@@ -80,6 +85,7 @@ const CreateFoodPage = () => {
                   onChange={(e) => setCalories(e.target.value)}
                   required
                   min="0"
+                  disabled
                 />
               </td>
             </tr>
@@ -148,7 +154,7 @@ const CreateFoodPage = () => {
               </td>
             </tr>
 
-            <tr>
+            {/* <tr>
               <td>Servings Per Container:</td>
               <td>
                 <input
@@ -159,7 +165,7 @@ const CreateFoodPage = () => {
                   min="0"
                 />
               </td>
-            </tr>
+            </tr> */}
 
           </tbody>
         </table>
