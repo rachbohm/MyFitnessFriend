@@ -8,6 +8,7 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFood, setSelectedFood] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
   const searchResults = useSelector(state => state.searchState);
   const commonArr = searchResults && searchResults.common;
@@ -15,6 +16,7 @@ const SearchBar = () => {
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
+    setSubmitted(false);
   };
 
   const handleFoodClick = (item) => {
@@ -26,6 +28,7 @@ const SearchBar = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(loadSearchResultsThunk(searchTerm)).then((result) => {
+      setSubmitted(true)
       // console.log('after the dispatch', result);
       // Update state with search results
     }).catch((error) => {
@@ -43,7 +46,8 @@ const SearchBar = () => {
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
-      <div className="search-results-container">
+      {searchTerm && submitted && (
+        <div className="search-results-container">
         {commonArr && (
           <div className="common-list">
             <h2>Common Foods</h2>
@@ -82,11 +86,12 @@ const SearchBar = () => {
           </div>
         )}
       </div>
+        )}
       {selectedFood && (
         <div className="food-card-container">
-          <FoodCard item={selectedFood} onBack={() => setSelectedFood(null)} />
+        <FoodCard item={selectedFood} onBack={() => setSelectedFood(null)} />
         </div>
-      )}
+        )}
     </>
   );
 };

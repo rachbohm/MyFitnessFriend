@@ -15,13 +15,13 @@ const FoodCard = ({ item, onBack }) => {
     setErrors([]);
 
     const payload = {
-      foodName: item.description,
-      calories: item.caloriesValue,
-      carbohydrates: item.carbsValue,
-      protein: item.proteinValue,
-      fat: item.fatValue,
-      servingSizeNum: item.servingSize,
-      servingSizeUnit: item.servingSizeUnit,
+      foodName: item.food_name,
+      calories: item.nf_calories,
+      carbohydrates: item.nf_total_carbohydrate,
+      protein: item.nf_protein,
+      fat: item.nf_total_fat,
+      servingSizeNum: item.serving_qty,
+      servingSizeUnit: item.serving_unit,
       servingsPerContainer: 1
     };
 
