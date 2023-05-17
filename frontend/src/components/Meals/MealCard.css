@@ -10,8 +10,8 @@
   border: 1px solid #ddd;
 }
 
-.meal-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+.meal-table tr {
+  background-color: rgb(230, 230, 230);
 }
 
 .meal-table th {
