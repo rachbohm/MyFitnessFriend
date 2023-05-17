@@ -122,9 +122,9 @@ const EditMeal = () => {
               <tr>
                 <th className='items-heading'>Items in This Meal</th>
                 <th>Calories</th>
-                <th>Carbs</th>
-                <th>Fat</th>
-                <th>Protein</th>
+                <th>Carbs (g)</th>
+                <th>Fat (g)</th>
+                <th>Protein (g)</th>
                 <th>Serving Size</th>
               </tr>
             </thead>
@@ -136,9 +136,9 @@ const EditMeal = () => {
                   <tr key={food.id}>
                     <td>{food.foodName}</td>
                     <td>{food.calories}</td>
-                    <td>{food.carbohydrates}g</td>
-                    <td>{food.fat}g</td>
-                    <td>{food.protein}g</td>
+                    <td>{food.carbohydrates}</td>
+                    <td>{food.fat}</td>
+                    <td>{food.protein}</td>
                     <td>{food.servingSizeNum} {food.servingSizeUnit}</td>
                     <td><button type="button" className="remove-button" onClick={(e) => handleRemoveFood(e, food.id, food.foodName)}>Remove</button></td>
                   </tr>

@@ -8,6 +8,10 @@ const MealCard = ({meal}) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
+  let totalCalories = 0;
+  let totalCarbs = 0;
+  let totalFat = 0;
+  let totalProtein = 0;
 
   useEffect(() => {
     dispatch(loadMealFoodsThunk(meal.id))
@@ -27,29 +31,42 @@ const MealCard = ({meal}) => {
             <tr>
               <th className='items-heading'>Items in This Meal</th>
               <th>Calories</th>
-              <th>Carbs</th>
-              <th>Fat</th>
-              <th>Protein</th>
+              <th>Carbs (g)</th>
+              <th>Fat (g)</th>
+              <th>Protein (g)</th>
               <th>Serving Size</th>
             </tr>
           </thead>
           <tbody>
             {mealFoodsArr.map((food) => {
+               totalCalories += food.calories;
+               totalCarbs += food.carbohydrates;
+               totalFat += food.fat;
+               totalProtein += food.protein;
               let rows = [];
 
               rows.push(
                 <tr key={food.id}>
                   <td>{food.foodName}</td>
                   <td>{food.calories}</td>
-                  <td>{food.carbohydrates}g</td>
-                  <td>{food.fat}g</td>
-                  <td>{food.protein}g</td>
+                  <td>{food.carbohydrates}</td>
+                  <td>{food.fat}</td>
+                  <td>{food.protein}</td>
                   <td>{food.servingSizeNum} {food.servingSizeUnit}</td>
                 </tr>
               );
               return rows;
             })}
           </tbody>
+          <tfoot>
+            <tr className='total-row'>
+              <td>Total</td>
+              <td>{totalCalories}</td>
+              <td>{totalCarbs}</td>
+              <td>{totalFat}</td>
+              <td>{totalProtein}</td>
+            </tr>
+          </tfoot>
         </table>
       </div>
 

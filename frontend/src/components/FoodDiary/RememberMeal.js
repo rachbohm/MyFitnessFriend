@@ -12,10 +12,10 @@ const RememberMeal = () => {
   const location = useLocation();
   const { diaryLog } = location.state;
   const [mealName, setMealName] = useState('');
-  // let totalCalories = 0;
-  // let totalCarbs = 0;
-  // let totalFat = 0;
-  // let totalProtein = 0;
+  let totalCalories = 0;
+  let totalCarbs = 0;
+  let totalFat = 0;
+  let totalProtein = 0;
   let rows = [];
 
   const handleSubmit = async (e) => {
@@ -52,10 +52,10 @@ const RememberMeal = () => {
         <h3>Items in this Meal</h3>
         {diaryLog.Food.forEach((food) => {
           for (let i = 0; i < food.DiaryLogFood.quantity; i++) {
-            // totalCalories += food.calories;
-            // totalCarbs += food.carbohydrates;
-            // totalFat += food.fat;
-            // totalProtein += food.protein;
+              totalCalories += parseFloat(food.calories);
+              totalCarbs += parseFloat(food.carbohydrates);
+              totalFat += parseFloat(food.fat);
+              totalProtein += parseFloat(food.protein);
             rows.push(
               <tr key={`food-${food.id}-${food.DiaryLogFood.quantity}-${i}`}>
                 <td>{food.foodName}</td>
@@ -72,21 +72,21 @@ const RememberMeal = () => {
             <tr>
               <th>Food Name</th>
               <th>Calories</th>
-              <th>Carbohydrates</th>
-              <th>Fat</th>
-              <th>Protein</th>
+              <th>Carbohydrates (g)</th>
+              <th>Fat (g)</th>
+              <th>Protein (g)</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>
-          {/* <tfoot>
+          <tfoot>
             <tr className='total-row'>
               <td>Total</td>
-              <td>{totalCalories}</td>
-              <td>{totalCarbs}</td>
-              <td>{totalFat}</td>
-              <td>{totalProtein}</td>
+               <td>{totalCalories.toFixed(2)}</td>
+                <td>{totalCarbs.toFixed(2)}</td>
+                <td>{totalFat.toFixed(2)}</td>
+                <td>{totalProtein.toFixed(2)}</td>
             </tr>
-          </tfoot> */}
+          </tfoot>
         </table>
       </div>
     </div>
