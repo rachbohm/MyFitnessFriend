@@ -39,10 +39,10 @@ const MealCard = ({meal}) => {
           </thead>
           <tbody>
             {mealFoodsArr.map((food) => {
-               totalCalories += food.calories;
-               totalCarbs += food.carbohydrates;
-               totalFat += food.fat;
-               totalProtein += food.protein;
+              totalCalories += parseFloat(food.calories);
+              totalCarbs += parseFloat(food.carbohydrates);
+              totalFat += parseFloat(food.fat);
+              totalProtein += parseFloat(food.protein);
               let rows = [];
 
               rows.push(
@@ -61,10 +61,10 @@ const MealCard = ({meal}) => {
           <tfoot>
             <tr className='total-row'>
               <td>Total</td>
-              <td>{totalCalories}</td>
-              <td>{totalCarbs}</td>
-              <td>{totalFat}</td>
-              <td>{totalProtein}</td>
+              <td>{totalCalories.toFixed(2)}</td>
+                <td>{totalCarbs.toFixed(2)}</td>
+                <td>{totalFat.toFixed(2)}</td>
+                <td>{totalProtein.toFixed(2)}</td>
             </tr>
           </tfoot>
         </table>
