@@ -87,7 +87,7 @@ const EditFoodPage = () => {
   }
 
   return isLoaded && oneFoodData && (
-     <div>
+    <div>
       <form className="add-food-form" onSubmit={handleSubmit}>
         {errors.length > 0 && errors.map((error, i) => {
           return <div className="create-food-form-errors" key={i}>{error}</div>
@@ -125,11 +125,11 @@ const EditFoodPage = () => {
               <td>Carbohydrates (g):</td>
               <td>
                 <input
-                  type="number"
+                  type="text"
                   value={carbohydrates}
                   onChange={(e) => setCarbohydrates(e.target.value)}
                   required
-                  min="0"
+                  pattern="^\d+(\.\d{0,2})?$"
                 />
               </td>
             </tr>
@@ -138,11 +138,11 @@ const EditFoodPage = () => {
               <td>Fat (g):</td>
               <td>
                 <input
-                  type="number"
+                  type="text"
                   value={fat}
                   onChange={(e) => setFat(e.target.value)}
                   required
-                  min="0"
+                  pattern="^\d+(\.\d{0,2})?$"
                 />
               </td>
             </tr>
@@ -151,11 +151,11 @@ const EditFoodPage = () => {
               <td>Protein (g):</td>
               <td>
                 <input
-                  type="number"
+                  type="text"
                   value={protein}
                   onChange={(e) => setProtein(e.target.value)}
                   required
-                  min="0"
+                  pattern="^\d+(\.\d{0,2})?$"
                 />
               </td>
             </tr>
@@ -164,11 +164,11 @@ const EditFoodPage = () => {
               <td>Serving Size (Number):</td>
               <td>
                 <input
-                  type="number"
+                  type="text"
                   value={servingSizeNum}
                   onChange={(e) => setServingSizeNum(e.target.value)}
                   required
-                  min="0"
+                  pattern="^\d+(\.\d{0,2})?$"
                 />
               </td>
             </tr>
