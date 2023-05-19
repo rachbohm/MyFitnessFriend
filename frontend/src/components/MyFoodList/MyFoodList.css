@@ -85,7 +85,7 @@ ul {
 body{
   background-image: url("https://blog.insidetracker.com/hs-fs/hubfs/healthy%20beans%20lentils%20legumes.jpg?width=840&name=healthy%20beans%20lentils%20legumes.jpg");
   background-size: cover;
-  height: 100vh;
-  width: 100vw;
+  height: auto;
+  width: auto;
   background-attachment: fixed;
 }
