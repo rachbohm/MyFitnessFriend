@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import FoodCard from './FoodCard';
 import './SearchBar.css';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { loadSearchResultsThunk, fetchNutritionInfoThunk } from '../../store/search';
 
 const SearchBar = () => {
+  const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFood, setSelectedFood] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const history = useHistory();
 
   const searchResults = useSelector(state => state.searchState);
   const commonArr = searchResults && searchResults.common;
@@ -20,10 +23,19 @@ const SearchBar = () => {
   };
 
   const handleFoodClick = (item) => {
+    if (!sessionUser) {
+      const confirmResult = window.confirm('Please sign up or log in to view food details. Do you want to proceed to the login page?');
+      if (confirmResult) {
+        history.push("/login");
+      }
+      return;
+    }
+
     dispatch(fetchNutritionInfoThunk(item.food_name)).then((result) => {
-      setSelectedFood(result.foods[0])
-    })
+      setSelectedFood(result.foods[0]);
+    });
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,9 +46,10 @@ const SearchBar = () => {
     }).catch((error) => {
       console.error(error);
     });
-  }
+  };
 
   const isSearchTermEmpty = searchTerm.trim() === '';
+
 
   return (
     <>
