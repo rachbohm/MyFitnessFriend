@@ -69,8 +69,9 @@ const SearchBar = () => {
                 <li key={`${item.tag_id}-${item.food_name}`}>
 
                   <a href="#" onClick={() => handleFoodClick(item)}>
-                    {item.food_name}
+                    {/* {item.food_name} */}
                     <div>
+                      <p>{item.food_name}</p>
                       <p>Serving Size: {item.serving_qty} {item.serving_unit}</p>
                       <img src={item.photo.thumb} alt={item.food_name} />
                     </div>
@@ -87,8 +88,9 @@ const SearchBar = () => {
               {brandedArr.map((item) => (
                 <li key={`${item.tag_id}-${item.food_name}`}>
                   <a href="#" onClick={() => handleFoodClick(item)}>
-                    {item.food_name}
+                    {/* {item.food_name} */}
                     <div>
+                      <p>{item.food_name}</p>
                       <p>Serving Size: {item.serving_qty} {item.serving_unit}</p>
                       <img src={item.photo.thumb} alt={item.food_name} />
                     </div>
