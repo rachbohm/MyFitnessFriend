@@ -37,7 +37,16 @@ const FoodDiary = () => {
           dispatch(loadDiaryLogsThunk());
         })
     }
-  }
+  };
+
+  const handleDateChange = (e) => {
+    const selectedValue = e.target.value;
+    if (selectedValue) {
+      setSelectedDate(new Date(selectedValue));
+    } else {
+      setSelectedDate(new Date(Date.now() - userTimezoneOffset));
+    }
+  };
 
   const diaryLogsToRender = logNames.map((logName) => {
     const diaryLog = diaryLogsArr.find((log) => log.logName === logName);
@@ -131,8 +140,8 @@ const FoodDiary = () => {
   return isLoaded && (
     <div className="container-container">
       <input type="date"
-        value={selectedDate.toISOString().slice(0, 10)}
-        onChange={(e) => setSelectedDate(new Date(e.target.value))}
+        value={selectedDate ? selectedDate.toISOString().slice(0, 10) : ""}
+        onChange={handleDateChange}
         max={today.toISOString().slice(0, 10)} />
       {diaryLogsToRender}
     </div>

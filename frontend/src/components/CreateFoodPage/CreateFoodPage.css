@@ -2,6 +2,7 @@
   width: 100%;
   max-width: 700px;
   margin: auto;
+  margin-top: 100px;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f6f6f6;
@@ -17,12 +18,11 @@
 
 .add-food-form input[type="text"],
 .add-food-form input[type="number"] {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
-  margin-bottom: 10px;
 }
 
 .add-food-form input[type="text"]:focus,

@@ -1,7 +1,6 @@
 .edit-meal-form {
   display: flex;
   flex-direction: column;
-
 }
 
 .top-options {
@@ -51,6 +50,7 @@
 .edit-meal-container{
   background-color: white;
   margin: auto;
+  margin-top: 100px;
   padding: 50px;
 }
 

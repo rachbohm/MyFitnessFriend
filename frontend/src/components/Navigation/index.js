@@ -24,17 +24,22 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul className='nav-bar-container'>
-      <li className="left-side">
-        <NavLink exact to="/" className="logo"><i className="fa-solid fa-person-running"></i>MyFitnessFriend</NavLink>
+    <nav className="nav-bar-container">
+      <div className="left-side">
+        <NavLink exact to="/" className="logo">
+          <i className="fa-solid fa-person-running"></i>MyFitnessFriend
+        </NavLink>
         <NavLink to="/food/diary">Food Diary</NavLink>
         <NavLink to="/food/mine">My Foods</NavLink>
         <NavLink to="/meal/mine">My Meals</NavLink>
         <NavLink to="/search">Search</NavLink>
-      </li>
-      {isLoaded && sessionLinks}
-    </ul>
+      </div>
+      <div className="right-side">
+        {isLoaded && sessionLinks}
+      </div>
+    </nav>
   );
+
 }
 
 export default Navigation;

@@ -6,62 +6,55 @@
   background-color: #00a652;
   color: #fff;
   padding: 10px 20px;
-  box-shadow: 5px 5px black;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
 }
 
-.nav-bar-container li {
+.nav-bar-container a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin: 0 15px;
+  padding: 5px;
+  transition: 0.3s ease;
+}
+
+.nav-bar-container a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.nav-bar-container .logo {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.nav-bar-container .logo i {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.nav-bar-container .right-side {
+  display: flex;
+  align-items: center;
   list-style: none;
 }
 
-.left-side {
-  display: flex;
-  align-items: center;
-  padding-top: 10px;
-}
-
-.left-side a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  text-transform: uppercase;
-  margin: 0 30px;
-  box-sizing: border-box;
-}
-
-.session-links a{
-  color: #fff;
-  font-size: 16px;
-  box-sizing: border-box;
-  margin-right: 20px;
-}
-
-.logo i{
-  font-size:40px;
-  margin-right: 20px;
-}
-
-.logo{
-  display: flex;
-  align-items: center;
-}
-
-.nav-bar-container li a:hover {
-  background-color: gray;
-  box-sizing: border-box;
-}
-
-.profile-button {
+.nav-bar-container .profile-button {
   background-color: #fff;
   color: #00a652;
   border: none;
   border-radius: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 8px 16px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
+  transition: box-shadow 0.3s ease;
 }
 
-.profile-button:hover {
-  box-shadow: 5px 5px black;
+.nav-bar-container .profile-button:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
