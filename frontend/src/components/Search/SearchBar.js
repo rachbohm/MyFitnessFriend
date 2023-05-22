@@ -24,13 +24,12 @@ const SearchBar = () => {
 
   const handleFoodClick = (item) => {
     if (!sessionUser) {
-      const confirmResult = window.confirm('Please sign up or log in to view food details. Do you want to proceed to the login page?');
+      const confirmResult = window.confirm(`Please sign up or log in to view food details.\nDo you want to proceed to the login page? `);
       if (confirmResult) {
         history.push("/login");
       }
       return;
     }
-
     dispatch(fetchNutritionInfoThunk(item.food_name)).then((result) => {
       setSelectedFood(result.foods[0]);
     });
@@ -41,8 +40,6 @@ const SearchBar = () => {
     event.preventDefault();
     dispatch(loadSearchResultsThunk(searchTerm)).then((result) => {
       setSubmitted(true)
-      // console.log('after the dispatch', result);
-      // Update state with search results
     }).catch((error) => {
       console.error(error);
     });
@@ -61,52 +58,52 @@ const SearchBar = () => {
       </form>
       {searchTerm && submitted && (
         <div className="search-results-container">
-        {commonArr && (
-          <div className="common-list">
-            <h2>Common Foods</h2>
-            <ul>
-              {commonArr.map((item) => (
-                <li key={`${item.tag_id}-${item.food_name}`}>
+          {commonArr && (
+            <div className="common-list">
+              <h2>Common Foods</h2>
+              <ul>
+                {commonArr.map((item) => (
+                  <li key={`${item.tag_id}-${item.food_name}`}>
 
-                  <a href="#" onClick={() => handleFoodClick(item)}>
-                    {/* {item.food_name} */}
-                    <div>
-                      <p>{item.food_name}</p>
-                      <p>Serving Size: {item.serving_qty} {item.serving_unit}</p>
-                      <img src={item.photo.thumb} alt={item.food_name} />
-                    </div>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {brandedArr && (
-          <div className="branded-list">
-            <h2>Branded Foods</h2>
-            <ul>
-              {brandedArr.map((item) => (
-                <li key={`${item.tag_id}-${item.food_name}`}>
-                  <a href="#" onClick={() => handleFoodClick(item)}>
-                    {/* {item.food_name} */}
-                    <div>
-                      <p>{item.food_name}</p>
-                      <p>Serving Size: {item.serving_qty} {item.serving_unit}</p>
-                      <img src={item.photo.thumb} alt={item.food_name} />
-                    </div>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-        )}
+                    <a href="#" onClick={() => handleFoodClick(item)}>
+                      {/* {item.food_name} */}
+                      <div>
+                        <p>{item.food_name}</p>
+                        <p>Serving Size: {item.serving_qty} {item.serving_unit}</p>
+                        <img src={item.photo.thumb} alt={item.food_name} />
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {brandedArr && (
+            <div className="branded-list">
+              <h2>Branded Foods</h2>
+              <ul>
+                {brandedArr.map((item) => (
+                  <li key={`${item.tag_id}-${item.food_name}`}>
+                    <a href="#" onClick={() => handleFoodClick(item)}>
+                      {/* {item.food_name} */}
+                      <div>
+                        <p>{item.food_name}</p>
+                        <p>Serving Size: {item.serving_qty} {item.serving_unit}</p>
+                        <img src={item.photo.thumb} alt={item.food_name} />
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
       {selectedFood && (
         <div className="food-card-container">
-        <FoodCard item={selectedFood} onBack={() => setSelectedFood(null)} />
+          <FoodCard item={selectedFood} onBack={() => setSelectedFood(null)} />
         </div>
-        )}
+      )}
     </>
   );
 };
