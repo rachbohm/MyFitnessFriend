@@ -25,7 +25,7 @@ const FoodCard = ({ item, onBack }) => {
       // servingsPerContainer: 1
     };
 
-    console.log('payload', payload)
+    // console.log('payload', payload)
 
     if (window.confirm('Please confirm form submission')) {
       await dispatch(createFoodThunk(payload))

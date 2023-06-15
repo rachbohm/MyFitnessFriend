@@ -11,6 +11,7 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFood, setSelectedFood] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [noNutritionInfo, setNoNutritionInfo] = useState(false);
   const history = useHistory();
 
   const searchResults = useSelector(state => state.searchState);
@@ -22,6 +23,14 @@ const SearchBar = () => {
     setSubmitted(false);
   };
 
+  useEffect(() => {
+    if (noNutritionInfo) {
+      alert('No nutrition information available for this food.');
+      setNoNutritionInfo(false);
+    }
+  }, [noNutritionInfo]);
+
+
   const handleFoodClick = (item) => {
     if (!sessionUser) {
       const confirmResult = window.confirm(`Please sign up or log in to view food details.\nDo you want to proceed to the login page? `);
@@ -30,9 +39,13 @@ const SearchBar = () => {
       }
       return;
     }
-    dispatch(fetchNutritionInfoThunk(item.food_name)).then((result) => {
-      setSelectedFood(result.foods[0]);
-    });
+      dispatch(fetchNutritionInfoThunk(item.food_name)).then((result) => {
+        // console.log('result', result)
+        setSelectedFood(result.foods[0]);
+      }).catch((error) => {
+        setNoNutritionInfo(true);
+      });
+
   };
 
 
